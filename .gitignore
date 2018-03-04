@@ -20,7 +20,7 @@ Thumbs.db
 #/vendor/*
 #!/vendor/mdmsoft
 /vendor
-/composer.lock
+#/composer.lock
 
 *.yml
 

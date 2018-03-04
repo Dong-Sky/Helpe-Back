@@ -26,7 +26,11 @@
         "yiisoft/yii2-swiftmailer": "*",
         "yurkinx/yii2-image": "^1.1",
         "phpoffice/phpexcel": "*",
-        "yiisoft/yii2-redis": "~2.0.0"
+        "yiisoft/yii2-redis": "~2.0.0",
+        "aliyuncs/oss-sdk-php": "~2.0",
+        "mailgun/mailgun-php": "*",
+        "php-http/guzzle6-adapter" : "*",
+        "php-http/message": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
