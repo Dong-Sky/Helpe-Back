@@ -22,6 +22,9 @@ Thumbs.db
 /vendor
 /composer.lock
 
+*.yml
+
+
 # composer itself is not needed
 composer.phar
 

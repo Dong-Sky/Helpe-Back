@@ -40463,3 +40463,71 @@ $_SERVER = [
     'argv' => []
     'argc' => 0
 ]
+2018-03-04 13:43:00 [127.0.0.1][-][-][info][yii\filters\RateLimiter::beforeAction] Rate limit skipped: user not logged in.
+2018-03-04 13:43:00 [127.0.0.1][-][-][info][yii\db\Command::query] SELECT COUNT(*) FROM `yii2_admin` WHERE `id`=1
+2018-03-04 13:43:00 [127.0.0.1][-][-][info][yii\db\Connection::open] Opening DB connection: mysql:host=127.0.0.1;dbname=yii_ace
+2018-03-04 13:43:00 [127.0.0.1][-][-][info][yii\db\Command::query] SHOW FULL COLUMNS FROM `yii2_admin`
+2018-03-04 13:43:00 [127.0.0.1][-][-][info][yii\db\Command::query] SELECT
+    kcu.constraint_name,
+    kcu.column_name,
+    kcu.referenced_table_name,
+    kcu.referenced_column_name
+FROM information_schema.referential_constraints AS rc
+JOIN information_schema.key_column_usage AS kcu ON
+    (
+        kcu.constraint_catalog = rc.constraint_catalog OR
+        (kcu.constraint_catalog IS NULL AND rc.constraint_catalog IS NULL)
+    ) AND
+    kcu.constraint_schema = rc.constraint_schema AND
+    kcu.constraint_name = rc.constraint_name
+WHERE rc.constraint_schema = database() AND kcu.table_schema = database()
+AND rc.table_name = 'yii2_admin' AND kcu.table_name = 'yii2_admin'
+2018-03-04 13:43:00 [127.0.0.1][-][-][info][yii\db\Command::query] SELECT * FROM `yii2_admin` WHERE `id`=1 LIMIT 20
+2018-03-04 13:43:00 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'a53ffa4ffb50e1a9a6902cb64051a6a5'
+    '_csrf' => 'e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi\";}'
+]
+
+$_SERVER = [
+    'USER' => 'Jake'
+    'HOME' => '/Users/Jake'
+    'HTTP_COOKIE' => 'PHPSESSID=a53ffa4ffb50e1a9a6902cb64051a6a5; _csrf=e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7,zh-TW;q=0.6'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'local.api.helpe.online'
+    'SCRIPT_FILENAME' => '/opt/wwwroot/yii2-app-advanced/api/web/index.php'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'local.api.helpe.online'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '59771'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.13.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => '/opt/wwwroot/yii2-app-advanced/api/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/v1/site'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1520170980.5933
+    'REQUEST_TIME' => 1520170980
+    'argv' => []
+    'argc' => 0
+]
