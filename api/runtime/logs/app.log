@@ -41321,3 +41321,1719 @@ $_SERVER = [
     'argv' => []
     'argc' => 0
 ]
+2018-03-07 15:57:20 [127.0.0.1][-][-][error][yii\db\Exception] yii\db\Exception: Redis error: ERR Client sent AUTH, but no password is set
+Redis command was: AUTH F2hsXBRdbqSx2DGD in /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php:729
+Stack trace:
+#0 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(706): yii\redis\Connection->parseResponse('AUTH F2hsXBRdbq...')
+#1 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(690): yii\redis\Connection->sendCommandInternal('*2\r\n$4\r\nAUTH\r\n$...', Array)
+#2 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(556): yii\redis\Connection->executeCommand('AUTH', Array)
+#3 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(665): yii\redis\Connection->open()
+#4 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Cache.php(102): yii\redis\Connection->executeCommand('GET', Array)
+#5 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/caching/Cache.php(114): yii\redis\Cache->getValue('7d530521da89dc3...')
+#6 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(296): yii\caching\Cache->get('7d530521da89dc3...')
+#7 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(229): yii\web\UrlManager->getBuiltRulesFromCache(Array)
+#8 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(191): yii\web\UrlManager->buildRules(Array)
+#9 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/BaseObject.php(109): yii\web\UrlManager->init()
+#10 [internal function]: yii\base\BaseObject->__construct(Array)
+#11 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(383): ReflectionClass->newInstanceArgs(Array)
+#12 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(156): yii\di\Container->build('yii\\web\\UrlMana...', Array, Array)
+#13 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/BaseYii.php(349): yii\di\Container->get('yii\\web\\UrlMana...', Array, Array)
+#14 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/ServiceLocator.php(137): yii\BaseYii::createObject(Array)
+#15 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Module.php(742): yii\di\ServiceLocator->get('urlManager', true)
+#16 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(571): yii\base\Module->get('urlManager')
+#17 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Request.php(272): yii\base\Application->getUrlManager()
+#18 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Application.php(82): yii\web\Request->resolve()
+#19 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 /opt/wwwroot/yii2-app-advanced/api/web/index.php(17): yii\base\Application->run()
+#21 {main}
+Additional Information:
+Array
+(
+)
+
+2018-03-07 15:57:20 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'a53ffa4ffb50e1a9a6902cb64051a6a5'
+    '_csrf' => 'e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi\";}'
+]
+
+$_SERVER = [
+    'USER' => 'Jake'
+    'HOME' => '/Users/Jake'
+    'HTTP_COOKIE' => 'PHPSESSID=a53ffa4ffb50e1a9a6902cb64051a6a5; _csrf=e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7,zh-TW;q=0.6'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'local.api.helpe.online'
+    'SCRIPT_FILENAME' => '/opt/wwwroot/yii2-app-advanced/api/web/index.php'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'local.api.helpe.online'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '56813'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.13.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => '/opt/wwwroot/yii2-app-advanced/api/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/v1/site'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1520438240.2174
+    'REQUEST_TIME' => 1520438240
+    'argv' => []
+    'argc' => 0
+]
+2018-03-07 15:57:20 [127.0.0.1][-][-][error][yii\db\Exception] yii\db\Exception: Redis error: ERR Client sent AUTH, but no password is set
+Redis command was: AUTH F2hsXBRdbqSx2DGD in /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php:729
+Stack trace:
+#0 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(706): yii\redis\Connection->parseResponse('AUTH F2hsXBRdbq...')
+#1 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(690): yii\redis\Connection->sendCommandInternal('*2\r\n$4\r\nAUTH\r\n$...', Array)
+#2 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(556): yii\redis\Connection->executeCommand('AUTH', Array)
+#3 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(665): yii\redis\Connection->open()
+#4 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Cache.php(102): yii\redis\Connection->executeCommand('GET', Array)
+#5 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/caching/Cache.php(114): yii\redis\Cache->getValue('7d530521da89dc3...')
+#6 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(296): yii\caching\Cache->get('7d530521da89dc3...')
+#7 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(229): yii\web\UrlManager->getBuiltRulesFromCache(Array)
+#8 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(191): yii\web\UrlManager->buildRules(Array)
+#9 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/BaseObject.php(109): yii\web\UrlManager->init()
+#10 [internal function]: yii\base\BaseObject->__construct(Array)
+#11 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(383): ReflectionClass->newInstanceArgs(Array)
+#12 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(156): yii\di\Container->build('yii\\web\\UrlMana...', Array, Array)
+#13 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/BaseYii.php(349): yii\di\Container->get('yii\\web\\UrlMana...', Array, Array)
+#14 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/ServiceLocator.php(137): yii\BaseYii::createObject(Array)
+#15 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Module.php(742): yii\di\ServiceLocator->get('urlManager', true)
+#16 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(571): yii\base\Module->get('urlManager')
+#17 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Request.php(272): yii\base\Application->getUrlManager()
+#18 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Application.php(82): yii\web\Request->resolve()
+#19 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 /opt/wwwroot/yii2-app-advanced/api/web/index.php(17): yii\base\Application->run()
+#21 {main}
+Additional Information:
+Array
+(
+)
+
+2018-03-07 15:57:20 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'a53ffa4ffb50e1a9a6902cb64051a6a5'
+    '_csrf' => 'e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi\";}'
+]
+
+$_SERVER = [
+    'USER' => 'Jake'
+    'HOME' => '/Users/Jake'
+    'HTTP_COOKIE' => 'PHPSESSID=a53ffa4ffb50e1a9a6902cb64051a6a5; _csrf=e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7,zh-TW;q=0.6'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'local.api.helpe.online'
+    'SCRIPT_FILENAME' => '/opt/wwwroot/yii2-app-advanced/api/web/index.php'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'local.api.helpe.online'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '56813'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.13.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => '/opt/wwwroot/yii2-app-advanced/api/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/v1/site'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1520438240.2174
+    'REQUEST_TIME' => 1520438240
+    'argv' => []
+    'argc' => 0
+]
+2018-03-07 15:57:21 [127.0.0.1][-][-][error][yii\db\Exception] yii\db\Exception: Redis error: ERR Client sent AUTH, but no password is set
+Redis command was: AUTH F2hsXBRdbqSx2DGD in /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php:729
+Stack trace:
+#0 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(706): yii\redis\Connection->parseResponse('AUTH F2hsXBRdbq...')
+#1 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(690): yii\redis\Connection->sendCommandInternal('*2\r\n$4\r\nAUTH\r\n$...', Array)
+#2 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(556): yii\redis\Connection->executeCommand('AUTH', Array)
+#3 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(665): yii\redis\Connection->open()
+#4 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Cache.php(102): yii\redis\Connection->executeCommand('GET', Array)
+#5 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/caching/Cache.php(114): yii\redis\Cache->getValue('7d530521da89dc3...')
+#6 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(296): yii\caching\Cache->get('7d530521da89dc3...')
+#7 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(229): yii\web\UrlManager->getBuiltRulesFromCache(Array)
+#8 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(191): yii\web\UrlManager->buildRules(Array)
+#9 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/BaseObject.php(109): yii\web\UrlManager->init()
+#10 [internal function]: yii\base\BaseObject->__construct(Array)
+#11 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(383): ReflectionClass->newInstanceArgs(Array)
+#12 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(156): yii\di\Container->build('yii\\web\\UrlMana...', Array, Array)
+#13 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/BaseYii.php(349): yii\di\Container->get('yii\\web\\UrlMana...', Array, Array)
+#14 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/ServiceLocator.php(137): yii\BaseYii::createObject(Array)
+#15 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Module.php(742): yii\di\ServiceLocator->get('urlManager', true)
+#16 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(571): yii\base\Module->get('urlManager')
+#17 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Request.php(272): yii\base\Application->getUrlManager()
+#18 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Application.php(82): yii\web\Request->resolve()
+#19 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 /opt/wwwroot/yii2-app-advanced/api/web/index.php(17): yii\base\Application->run()
+#21 {main}
+Additional Information:
+Array
+(
+)
+
+2018-03-07 15:57:21 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'a53ffa4ffb50e1a9a6902cb64051a6a5'
+    '_csrf' => 'e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi\";}'
+]
+
+$_SERVER = [
+    'USER' => 'Jake'
+    'HOME' => '/Users/Jake'
+    'HTTP_COOKIE' => 'PHPSESSID=a53ffa4ffb50e1a9a6902cb64051a6a5; _csrf=e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7,zh-TW;q=0.6'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'local.api.helpe.online'
+    'SCRIPT_FILENAME' => '/opt/wwwroot/yii2-app-advanced/api/web/index.php'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'local.api.helpe.online'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '56813'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.13.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => '/opt/wwwroot/yii2-app-advanced/api/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/v1/site'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1520438241.0842
+    'REQUEST_TIME' => 1520438241
+    'argv' => []
+    'argc' => 0
+]
+2018-03-07 15:57:21 [127.0.0.1][-][-][error][yii\db\Exception] yii\db\Exception: Redis error: ERR Client sent AUTH, but no password is set
+Redis command was: AUTH F2hsXBRdbqSx2DGD in /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php:729
+Stack trace:
+#0 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(706): yii\redis\Connection->parseResponse('AUTH F2hsXBRdbq...')
+#1 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(690): yii\redis\Connection->sendCommandInternal('*2\r\n$4\r\nAUTH\r\n$...', Array)
+#2 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(556): yii\redis\Connection->executeCommand('AUTH', Array)
+#3 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(665): yii\redis\Connection->open()
+#4 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Cache.php(102): yii\redis\Connection->executeCommand('GET', Array)
+#5 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/caching/Cache.php(114): yii\redis\Cache->getValue('7d530521da89dc3...')
+#6 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(296): yii\caching\Cache->get('7d530521da89dc3...')
+#7 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(229): yii\web\UrlManager->getBuiltRulesFromCache(Array)
+#8 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(191): yii\web\UrlManager->buildRules(Array)
+#9 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/BaseObject.php(109): yii\web\UrlManager->init()
+#10 [internal function]: yii\base\BaseObject->__construct(Array)
+#11 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(383): ReflectionClass->newInstanceArgs(Array)
+#12 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(156): yii\di\Container->build('yii\\web\\UrlMana...', Array, Array)
+#13 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/BaseYii.php(349): yii\di\Container->get('yii\\web\\UrlMana...', Array, Array)
+#14 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/ServiceLocator.php(137): yii\BaseYii::createObject(Array)
+#15 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Module.php(742): yii\di\ServiceLocator->get('urlManager', true)
+#16 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(571): yii\base\Module->get('urlManager')
+#17 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Request.php(272): yii\base\Application->getUrlManager()
+#18 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Application.php(82): yii\web\Request->resolve()
+#19 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 /opt/wwwroot/yii2-app-advanced/api/web/index.php(17): yii\base\Application->run()
+#21 {main}
+Additional Information:
+Array
+(
+)
+
+2018-03-07 15:57:21 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'a53ffa4ffb50e1a9a6902cb64051a6a5'
+    '_csrf' => 'e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi\";}'
+]
+
+$_SERVER = [
+    'USER' => 'Jake'
+    'HOME' => '/Users/Jake'
+    'HTTP_COOKIE' => 'PHPSESSID=a53ffa4ffb50e1a9a6902cb64051a6a5; _csrf=e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7,zh-TW;q=0.6'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'local.api.helpe.online'
+    'SCRIPT_FILENAME' => '/opt/wwwroot/yii2-app-advanced/api/web/index.php'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'local.api.helpe.online'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '56813'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.13.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => '/opt/wwwroot/yii2-app-advanced/api/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/v1/site'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1520438241.0842
+    'REQUEST_TIME' => 1520438241
+    'argv' => []
+    'argc' => 0
+]
+2018-03-07 15:57:21 [127.0.0.1][-][-][error][yii\db\Exception] yii\db\Exception: Redis error: ERR Client sent AUTH, but no password is set
+Redis command was: AUTH F2hsXBRdbqSx2DGD in /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php:729
+Stack trace:
+#0 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(706): yii\redis\Connection->parseResponse('AUTH F2hsXBRdbq...')
+#1 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(690): yii\redis\Connection->sendCommandInternal('*2\r\n$4\r\nAUTH\r\n$...', Array)
+#2 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(556): yii\redis\Connection->executeCommand('AUTH', Array)
+#3 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(665): yii\redis\Connection->open()
+#4 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Cache.php(102): yii\redis\Connection->executeCommand('GET', Array)
+#5 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/caching/Cache.php(114): yii\redis\Cache->getValue('7d530521da89dc3...')
+#6 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(296): yii\caching\Cache->get('7d530521da89dc3...')
+#7 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(229): yii\web\UrlManager->getBuiltRulesFromCache(Array)
+#8 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(191): yii\web\UrlManager->buildRules(Array)
+#9 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/BaseObject.php(109): yii\web\UrlManager->init()
+#10 [internal function]: yii\base\BaseObject->__construct(Array)
+#11 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(383): ReflectionClass->newInstanceArgs(Array)
+#12 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(156): yii\di\Container->build('yii\\web\\UrlMana...', Array, Array)
+#13 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/BaseYii.php(349): yii\di\Container->get('yii\\web\\UrlMana...', Array, Array)
+#14 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/ServiceLocator.php(137): yii\BaseYii::createObject(Array)
+#15 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Module.php(742): yii\di\ServiceLocator->get('urlManager', true)
+#16 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(571): yii\base\Module->get('urlManager')
+#17 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Request.php(272): yii\base\Application->getUrlManager()
+#18 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Application.php(82): yii\web\Request->resolve()
+#19 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 /opt/wwwroot/yii2-app-advanced/api/web/index.php(17): yii\base\Application->run()
+#21 {main}
+Additional Information:
+Array
+(
+)
+
+2018-03-07 15:57:21 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'a53ffa4ffb50e1a9a6902cb64051a6a5'
+    '_csrf' => 'e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi\";}'
+]
+
+$_SERVER = [
+    'USER' => 'Jake'
+    'HOME' => '/Users/Jake'
+    'HTTP_COOKIE' => 'PHPSESSID=a53ffa4ffb50e1a9a6902cb64051a6a5; _csrf=e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7,zh-TW;q=0.6'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'local.api.helpe.online'
+    'SCRIPT_FILENAME' => '/opt/wwwroot/yii2-app-advanced/api/web/index.php'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'local.api.helpe.online'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '56813'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.13.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => '/opt/wwwroot/yii2-app-advanced/api/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/v1/site'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1520438241.3576
+    'REQUEST_TIME' => 1520438241
+    'argv' => []
+    'argc' => 0
+]
+2018-03-07 15:57:21 [127.0.0.1][-][-][error][yii\db\Exception] yii\db\Exception: Redis error: ERR Client sent AUTH, but no password is set
+Redis command was: AUTH F2hsXBRdbqSx2DGD in /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php:729
+Stack trace:
+#0 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(706): yii\redis\Connection->parseResponse('AUTH F2hsXBRdbq...')
+#1 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(690): yii\redis\Connection->sendCommandInternal('*2\r\n$4\r\nAUTH\r\n$...', Array)
+#2 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(556): yii\redis\Connection->executeCommand('AUTH', Array)
+#3 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(665): yii\redis\Connection->open()
+#4 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Cache.php(102): yii\redis\Connection->executeCommand('GET', Array)
+#5 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/caching/Cache.php(114): yii\redis\Cache->getValue('7d530521da89dc3...')
+#6 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(296): yii\caching\Cache->get('7d530521da89dc3...')
+#7 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(229): yii\web\UrlManager->getBuiltRulesFromCache(Array)
+#8 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(191): yii\web\UrlManager->buildRules(Array)
+#9 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/BaseObject.php(109): yii\web\UrlManager->init()
+#10 [internal function]: yii\base\BaseObject->__construct(Array)
+#11 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(383): ReflectionClass->newInstanceArgs(Array)
+#12 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(156): yii\di\Container->build('yii\\web\\UrlMana...', Array, Array)
+#13 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/BaseYii.php(349): yii\di\Container->get('yii\\web\\UrlMana...', Array, Array)
+#14 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/ServiceLocator.php(137): yii\BaseYii::createObject(Array)
+#15 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Module.php(742): yii\di\ServiceLocator->get('urlManager', true)
+#16 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(571): yii\base\Module->get('urlManager')
+#17 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Request.php(272): yii\base\Application->getUrlManager()
+#18 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Application.php(82): yii\web\Request->resolve()
+#19 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 /opt/wwwroot/yii2-app-advanced/api/web/index.php(17): yii\base\Application->run()
+#21 {main}
+Additional Information:
+Array
+(
+)
+
+2018-03-07 15:57:21 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'a53ffa4ffb50e1a9a6902cb64051a6a5'
+    '_csrf' => 'e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi\";}'
+]
+
+$_SERVER = [
+    'USER' => 'Jake'
+    'HOME' => '/Users/Jake'
+    'HTTP_COOKIE' => 'PHPSESSID=a53ffa4ffb50e1a9a6902cb64051a6a5; _csrf=e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7,zh-TW;q=0.6'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'local.api.helpe.online'
+    'SCRIPT_FILENAME' => '/opt/wwwroot/yii2-app-advanced/api/web/index.php'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'local.api.helpe.online'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '56813'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.13.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => '/opt/wwwroot/yii2-app-advanced/api/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/v1/site'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1520438241.3576
+    'REQUEST_TIME' => 1520438241
+    'argv' => []
+    'argc' => 0
+]
+2018-03-07 15:57:21 [127.0.0.1][-][-][error][yii\db\Exception] yii\db\Exception: Redis error: ERR Client sent AUTH, but no password is set
+Redis command was: AUTH F2hsXBRdbqSx2DGD in /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php:729
+Stack trace:
+#0 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(706): yii\redis\Connection->parseResponse('AUTH F2hsXBRdbq...')
+#1 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(690): yii\redis\Connection->sendCommandInternal('*2\r\n$4\r\nAUTH\r\n$...', Array)
+#2 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(556): yii\redis\Connection->executeCommand('AUTH', Array)
+#3 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(665): yii\redis\Connection->open()
+#4 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Cache.php(102): yii\redis\Connection->executeCommand('GET', Array)
+#5 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/caching/Cache.php(114): yii\redis\Cache->getValue('7d530521da89dc3...')
+#6 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(296): yii\caching\Cache->get('7d530521da89dc3...')
+#7 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(229): yii\web\UrlManager->getBuiltRulesFromCache(Array)
+#8 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(191): yii\web\UrlManager->buildRules(Array)
+#9 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/BaseObject.php(109): yii\web\UrlManager->init()
+#10 [internal function]: yii\base\BaseObject->__construct(Array)
+#11 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(383): ReflectionClass->newInstanceArgs(Array)
+#12 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(156): yii\di\Container->build('yii\\web\\UrlMana...', Array, Array)
+#13 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/BaseYii.php(349): yii\di\Container->get('yii\\web\\UrlMana...', Array, Array)
+#14 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/ServiceLocator.php(137): yii\BaseYii::createObject(Array)
+#15 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Module.php(742): yii\di\ServiceLocator->get('urlManager', true)
+#16 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(571): yii\base\Module->get('urlManager')
+#17 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Request.php(272): yii\base\Application->getUrlManager()
+#18 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Application.php(82): yii\web\Request->resolve()
+#19 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 /opt/wwwroot/yii2-app-advanced/api/web/index.php(17): yii\base\Application->run()
+#21 {main}
+Additional Information:
+Array
+(
+)
+
+2018-03-07 15:57:21 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'a53ffa4ffb50e1a9a6902cb64051a6a5'
+    '_csrf' => 'e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi\";}'
+]
+
+$_SERVER = [
+    'USER' => 'Jake'
+    'HOME' => '/Users/Jake'
+    'HTTP_COOKIE' => 'PHPSESSID=a53ffa4ffb50e1a9a6902cb64051a6a5; _csrf=e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7,zh-TW;q=0.6'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'local.api.helpe.online'
+    'SCRIPT_FILENAME' => '/opt/wwwroot/yii2-app-advanced/api/web/index.php'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'local.api.helpe.online'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '56813'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.13.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => '/opt/wwwroot/yii2-app-advanced/api/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/v1/site'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1520438241.6386
+    'REQUEST_TIME' => 1520438241
+    'argv' => []
+    'argc' => 0
+]
+2018-03-07 15:57:21 [127.0.0.1][-][-][error][yii\db\Exception] yii\db\Exception: Redis error: ERR Client sent AUTH, but no password is set
+Redis command was: AUTH F2hsXBRdbqSx2DGD in /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php:729
+Stack trace:
+#0 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(706): yii\redis\Connection->parseResponse('AUTH F2hsXBRdbq...')
+#1 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(690): yii\redis\Connection->sendCommandInternal('*2\r\n$4\r\nAUTH\r\n$...', Array)
+#2 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(556): yii\redis\Connection->executeCommand('AUTH', Array)
+#3 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(665): yii\redis\Connection->open()
+#4 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Cache.php(102): yii\redis\Connection->executeCommand('GET', Array)
+#5 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/caching/Cache.php(114): yii\redis\Cache->getValue('7d530521da89dc3...')
+#6 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(296): yii\caching\Cache->get('7d530521da89dc3...')
+#7 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(229): yii\web\UrlManager->getBuiltRulesFromCache(Array)
+#8 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(191): yii\web\UrlManager->buildRules(Array)
+#9 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/BaseObject.php(109): yii\web\UrlManager->init()
+#10 [internal function]: yii\base\BaseObject->__construct(Array)
+#11 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(383): ReflectionClass->newInstanceArgs(Array)
+#12 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(156): yii\di\Container->build('yii\\web\\UrlMana...', Array, Array)
+#13 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/BaseYii.php(349): yii\di\Container->get('yii\\web\\UrlMana...', Array, Array)
+#14 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/ServiceLocator.php(137): yii\BaseYii::createObject(Array)
+#15 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Module.php(742): yii\di\ServiceLocator->get('urlManager', true)
+#16 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(571): yii\base\Module->get('urlManager')
+#17 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Request.php(272): yii\base\Application->getUrlManager()
+#18 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Application.php(82): yii\web\Request->resolve()
+#19 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 /opt/wwwroot/yii2-app-advanced/api/web/index.php(17): yii\base\Application->run()
+#21 {main}
+Additional Information:
+Array
+(
+)
+
+2018-03-07 15:57:21 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'a53ffa4ffb50e1a9a6902cb64051a6a5'
+    '_csrf' => 'e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi\";}'
+]
+
+$_SERVER = [
+    'USER' => 'Jake'
+    'HOME' => '/Users/Jake'
+    'HTTP_COOKIE' => 'PHPSESSID=a53ffa4ffb50e1a9a6902cb64051a6a5; _csrf=e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7,zh-TW;q=0.6'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'local.api.helpe.online'
+    'SCRIPT_FILENAME' => '/opt/wwwroot/yii2-app-advanced/api/web/index.php'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'local.api.helpe.online'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '56813'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.13.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => '/opt/wwwroot/yii2-app-advanced/api/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/v1/site'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1520438241.6386
+    'REQUEST_TIME' => 1520438241
+    'argv' => []
+    'argc' => 0
+]
+2018-03-07 15:57:21 [127.0.0.1][-][-][error][yii\db\Exception] yii\db\Exception: Redis error: ERR Client sent AUTH, but no password is set
+Redis command was: AUTH F2hsXBRdbqSx2DGD in /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php:729
+Stack trace:
+#0 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(706): yii\redis\Connection->parseResponse('AUTH F2hsXBRdbq...')
+#1 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(690): yii\redis\Connection->sendCommandInternal('*2\r\n$4\r\nAUTH\r\n$...', Array)
+#2 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(556): yii\redis\Connection->executeCommand('AUTH', Array)
+#3 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(665): yii\redis\Connection->open()
+#4 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Cache.php(102): yii\redis\Connection->executeCommand('GET', Array)
+#5 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/caching/Cache.php(114): yii\redis\Cache->getValue('7d530521da89dc3...')
+#6 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(296): yii\caching\Cache->get('7d530521da89dc3...')
+#7 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(229): yii\web\UrlManager->getBuiltRulesFromCache(Array)
+#8 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(191): yii\web\UrlManager->buildRules(Array)
+#9 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/BaseObject.php(109): yii\web\UrlManager->init()
+#10 [internal function]: yii\base\BaseObject->__construct(Array)
+#11 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(383): ReflectionClass->newInstanceArgs(Array)
+#12 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(156): yii\di\Container->build('yii\\web\\UrlMana...', Array, Array)
+#13 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/BaseYii.php(349): yii\di\Container->get('yii\\web\\UrlMana...', Array, Array)
+#14 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/ServiceLocator.php(137): yii\BaseYii::createObject(Array)
+#15 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Module.php(742): yii\di\ServiceLocator->get('urlManager', true)
+#16 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(571): yii\base\Module->get('urlManager')
+#17 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Request.php(272): yii\base\Application->getUrlManager()
+#18 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Application.php(82): yii\web\Request->resolve()
+#19 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 /opt/wwwroot/yii2-app-advanced/api/web/index.php(17): yii\base\Application->run()
+#21 {main}
+Additional Information:
+Array
+(
+)
+
+2018-03-07 15:57:21 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'a53ffa4ffb50e1a9a6902cb64051a6a5'
+    '_csrf' => 'e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi\";}'
+]
+
+$_SERVER = [
+    'USER' => 'Jake'
+    'HOME' => '/Users/Jake'
+    'HTTP_COOKIE' => 'PHPSESSID=a53ffa4ffb50e1a9a6902cb64051a6a5; _csrf=e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7,zh-TW;q=0.6'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'local.api.helpe.online'
+    'SCRIPT_FILENAME' => '/opt/wwwroot/yii2-app-advanced/api/web/index.php'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'local.api.helpe.online'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '56813'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.13.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => '/opt/wwwroot/yii2-app-advanced/api/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/v1/site'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1520438241.8786
+    'REQUEST_TIME' => 1520438241
+    'argv' => []
+    'argc' => 0
+]
+2018-03-07 15:57:21 [127.0.0.1][-][-][error][yii\db\Exception] yii\db\Exception: Redis error: ERR Client sent AUTH, but no password is set
+Redis command was: AUTH F2hsXBRdbqSx2DGD in /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php:729
+Stack trace:
+#0 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(706): yii\redis\Connection->parseResponse('AUTH F2hsXBRdbq...')
+#1 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(690): yii\redis\Connection->sendCommandInternal('*2\r\n$4\r\nAUTH\r\n$...', Array)
+#2 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(556): yii\redis\Connection->executeCommand('AUTH', Array)
+#3 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(665): yii\redis\Connection->open()
+#4 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Cache.php(102): yii\redis\Connection->executeCommand('GET', Array)
+#5 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/caching/Cache.php(114): yii\redis\Cache->getValue('7d530521da89dc3...')
+#6 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(296): yii\caching\Cache->get('7d530521da89dc3...')
+#7 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(229): yii\web\UrlManager->getBuiltRulesFromCache(Array)
+#8 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(191): yii\web\UrlManager->buildRules(Array)
+#9 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/BaseObject.php(109): yii\web\UrlManager->init()
+#10 [internal function]: yii\base\BaseObject->__construct(Array)
+#11 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(383): ReflectionClass->newInstanceArgs(Array)
+#12 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(156): yii\di\Container->build('yii\\web\\UrlMana...', Array, Array)
+#13 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/BaseYii.php(349): yii\di\Container->get('yii\\web\\UrlMana...', Array, Array)
+#14 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/ServiceLocator.php(137): yii\BaseYii::createObject(Array)
+#15 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Module.php(742): yii\di\ServiceLocator->get('urlManager', true)
+#16 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(571): yii\base\Module->get('urlManager')
+#17 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Request.php(272): yii\base\Application->getUrlManager()
+#18 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Application.php(82): yii\web\Request->resolve()
+#19 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 /opt/wwwroot/yii2-app-advanced/api/web/index.php(17): yii\base\Application->run()
+#21 {main}
+Additional Information:
+Array
+(
+)
+
+2018-03-07 15:57:21 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'a53ffa4ffb50e1a9a6902cb64051a6a5'
+    '_csrf' => 'e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi\";}'
+]
+
+$_SERVER = [
+    'USER' => 'Jake'
+    'HOME' => '/Users/Jake'
+    'HTTP_COOKIE' => 'PHPSESSID=a53ffa4ffb50e1a9a6902cb64051a6a5; _csrf=e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7,zh-TW;q=0.6'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'local.api.helpe.online'
+    'SCRIPT_FILENAME' => '/opt/wwwroot/yii2-app-advanced/api/web/index.php'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'local.api.helpe.online'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '56813'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.13.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => '/opt/wwwroot/yii2-app-advanced/api/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/v1/site'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1520438241.8786
+    'REQUEST_TIME' => 1520438241
+    'argv' => []
+    'argc' => 0
+]
+2018-03-07 15:57:22 [127.0.0.1][-][-][error][yii\db\Exception] yii\db\Exception: Redis error: ERR Client sent AUTH, but no password is set
+Redis command was: AUTH F2hsXBRdbqSx2DGD in /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php:729
+Stack trace:
+#0 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(706): yii\redis\Connection->parseResponse('AUTH F2hsXBRdbq...')
+#1 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(690): yii\redis\Connection->sendCommandInternal('*2\r\n$4\r\nAUTH\r\n$...', Array)
+#2 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(556): yii\redis\Connection->executeCommand('AUTH', Array)
+#3 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(665): yii\redis\Connection->open()
+#4 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Cache.php(102): yii\redis\Connection->executeCommand('GET', Array)
+#5 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/caching/Cache.php(114): yii\redis\Cache->getValue('7d530521da89dc3...')
+#6 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(296): yii\caching\Cache->get('7d530521da89dc3...')
+#7 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(229): yii\web\UrlManager->getBuiltRulesFromCache(Array)
+#8 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(191): yii\web\UrlManager->buildRules(Array)
+#9 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/BaseObject.php(109): yii\web\UrlManager->init()
+#10 [internal function]: yii\base\BaseObject->__construct(Array)
+#11 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(383): ReflectionClass->newInstanceArgs(Array)
+#12 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(156): yii\di\Container->build('yii\\web\\UrlMana...', Array, Array)
+#13 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/BaseYii.php(349): yii\di\Container->get('yii\\web\\UrlMana...', Array, Array)
+#14 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/ServiceLocator.php(137): yii\BaseYii::createObject(Array)
+#15 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Module.php(742): yii\di\ServiceLocator->get('urlManager', true)
+#16 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(571): yii\base\Module->get('urlManager')
+#17 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Request.php(272): yii\base\Application->getUrlManager()
+#18 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Application.php(82): yii\web\Request->resolve()
+#19 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 /opt/wwwroot/yii2-app-advanced/api/web/index.php(17): yii\base\Application->run()
+#21 {main}
+Additional Information:
+Array
+(
+)
+
+2018-03-07 15:57:22 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'a53ffa4ffb50e1a9a6902cb64051a6a5'
+    '_csrf' => 'e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi\";}'
+]
+
+$_SERVER = [
+    'USER' => 'Jake'
+    'HOME' => '/Users/Jake'
+    'HTTP_COOKIE' => 'PHPSESSID=a53ffa4ffb50e1a9a6902cb64051a6a5; _csrf=e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7,zh-TW;q=0.6'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'local.api.helpe.online'
+    'SCRIPT_FILENAME' => '/opt/wwwroot/yii2-app-advanced/api/web/index.php'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'local.api.helpe.online'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '56813'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.13.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => '/opt/wwwroot/yii2-app-advanced/api/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/v1/site'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1520438242.1226
+    'REQUEST_TIME' => 1520438242
+    'argv' => []
+    'argc' => 0
+]
+2018-03-07 15:57:22 [127.0.0.1][-][-][error][yii\db\Exception] yii\db\Exception: Redis error: ERR Client sent AUTH, but no password is set
+Redis command was: AUTH F2hsXBRdbqSx2DGD in /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php:729
+Stack trace:
+#0 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(706): yii\redis\Connection->parseResponse('AUTH F2hsXBRdbq...')
+#1 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(690): yii\redis\Connection->sendCommandInternal('*2\r\n$4\r\nAUTH\r\n$...', Array)
+#2 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(556): yii\redis\Connection->executeCommand('AUTH', Array)
+#3 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(665): yii\redis\Connection->open()
+#4 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Cache.php(102): yii\redis\Connection->executeCommand('GET', Array)
+#5 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/caching/Cache.php(114): yii\redis\Cache->getValue('7d530521da89dc3...')
+#6 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(296): yii\caching\Cache->get('7d530521da89dc3...')
+#7 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(229): yii\web\UrlManager->getBuiltRulesFromCache(Array)
+#8 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(191): yii\web\UrlManager->buildRules(Array)
+#9 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/BaseObject.php(109): yii\web\UrlManager->init()
+#10 [internal function]: yii\base\BaseObject->__construct(Array)
+#11 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(383): ReflectionClass->newInstanceArgs(Array)
+#12 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(156): yii\di\Container->build('yii\\web\\UrlMana...', Array, Array)
+#13 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/BaseYii.php(349): yii\di\Container->get('yii\\web\\UrlMana...', Array, Array)
+#14 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/ServiceLocator.php(137): yii\BaseYii::createObject(Array)
+#15 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Module.php(742): yii\di\ServiceLocator->get('urlManager', true)
+#16 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(571): yii\base\Module->get('urlManager')
+#17 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Request.php(272): yii\base\Application->getUrlManager()
+#18 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Application.php(82): yii\web\Request->resolve()
+#19 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 /opt/wwwroot/yii2-app-advanced/api/web/index.php(17): yii\base\Application->run()
+#21 {main}
+Additional Information:
+Array
+(
+)
+
+2018-03-07 15:57:22 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'a53ffa4ffb50e1a9a6902cb64051a6a5'
+    '_csrf' => 'e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi\";}'
+]
+
+$_SERVER = [
+    'USER' => 'Jake'
+    'HOME' => '/Users/Jake'
+    'HTTP_COOKIE' => 'PHPSESSID=a53ffa4ffb50e1a9a6902cb64051a6a5; _csrf=e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7,zh-TW;q=0.6'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'local.api.helpe.online'
+    'SCRIPT_FILENAME' => '/opt/wwwroot/yii2-app-advanced/api/web/index.php'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'local.api.helpe.online'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '56813'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.13.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => '/opt/wwwroot/yii2-app-advanced/api/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/v1/site'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1520438242.1226
+    'REQUEST_TIME' => 1520438242
+    'argv' => []
+    'argc' => 0
+]
+2018-03-07 15:57:22 [127.0.0.1][-][-][error][yii\db\Exception] yii\db\Exception: Redis error: ERR Client sent AUTH, but no password is set
+Redis command was: AUTH F2hsXBRdbqSx2DGD in /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php:729
+Stack trace:
+#0 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(706): yii\redis\Connection->parseResponse('AUTH F2hsXBRdbq...')
+#1 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(690): yii\redis\Connection->sendCommandInternal('*2\r\n$4\r\nAUTH\r\n$...', Array)
+#2 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(556): yii\redis\Connection->executeCommand('AUTH', Array)
+#3 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(665): yii\redis\Connection->open()
+#4 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Cache.php(102): yii\redis\Connection->executeCommand('GET', Array)
+#5 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/caching/Cache.php(114): yii\redis\Cache->getValue('7d530521da89dc3...')
+#6 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(296): yii\caching\Cache->get('7d530521da89dc3...')
+#7 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(229): yii\web\UrlManager->getBuiltRulesFromCache(Array)
+#8 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(191): yii\web\UrlManager->buildRules(Array)
+#9 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/BaseObject.php(109): yii\web\UrlManager->init()
+#10 [internal function]: yii\base\BaseObject->__construct(Array)
+#11 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(383): ReflectionClass->newInstanceArgs(Array)
+#12 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(156): yii\di\Container->build('yii\\web\\UrlMana...', Array, Array)
+#13 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/BaseYii.php(349): yii\di\Container->get('yii\\web\\UrlMana...', Array, Array)
+#14 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/ServiceLocator.php(137): yii\BaseYii::createObject(Array)
+#15 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Module.php(742): yii\di\ServiceLocator->get('urlManager', true)
+#16 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(571): yii\base\Module->get('urlManager')
+#17 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Request.php(272): yii\base\Application->getUrlManager()
+#18 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Application.php(82): yii\web\Request->resolve()
+#19 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 /opt/wwwroot/yii2-app-advanced/api/web/index.php(17): yii\base\Application->run()
+#21 {main}
+Additional Information:
+Array
+(
+)
+
+2018-03-07 15:57:22 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'a53ffa4ffb50e1a9a6902cb64051a6a5'
+    '_csrf' => 'e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi\";}'
+]
+
+$_SERVER = [
+    'USER' => 'Jake'
+    'HOME' => '/Users/Jake'
+    'HTTP_COOKIE' => 'PHPSESSID=a53ffa4ffb50e1a9a6902cb64051a6a5; _csrf=e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7,zh-TW;q=0.6'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'local.api.helpe.online'
+    'SCRIPT_FILENAME' => '/opt/wwwroot/yii2-app-advanced/api/web/index.php'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'local.api.helpe.online'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '56813'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.13.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => '/opt/wwwroot/yii2-app-advanced/api/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/v1/site'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1520438242.3957
+    'REQUEST_TIME' => 1520438242
+    'argv' => []
+    'argc' => 0
+]
+2018-03-07 15:57:22 [127.0.0.1][-][-][error][yii\db\Exception] yii\db\Exception: Redis error: ERR Client sent AUTH, but no password is set
+Redis command was: AUTH F2hsXBRdbqSx2DGD in /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php:729
+Stack trace:
+#0 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(706): yii\redis\Connection->parseResponse('AUTH F2hsXBRdbq...')
+#1 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(690): yii\redis\Connection->sendCommandInternal('*2\r\n$4\r\nAUTH\r\n$...', Array)
+#2 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(556): yii\redis\Connection->executeCommand('AUTH', Array)
+#3 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(665): yii\redis\Connection->open()
+#4 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Cache.php(102): yii\redis\Connection->executeCommand('GET', Array)
+#5 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/caching/Cache.php(114): yii\redis\Cache->getValue('7d530521da89dc3...')
+#6 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(296): yii\caching\Cache->get('7d530521da89dc3...')
+#7 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(229): yii\web\UrlManager->getBuiltRulesFromCache(Array)
+#8 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(191): yii\web\UrlManager->buildRules(Array)
+#9 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/BaseObject.php(109): yii\web\UrlManager->init()
+#10 [internal function]: yii\base\BaseObject->__construct(Array)
+#11 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(383): ReflectionClass->newInstanceArgs(Array)
+#12 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(156): yii\di\Container->build('yii\\web\\UrlMana...', Array, Array)
+#13 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/BaseYii.php(349): yii\di\Container->get('yii\\web\\UrlMana...', Array, Array)
+#14 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/ServiceLocator.php(137): yii\BaseYii::createObject(Array)
+#15 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Module.php(742): yii\di\ServiceLocator->get('urlManager', true)
+#16 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(571): yii\base\Module->get('urlManager')
+#17 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Request.php(272): yii\base\Application->getUrlManager()
+#18 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Application.php(82): yii\web\Request->resolve()
+#19 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 /opt/wwwroot/yii2-app-advanced/api/web/index.php(17): yii\base\Application->run()
+#21 {main}
+Additional Information:
+Array
+(
+)
+
+2018-03-07 15:57:22 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'a53ffa4ffb50e1a9a6902cb64051a6a5'
+    '_csrf' => 'e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi\";}'
+]
+
+$_SERVER = [
+    'USER' => 'Jake'
+    'HOME' => '/Users/Jake'
+    'HTTP_COOKIE' => 'PHPSESSID=a53ffa4ffb50e1a9a6902cb64051a6a5; _csrf=e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7,zh-TW;q=0.6'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'local.api.helpe.online'
+    'SCRIPT_FILENAME' => '/opt/wwwroot/yii2-app-advanced/api/web/index.php'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'local.api.helpe.online'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '56813'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.13.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => '/opt/wwwroot/yii2-app-advanced/api/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/v1/site'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1520438242.3957
+    'REQUEST_TIME' => 1520438242
+    'argv' => []
+    'argc' => 0
+]
+2018-03-07 15:57:22 [127.0.0.1][-][-][error][yii\db\Exception] yii\db\Exception: Redis error: ERR Client sent AUTH, but no password is set
+Redis command was: AUTH F2hsXBRdbqSx2DGD in /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php:729
+Stack trace:
+#0 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(706): yii\redis\Connection->parseResponse('AUTH F2hsXBRdbq...')
+#1 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(690): yii\redis\Connection->sendCommandInternal('*2\r\n$4\r\nAUTH\r\n$...', Array)
+#2 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(556): yii\redis\Connection->executeCommand('AUTH', Array)
+#3 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(665): yii\redis\Connection->open()
+#4 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Cache.php(102): yii\redis\Connection->executeCommand('GET', Array)
+#5 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/caching/Cache.php(114): yii\redis\Cache->getValue('7d530521da89dc3...')
+#6 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(296): yii\caching\Cache->get('7d530521da89dc3...')
+#7 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(229): yii\web\UrlManager->getBuiltRulesFromCache(Array)
+#8 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(191): yii\web\UrlManager->buildRules(Array)
+#9 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/BaseObject.php(109): yii\web\UrlManager->init()
+#10 [internal function]: yii\base\BaseObject->__construct(Array)
+#11 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(383): ReflectionClass->newInstanceArgs(Array)
+#12 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(156): yii\di\Container->build('yii\\web\\UrlMana...', Array, Array)
+#13 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/BaseYii.php(349): yii\di\Container->get('yii\\web\\UrlMana...', Array, Array)
+#14 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/ServiceLocator.php(137): yii\BaseYii::createObject(Array)
+#15 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Module.php(742): yii\di\ServiceLocator->get('urlManager', true)
+#16 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(571): yii\base\Module->get('urlManager')
+#17 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Request.php(272): yii\base\Application->getUrlManager()
+#18 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Application.php(82): yii\web\Request->resolve()
+#19 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 /opt/wwwroot/yii2-app-advanced/api/web/index.php(17): yii\base\Application->run()
+#21 {main}
+Additional Information:
+Array
+(
+)
+
+2018-03-07 15:57:22 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'a53ffa4ffb50e1a9a6902cb64051a6a5'
+    '_csrf' => 'e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi\";}'
+]
+
+$_SERVER = [
+    'USER' => 'Jake'
+    'HOME' => '/Users/Jake'
+    'HTTP_COOKIE' => 'PHPSESSID=a53ffa4ffb50e1a9a6902cb64051a6a5; _csrf=e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7,zh-TW;q=0.6'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'local.api.helpe.online'
+    'SCRIPT_FILENAME' => '/opt/wwwroot/yii2-app-advanced/api/web/index.php'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'local.api.helpe.online'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '56813'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.13.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => '/opt/wwwroot/yii2-app-advanced/api/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/v1/site'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1520438242.6597
+    'REQUEST_TIME' => 1520438242
+    'argv' => []
+    'argc' => 0
+]
+2018-03-07 15:57:22 [127.0.0.1][-][-][error][yii\db\Exception] yii\db\Exception: Redis error: ERR Client sent AUTH, but no password is set
+Redis command was: AUTH F2hsXBRdbqSx2DGD in /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php:729
+Stack trace:
+#0 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(706): yii\redis\Connection->parseResponse('AUTH F2hsXBRdbq...')
+#1 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(690): yii\redis\Connection->sendCommandInternal('*2\r\n$4\r\nAUTH\r\n$...', Array)
+#2 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(556): yii\redis\Connection->executeCommand('AUTH', Array)
+#3 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(665): yii\redis\Connection->open()
+#4 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Cache.php(102): yii\redis\Connection->executeCommand('GET', Array)
+#5 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/caching/Cache.php(114): yii\redis\Cache->getValue('7d530521da89dc3...')
+#6 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(296): yii\caching\Cache->get('7d530521da89dc3...')
+#7 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(229): yii\web\UrlManager->getBuiltRulesFromCache(Array)
+#8 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(191): yii\web\UrlManager->buildRules(Array)
+#9 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/BaseObject.php(109): yii\web\UrlManager->init()
+#10 [internal function]: yii\base\BaseObject->__construct(Array)
+#11 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(383): ReflectionClass->newInstanceArgs(Array)
+#12 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(156): yii\di\Container->build('yii\\web\\UrlMana...', Array, Array)
+#13 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/BaseYii.php(349): yii\di\Container->get('yii\\web\\UrlMana...', Array, Array)
+#14 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/ServiceLocator.php(137): yii\BaseYii::createObject(Array)
+#15 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Module.php(742): yii\di\ServiceLocator->get('urlManager', true)
+#16 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(571): yii\base\Module->get('urlManager')
+#17 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Request.php(272): yii\base\Application->getUrlManager()
+#18 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Application.php(82): yii\web\Request->resolve()
+#19 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 /opt/wwwroot/yii2-app-advanced/api/web/index.php(17): yii\base\Application->run()
+#21 {main}
+Additional Information:
+Array
+(
+)
+
+2018-03-07 15:57:22 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'a53ffa4ffb50e1a9a6902cb64051a6a5'
+    '_csrf' => 'e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi\";}'
+]
+
+$_SERVER = [
+    'USER' => 'Jake'
+    'HOME' => '/Users/Jake'
+    'HTTP_COOKIE' => 'PHPSESSID=a53ffa4ffb50e1a9a6902cb64051a6a5; _csrf=e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7,zh-TW;q=0.6'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'local.api.helpe.online'
+    'SCRIPT_FILENAME' => '/opt/wwwroot/yii2-app-advanced/api/web/index.php'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'local.api.helpe.online'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '56813'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.13.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => '/opt/wwwroot/yii2-app-advanced/api/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/v1/site'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1520438242.6597
+    'REQUEST_TIME' => 1520438242
+    'argv' => []
+    'argc' => 0
+]
+2018-03-07 15:57:22 [127.0.0.1][-][-][error][yii\db\Exception] yii\db\Exception: Redis error: ERR Client sent AUTH, but no password is set
+Redis command was: AUTH F2hsXBRdbqSx2DGD in /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php:729
+Stack trace:
+#0 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(706): yii\redis\Connection->parseResponse('AUTH F2hsXBRdbq...')
+#1 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(690): yii\redis\Connection->sendCommandInternal('*2\r\n$4\r\nAUTH\r\n$...', Array)
+#2 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(556): yii\redis\Connection->executeCommand('AUTH', Array)
+#3 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(665): yii\redis\Connection->open()
+#4 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Cache.php(102): yii\redis\Connection->executeCommand('GET', Array)
+#5 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/caching/Cache.php(114): yii\redis\Cache->getValue('7d530521da89dc3...')
+#6 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(296): yii\caching\Cache->get('7d530521da89dc3...')
+#7 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(229): yii\web\UrlManager->getBuiltRulesFromCache(Array)
+#8 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(191): yii\web\UrlManager->buildRules(Array)
+#9 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/BaseObject.php(109): yii\web\UrlManager->init()
+#10 [internal function]: yii\base\BaseObject->__construct(Array)
+#11 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(383): ReflectionClass->newInstanceArgs(Array)
+#12 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(156): yii\di\Container->build('yii\\web\\UrlMana...', Array, Array)
+#13 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/BaseYii.php(349): yii\di\Container->get('yii\\web\\UrlMana...', Array, Array)
+#14 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/ServiceLocator.php(137): yii\BaseYii::createObject(Array)
+#15 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Module.php(742): yii\di\ServiceLocator->get('urlManager', true)
+#16 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(571): yii\base\Module->get('urlManager')
+#17 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Request.php(272): yii\base\Application->getUrlManager()
+#18 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Application.php(82): yii\web\Request->resolve()
+#19 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 /opt/wwwroot/yii2-app-advanced/api/web/index.php(17): yii\base\Application->run()
+#21 {main}
+Additional Information:
+Array
+(
+)
+
+2018-03-07 15:57:22 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'a53ffa4ffb50e1a9a6902cb64051a6a5'
+    '_csrf' => 'e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi\";}'
+]
+
+$_SERVER = [
+    'USER' => 'Jake'
+    'HOME' => '/Users/Jake'
+    'HTTP_COOKIE' => 'PHPSESSID=a53ffa4ffb50e1a9a6902cb64051a6a5; _csrf=e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7,zh-TW;q=0.6'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'local.api.helpe.online'
+    'SCRIPT_FILENAME' => '/opt/wwwroot/yii2-app-advanced/api/web/index.php'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'local.api.helpe.online'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '56813'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.13.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => '/opt/wwwroot/yii2-app-advanced/api/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/v1/site'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1520438242.9115
+    'REQUEST_TIME' => 1520438242
+    'argv' => []
+    'argc' => 0
+]
+2018-03-07 15:57:22 [127.0.0.1][-][-][error][yii\db\Exception] yii\db\Exception: Redis error: ERR Client sent AUTH, but no password is set
+Redis command was: AUTH F2hsXBRdbqSx2DGD in /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php:729
+Stack trace:
+#0 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(706): yii\redis\Connection->parseResponse('AUTH F2hsXBRdbq...')
+#1 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(690): yii\redis\Connection->sendCommandInternal('*2\r\n$4\r\nAUTH\r\n$...', Array)
+#2 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(556): yii\redis\Connection->executeCommand('AUTH', Array)
+#3 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(665): yii\redis\Connection->open()
+#4 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Cache.php(102): yii\redis\Connection->executeCommand('GET', Array)
+#5 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/caching/Cache.php(114): yii\redis\Cache->getValue('7d530521da89dc3...')
+#6 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(296): yii\caching\Cache->get('7d530521da89dc3...')
+#7 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(229): yii\web\UrlManager->getBuiltRulesFromCache(Array)
+#8 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(191): yii\web\UrlManager->buildRules(Array)
+#9 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/BaseObject.php(109): yii\web\UrlManager->init()
+#10 [internal function]: yii\base\BaseObject->__construct(Array)
+#11 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(383): ReflectionClass->newInstanceArgs(Array)
+#12 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(156): yii\di\Container->build('yii\\web\\UrlMana...', Array, Array)
+#13 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/BaseYii.php(349): yii\di\Container->get('yii\\web\\UrlMana...', Array, Array)
+#14 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/ServiceLocator.php(137): yii\BaseYii::createObject(Array)
+#15 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Module.php(742): yii\di\ServiceLocator->get('urlManager', true)
+#16 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(571): yii\base\Module->get('urlManager')
+#17 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Request.php(272): yii\base\Application->getUrlManager()
+#18 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Application.php(82): yii\web\Request->resolve()
+#19 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 /opt/wwwroot/yii2-app-advanced/api/web/index.php(17): yii\base\Application->run()
+#21 {main}
+Additional Information:
+Array
+(
+)
+
+2018-03-07 15:57:22 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'a53ffa4ffb50e1a9a6902cb64051a6a5'
+    '_csrf' => 'e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi\";}'
+]
+
+$_SERVER = [
+    'USER' => 'Jake'
+    'HOME' => '/Users/Jake'
+    'HTTP_COOKIE' => 'PHPSESSID=a53ffa4ffb50e1a9a6902cb64051a6a5; _csrf=e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7,zh-TW;q=0.6'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'local.api.helpe.online'
+    'SCRIPT_FILENAME' => '/opt/wwwroot/yii2-app-advanced/api/web/index.php'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'local.api.helpe.online'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '56813'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.13.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => '/opt/wwwroot/yii2-app-advanced/api/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/v1/site'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1520438242.9115
+    'REQUEST_TIME' => 1520438242
+    'argv' => []
+    'argc' => 0
+]
+2018-03-07 15:57:23 [127.0.0.1][-][-][error][yii\db\Exception] yii\db\Exception: Redis error: ERR Client sent AUTH, but no password is set
+Redis command was: AUTH F2hsXBRdbqSx2DGD in /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php:729
+Stack trace:
+#0 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(706): yii\redis\Connection->parseResponse('AUTH F2hsXBRdbq...')
+#1 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(690): yii\redis\Connection->sendCommandInternal('*2\r\n$4\r\nAUTH\r\n$...', Array)
+#2 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(556): yii\redis\Connection->executeCommand('AUTH', Array)
+#3 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(665): yii\redis\Connection->open()
+#4 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Cache.php(102): yii\redis\Connection->executeCommand('GET', Array)
+#5 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/caching/Cache.php(114): yii\redis\Cache->getValue('7d530521da89dc3...')
+#6 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(296): yii\caching\Cache->get('7d530521da89dc3...')
+#7 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(229): yii\web\UrlManager->getBuiltRulesFromCache(Array)
+#8 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(191): yii\web\UrlManager->buildRules(Array)
+#9 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/BaseObject.php(109): yii\web\UrlManager->init()
+#10 [internal function]: yii\base\BaseObject->__construct(Array)
+#11 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(383): ReflectionClass->newInstanceArgs(Array)
+#12 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(156): yii\di\Container->build('yii\\web\\UrlMana...', Array, Array)
+#13 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/BaseYii.php(349): yii\di\Container->get('yii\\web\\UrlMana...', Array, Array)
+#14 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/ServiceLocator.php(137): yii\BaseYii::createObject(Array)
+#15 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Module.php(742): yii\di\ServiceLocator->get('urlManager', true)
+#16 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(571): yii\base\Module->get('urlManager')
+#17 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Request.php(272): yii\base\Application->getUrlManager()
+#18 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Application.php(82): yii\web\Request->resolve()
+#19 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 /opt/wwwroot/yii2-app-advanced/api/web/index.php(17): yii\base\Application->run()
+#21 {main}
+Additional Information:
+Array
+(
+)
+
+2018-03-07 15:57:23 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'a53ffa4ffb50e1a9a6902cb64051a6a5'
+    '_csrf' => 'e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi\";}'
+]
+
+$_SERVER = [
+    'USER' => 'Jake'
+    'HOME' => '/Users/Jake'
+    'HTTP_COOKIE' => 'PHPSESSID=a53ffa4ffb50e1a9a6902cb64051a6a5; _csrf=e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7,zh-TW;q=0.6'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'local.api.helpe.online'
+    'SCRIPT_FILENAME' => '/opt/wwwroot/yii2-app-advanced/api/web/index.php'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'local.api.helpe.online'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '56813'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.13.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => '/opt/wwwroot/yii2-app-advanced/api/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/v1/site'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1520438243.4294
+    'REQUEST_TIME' => 1520438243
+    'argv' => []
+    'argc' => 0
+]
+2018-03-07 15:57:23 [127.0.0.1][-][-][error][yii\db\Exception] yii\db\Exception: Redis error: ERR Client sent AUTH, but no password is set
+Redis command was: AUTH F2hsXBRdbqSx2DGD in /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php:729
+Stack trace:
+#0 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(706): yii\redis\Connection->parseResponse('AUTH F2hsXBRdbq...')
+#1 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(690): yii\redis\Connection->sendCommandInternal('*2\r\n$4\r\nAUTH\r\n$...', Array)
+#2 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(556): yii\redis\Connection->executeCommand('AUTH', Array)
+#3 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(665): yii\redis\Connection->open()
+#4 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Cache.php(102): yii\redis\Connection->executeCommand('GET', Array)
+#5 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/caching/Cache.php(114): yii\redis\Cache->getValue('7d530521da89dc3...')
+#6 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(296): yii\caching\Cache->get('7d530521da89dc3...')
+#7 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(229): yii\web\UrlManager->getBuiltRulesFromCache(Array)
+#8 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(191): yii\web\UrlManager->buildRules(Array)
+#9 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/BaseObject.php(109): yii\web\UrlManager->init()
+#10 [internal function]: yii\base\BaseObject->__construct(Array)
+#11 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(383): ReflectionClass->newInstanceArgs(Array)
+#12 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(156): yii\di\Container->build('yii\\web\\UrlMana...', Array, Array)
+#13 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/BaseYii.php(349): yii\di\Container->get('yii\\web\\UrlMana...', Array, Array)
+#14 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/ServiceLocator.php(137): yii\BaseYii::createObject(Array)
+#15 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Module.php(742): yii\di\ServiceLocator->get('urlManager', true)
+#16 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(571): yii\base\Module->get('urlManager')
+#17 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Request.php(272): yii\base\Application->getUrlManager()
+#18 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Application.php(82): yii\web\Request->resolve()
+#19 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 /opt/wwwroot/yii2-app-advanced/api/web/index.php(17): yii\base\Application->run()
+#21 {main}
+Additional Information:
+Array
+(
+)
+
+2018-03-07 15:57:23 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'a53ffa4ffb50e1a9a6902cb64051a6a5'
+    '_csrf' => 'e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi\";}'
+]
+
+$_SERVER = [
+    'USER' => 'Jake'
+    'HOME' => '/Users/Jake'
+    'HTTP_COOKIE' => 'PHPSESSID=a53ffa4ffb50e1a9a6902cb64051a6a5; _csrf=e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7,zh-TW;q=0.6'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'local.api.helpe.online'
+    'SCRIPT_FILENAME' => '/opt/wwwroot/yii2-app-advanced/api/web/index.php'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'local.api.helpe.online'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '56813'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.13.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => '/opt/wwwroot/yii2-app-advanced/api/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/v1/site'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1520438243.4294
+    'REQUEST_TIME' => 1520438243
+    'argv' => []
+    'argc' => 0
+]
+2018-03-07 15:57:24 [127.0.0.1][-][-][error][yii\db\Exception] yii\db\Exception: Redis error: ERR Client sent AUTH, but no password is set
+Redis command was: AUTH F2hsXBRdbqSx2DGD in /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php:729
+Stack trace:
+#0 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(706): yii\redis\Connection->parseResponse('AUTH F2hsXBRdbq...')
+#1 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(690): yii\redis\Connection->sendCommandInternal('*2\r\n$4\r\nAUTH\r\n$...', Array)
+#2 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(556): yii\redis\Connection->executeCommand('AUTH', Array)
+#3 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(665): yii\redis\Connection->open()
+#4 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Cache.php(102): yii\redis\Connection->executeCommand('GET', Array)
+#5 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/caching/Cache.php(114): yii\redis\Cache->getValue('7d530521da89dc3...')
+#6 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(296): yii\caching\Cache->get('7d530521da89dc3...')
+#7 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(229): yii\web\UrlManager->getBuiltRulesFromCache(Array)
+#8 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(191): yii\web\UrlManager->buildRules(Array)
+#9 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/BaseObject.php(109): yii\web\UrlManager->init()
+#10 [internal function]: yii\base\BaseObject->__construct(Array)
+#11 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(383): ReflectionClass->newInstanceArgs(Array)
+#12 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(156): yii\di\Container->build('yii\\web\\UrlMana...', Array, Array)
+#13 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/BaseYii.php(349): yii\di\Container->get('yii\\web\\UrlMana...', Array, Array)
+#14 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/ServiceLocator.php(137): yii\BaseYii::createObject(Array)
+#15 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Module.php(742): yii\di\ServiceLocator->get('urlManager', true)
+#16 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(571): yii\base\Module->get('urlManager')
+#17 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Request.php(272): yii\base\Application->getUrlManager()
+#18 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Application.php(82): yii\web\Request->resolve()
+#19 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 /opt/wwwroot/yii2-app-advanced/api/web/index.php(17): yii\base\Application->run()
+#21 {main}
+Additional Information:
+Array
+(
+)
+
+2018-03-07 15:57:24 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'a53ffa4ffb50e1a9a6902cb64051a6a5'
+    '_csrf' => 'e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi\";}'
+]
+
+$_SERVER = [
+    'USER' => 'Jake'
+    'HOME' => '/Users/Jake'
+    'HTTP_COOKIE' => 'PHPSESSID=a53ffa4ffb50e1a9a6902cb64051a6a5; _csrf=e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7,zh-TW;q=0.6'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'local.api.helpe.online'
+    'SCRIPT_FILENAME' => '/opt/wwwroot/yii2-app-advanced/api/web/index.php'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'local.api.helpe.online'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '56813'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.13.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => '/opt/wwwroot/yii2-app-advanced/api/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/v1/site'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1520438244.227
+    'REQUEST_TIME' => 1520438244
+    'argv' => []
+    'argc' => 0
+]
+2018-03-07 15:57:24 [127.0.0.1][-][-][error][yii\db\Exception] yii\db\Exception: Redis error: ERR Client sent AUTH, but no password is set
+Redis command was: AUTH F2hsXBRdbqSx2DGD in /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php:729
+Stack trace:
+#0 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(706): yii\redis\Connection->parseResponse('AUTH F2hsXBRdbq...')
+#1 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(690): yii\redis\Connection->sendCommandInternal('*2\r\n$4\r\nAUTH\r\n$...', Array)
+#2 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(556): yii\redis\Connection->executeCommand('AUTH', Array)
+#3 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Connection.php(665): yii\redis\Connection->open()
+#4 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2-redis/Cache.php(102): yii\redis\Connection->executeCommand('GET', Array)
+#5 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/caching/Cache.php(114): yii\redis\Cache->getValue('7d530521da89dc3...')
+#6 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(296): yii\caching\Cache->get('7d530521da89dc3...')
+#7 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(229): yii\web\UrlManager->getBuiltRulesFromCache(Array)
+#8 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/UrlManager.php(191): yii\web\UrlManager->buildRules(Array)
+#9 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/BaseObject.php(109): yii\web\UrlManager->init()
+#10 [internal function]: yii\base\BaseObject->__construct(Array)
+#11 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(383): ReflectionClass->newInstanceArgs(Array)
+#12 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/Container.php(156): yii\di\Container->build('yii\\web\\UrlMana...', Array, Array)
+#13 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/BaseYii.php(349): yii\di\Container->get('yii\\web\\UrlMana...', Array, Array)
+#14 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/di/ServiceLocator.php(137): yii\BaseYii::createObject(Array)
+#15 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Module.php(742): yii\di\ServiceLocator->get('urlManager', true)
+#16 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(571): yii\base\Module->get('urlManager')
+#17 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Request.php(272): yii\base\Application->getUrlManager()
+#18 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/web/Application.php(82): yii\web\Request->resolve()
+#19 /opt/wwwroot/yii2-app-advanced/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 /opt/wwwroot/yii2-app-advanced/api/web/index.php(17): yii\base\Application->run()
+#21 {main}
+Additional Information:
+Array
+(
+)
+
+2018-03-07 15:57:24 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'a53ffa4ffb50e1a9a6902cb64051a6a5'
+    '_csrf' => 'e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi\";}'
+]
+
+$_SERVER = [
+    'USER' => 'Jake'
+    'HOME' => '/Users/Jake'
+    'HTTP_COOKIE' => 'PHPSESSID=a53ffa4ffb50e1a9a6902cb64051a6a5; _csrf=e0bedec657a8bd3434bfecc423d7e6e2a499a903f1e80db69ee52f68820655caa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22gA-fd9yN_KDBTkqTR0RNp9m-HUKh2ahi%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7,zh-TW;q=0.6'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'local.api.helpe.online'
+    'SCRIPT_FILENAME' => '/opt/wwwroot/yii2-app-advanced/api/web/index.php'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'local.api.helpe.online'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '56813'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.13.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => '/opt/wwwroot/yii2-app-advanced/api/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/v1/site'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1520438244.227
+    'REQUEST_TIME' => 1520438244
+    'argv' => []
+    'argc' => 0
+]
