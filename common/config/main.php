@@ -10,11 +10,11 @@ return [
         // 数据库配置
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=127.0.0.1;dbname=yii_ace',
-            'username' => 'root',
-            'password' => '123456',
+            'dsn' => 'mysql:host=127.0.0.1;dbname=db_helpe',
+            'username' => 'helpe',
+            'password' => 'Y6RZPOtMfa4!^@ww',
             'charset' => 'utf8',
-            'tablePrefix' => 'yii2_',
+            'tablePrefix' => 'admin_',
         ],
 
         // 路由配置
