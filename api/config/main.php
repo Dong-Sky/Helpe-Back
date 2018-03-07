@@ -36,6 +36,7 @@ return [
             'hostname' => '127.0.0.1',
             'port' => '6379',
             'database' => 0,
+            'password' => 'F2hsXBRdbqSx2DGD',
         ],
         // 用户配置
         'user' => [
