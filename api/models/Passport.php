@@ -10,10 +10,20 @@ namespace api\models;
 
 
 use yii\db\ActiveRecord;
+use common\behaviors\TimestampBehavior;
 
 class Passport extends ActiveRecord {
 
 
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+        ];
+    }
 
 
 
