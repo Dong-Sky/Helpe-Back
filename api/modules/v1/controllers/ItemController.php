@@ -6,6 +6,7 @@ use yii\rest\ActiveController;
 use yii\web\Response;
 use yii\data\ActiveDataProvider;
 use api\rests\HelpeDataProvider;
+use yii\caching\TagDependency;
 
 class ItemController extends ActiveController
 {
@@ -44,6 +45,11 @@ class ItemController extends ActiveController
     ];
 
 
+    public function getCacheKey(){
+        //todo
+        return "item_list_1";
+    }
+
     public function actionIndex() {
         $session = \Yii::$app->session;
 
@@ -63,9 +69,10 @@ class ItemController extends ActiveController
 //        ]);
 //        return $ActiveDataProvider;
 
+
         $ActiveDataProvider =  new HelpeDataProvider([
             'query' => $query,
-            'cache_rule'=>[$key,"cache_depend"]
+            'cache_rule'=>['key'=>$key,"cache_depend"=>new TagDependency(['tags' => 'item_list'])]
         ]);
 
         return $ActiveDataProvider;

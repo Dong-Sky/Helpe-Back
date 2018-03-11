@@ -33,13 +33,6 @@ use yii\web\Response;
 class Serializer extends \yii\rest\Serializer
 {
 
-    public $cache_rule;
-
-    public function getCacheKey(){
-        return "item_list_1";
-    }
-
-
     protected function __serializeDataProvider($dataProvider){
         if ($this->preserveKeys) {
             $models = $dataProvider->getModels();
@@ -80,15 +73,19 @@ class Serializer extends \yii\rest\Serializer
     protected function serializeDataProvider($dataProvider)
     {
 
-        $cache_key = $dataProvider->getCacheKey();
-        //var_dump($cache_key);
-        $cache = \Yii::$app->cache;
+        $data = null;
+        if($dataProvider->getCacheRule()){
+            $cache_key = $dataProvider->getCacheKey();
+            //var_dump($cache_key);
+            $cache = \Yii::$app->cache;
 
-
-        $data = $cache->getOrSet($cache_key, function () use($dataProvider) {
-            //echo "no cache";
-            return $this->__serializeDataProvider($dataProvider);
-        },300);
+            $data = $cache->getOrSet($cache_key, function () use($dataProvider) {
+                //echo "no cache";
+                return $this->__serializeDataProvider($dataProvider);
+            },$dataProvider->getCacheTimeout(),$dataProvider->getCacheDepend());
+        }else{
+            $data =  $this->__serializeDataProvider($dataProvider);
+        }
 
         //var_dump($data);
         return $data;
