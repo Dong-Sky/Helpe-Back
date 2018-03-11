@@ -1,4 +1,8 @@
 <?php
 return [
-    'adminEmail' => 'admin@example.com',
+
+
+    // 最小发送邮件间隔
+    'passportSendMailMinTime' => 120,
+
 ];

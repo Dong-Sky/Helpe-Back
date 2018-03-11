@@ -29,7 +29,7 @@
         "yiisoft/yii2-redis": "~2.0.0",
         "aliyuncs/oss-sdk-php": "~2.0",
         "mailgun/mailgun-php": "*",
-        "php-http/guzzle6-adapter" : "*",
+        "php-http/guzzle6-adapter": "*",
         "php-http/message": "*"
     },
     "require-dev": {

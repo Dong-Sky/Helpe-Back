@@ -41,18 +41,23 @@ return [
         // 用户配置
         'user' => [
             'identityClass'   => 'common\models\User',
-            'enableAutoLogin' => false,
+            'enableAutoLogin' => true,
             'enableSession' => false,
             'loginUrl' => null,
         ],
 
+        // 需要检查 严格校验对 UrlRule 的规则问题
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'enableStrictParsing' => true,
+            //'enableStrictParsing' => true,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' => ['v1/site']],
-                ['class' => 'yii\rest\UrlRule', 'controller' => ['v2/site']]
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => ['v1/user'],
+                    //'pluralize' => false,
+                ],
+                //['class' => 'yii\rest\UrlRule', 'controller' => ['v2/site']]
             ],
         ],
 
@@ -68,13 +73,19 @@ return [
 
 
         'response' => [
+
+//            'class' => 'yii\web\Response',
+//            'on beforeSend' => function ($event) {
+//                $response = $event->sender;
+//                $response->format = yii\web\Response::FORMAT_JSON;
+//            },
+
             'formatters' => [
                 \yii\web\Response::FORMAT_JSON => [
                     'class' => 'yii\web\JsonResponseFormatter',
                     'prettyPrint' => YII_DEBUG,
                     'encodeOptions' => JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE,
                 ],
-
             ],
         ],
 

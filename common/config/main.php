@@ -2,6 +2,7 @@
 return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
+
         // 缓存配置
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -14,7 +15,22 @@ return [
             'username' => 'helpe',
             'password' => 'Y6RZPOtMfa4!^@ww',
             'charset' => 'utf8',
-            'tablePrefix' => 'admin_',
+            'tablePrefix' => 'helpe_',
+        ],
+
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'viewPath' => '@common/mail',
+            // false : 非测试状态, 发送真实邮件而非存储为文件
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.mailgun.org',
+                'username' => 'postmaster@helpe.online',
+                'password' => '306af0f636827d4fa5238e58f548995d-2b4c5a6c-fb008b00',
+                'port' => '25',
+                'encryption' => 'tls',
+            ],
         ],
 
         // 路由配置

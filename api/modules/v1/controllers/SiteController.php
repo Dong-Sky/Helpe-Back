@@ -8,6 +8,7 @@
 
 namespace api\modules\v1\controllers;
 
+use common\helpers\Mailer;
 use Yii;
 use yii\rest\ActiveController;
 use yii\filters\auth\CompositeAuth;
@@ -39,7 +40,10 @@ class SiteController extends \yii\rest\ActiveController {
 
 
     public function actionIndex() {
-        $session = \Yii::$app->session;
+        $session = Yii::$app->session;
+
+        var_dump('<pre>', Mailer::registerCheckDigit("272746238@qq.com", "fjdsafa13"), '</pre>');
+        exit();
 
         //var_dump('<pre>', $session, '</pre>');
 
