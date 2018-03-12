@@ -33,10 +33,11 @@ class ItemController extends ActiveController
         //使用自己写action类
         //$actions['index']['class'] = 'api\modules\v1\rests\item\IndexAction';
 
-        //使用inline function来调用自己的实现，不使用ation类
-        unset($actions['index']);
+        // 注销系统自带的实现方法
+        unset($actions['index'], $actions['update'], $actions['create'], $actions['delete'], $actions['view']);
         return $actions;
     }
+
 
 
     public $serializer = [
@@ -45,12 +46,122 @@ class ItemController extends ActiveController
     ];
 
 
-    public function getCacheKey(){
+    public function getCacheRule(){
+        //$vaid_query_key = ["expand",""]
         //todo
-        return "item_list_1";
+        $key = $modify_tag = $cache_depend = null;
+        $action_id = Yii::$app->controller->action->id;
+        $qs = \Yii::$app->request->queryParams;
+
+        if($action_id=="info"){
+            $key = "item_info_".$qs["id"];
+            $modify_tag = "item_list";
+        }elseif($action_id=="index"){
+            sort($qs);
+            $condition = implode(",",array_values($qs));
+            $key = "item_info_".$condition;
+            $cache_depend = "item_list";
+        }
+
+        $rule = [];
+        $rule["key"] = $key;
+        if($modify_tag){
+            $rule["modify_tag"] = new TagDependency(['tags' => $modify_tag]);
+        }else{
+            $rule["modify_tag"] = $modify_tag;
+        }
+        if($cache_depend){
+            $rule["cache_depend"] =  new TagDependency(['tags' => $cache_depend]);
+        }else{
+            $rule["cache_depend"] = $cache_depend;
+        }
+
+        return $rule;
+    }
+
+    public function actionUpdate() {
+
+//        //模拟数据，数组的一维必须是相关模型名
+//        //手动封盖值用于测试
+//        $data = [
+//            'Test' => [
+//                'username' => 'hello',
+//                'password' => '123321'
+//            ]
+//        ];
+//
+//        $test = new \app\models\Test();
+//        $test->load($data);
+//        if($data && $test->validate()){
+//            echo 'ok';
+//        }else{
+//            var_dump($test->errors);
+//        }
+    }
+
+    public function actionInfo() {
+
+        $id = \Yii::$app->request->get("id");
+
+
+        if($id){
+            $condition = ['=', 'id', $id];
+        }
+
+        //Yii::$app->request->setQueryParams(array_merge(Yii::$app->request->getQueryParams(),
+        //    ['expand' => 'itemdetail,itemimg']));
+
+        //var_dump($this->getCacheKey());
+        //var_dump(\Yii::$app->request->queryParams);
+        $modelClass = $this->modelClass;
+
+
+        $query = $modelClass::find()->where($condition);
+
+        //var_dump($this->getCacheRule());exit;
+        $ActiveDataProvider =  new HelpeDataProvider([
+            'query' => $query,
+            'cache_rule'=>$this->getCacheRule(),
+        ]);
+
+        $this->serializer['collectionEnvelope'] = null;
+        return $ActiveDataProvider;
     }
 
     public function actionIndex() {
+
+        $condition = [];
+        $et = \Yii::$app->request->get("et");
+        $st = \Yii::$app->request->get("st");
+
+        if($et && $st){
+            $condition[] = ['>', 'pt', $st];
+            $condition[] = ['<', 'pt', $et];
+        }
+
+        $session = \Yii::$app->session;
+
+        //Yii::$app->request->setQueryParams(array_merge(Yii::$app->request->getQueryParams(),
+        //    ['expand' => 'itemdetail,itemimg']));
+
+        //var_dump($this->getCacheKey());
+        //var_dump(\Yii::$app->request->queryParams);
+        $modelClass = $this->modelClass;
+
+
+        $query = $modelClass::find()
+            ->where($condition);
+
+        $ActiveDataProvider =  new HelpeDataProvider([
+            'query' => $query,
+            'cache_rule'=>$this->getCacheRule()
+        ]);
+
+        return $ActiveDataProvider;
+    }
+
+
+    public function actionIndex1() {
         $session = \Yii::$app->session;
 
         $cache = \Yii::$app->cache;

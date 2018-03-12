@@ -33,6 +33,8 @@ use yii\web\Response;
 class Serializer extends \yii\rest\Serializer
 {
 
+    public $preserveKeys = true;
+
     protected function __serializeDataProvider($dataProvider){
         if ($this->preserveKeys) {
             $models = $dataProvider->getModels();
@@ -49,7 +51,8 @@ class Serializer extends \yii\rest\Serializer
         if ($this->request->getIsHead()) {
             return null;
         } elseif ($this->collectionEnvelope === null) {
-            return $models;
+            //return $models;
+            return ['code' => '0', 'message' => 'success', 'data' => $models];
         } else {
             //var_dump($models);
             $result = [
