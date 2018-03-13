@@ -8,6 +8,7 @@
 
 namespace api\modules\v1\controllers;
 
+use api\controllers\ApiException;
 use api\models\Passport;
 use api\models\Register;
 use common\models\User;
@@ -39,6 +40,7 @@ class PassportController extends BaseActiveController {
 
     /**
      * @return Response
+     * @throws ApiException
      * 检查电子邮件是否有效
      */
     public function actionCheckEmail() {
@@ -52,7 +54,7 @@ class PassportController extends BaseActiveController {
                 return Passport::find()->where(['type' => 1, 'email' => $email])->one();
             }, 24 * 3600);
             if($passportInfo) {
-                $status = 10003;
+                throw new ApiException(10003);
             } else {
                 $recentTime = time() - 2 * 3600;
                 $registerInfo = Register::find()
@@ -60,7 +62,7 @@ class PassportController extends BaseActiveController {
                     ->orderBy('updated_at DESC')->one();
 
                 if($registerInfo && (time() - $registerInfo['created_at'] < Yii::$app->params['passportSendMailMinTime']) ) {
-                    $status = 10002;
+                    throw new ApiException(10002);
                 } else {
                     //再次发送验证码, 并保存到数据库中, 验证码保存不区分大小写
                     $authToken = substr(str_replace(['-', '_', '0', 'o', 'O', 'l', 'L', '1'], '', Yii::$app->security->generateRandomString(50)),0, 6);
@@ -79,20 +81,20 @@ class PassportController extends BaseActiveController {
                         }
                     }
                     if(!$sendStatus) {
-                        $status = 10004;
+                        throw new ApiException(10004);
                     }
                 }
             }
         } else {
-            $status = 10001;
+            throw new ApiException(10001);
         }
-        return new Response($status, []);
+        return new Response(0, []);
     }
 
     /**
      * 用户注册方法, 注册邮件根据客户端上报的key
      * @return Response
-     *
+     * @throws ApiException
      */
     public function actionRegister() {
         $status = 0;
@@ -113,7 +115,7 @@ class PassportController extends BaseActiveController {
                 return Passport::find()->where(['type' => 1, 'email' => $email])->one();
             }, 24 * 3600);
             if($passportInfo) {
-                $status = 10003;
+                throw new ApiException(10003);
             } else {
                 if($registerInfo['auth_token'] === $authToken) {
 
@@ -144,26 +146,38 @@ class PassportController extends BaseActiveController {
                     }
 
                     if(!$saveSuccess) {
-                        $status = 10007;
+                        throw new ApiException(10007);
                     }
                 } else {
-                    $status = 10005;
+                    throw new ApiException(10005);
                 }
             }
         } else {
-            $status = 10006;
+            throw new ApiException(10006);
         }
 
-        return new Response($status, []);
+        return new Response(0, []);
     }
 
     /**
-     * 用户登录, 登录分2部分, 第三方登录和默认登录, 根据类型判断
+     * 用户登录分2部分, 第三方登录和默认登录, 根据类型判断 type 判断
      * 1 是默认登录
      * 2 是 facebook 登录
      * @return Response
+     * @throws ApiException
      */
     public function actionLogin() {
+        $type = (int) trim($this->get['type']);
+        switch ($type) {
+            case 1:
+
+                break;
+            case 2:
+
+                break;
+            default:
+                throw new ApiException();
+        }
         return new Response(0, []);
     }
 

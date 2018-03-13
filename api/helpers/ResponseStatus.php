@@ -30,6 +30,13 @@ class ResponseStatus {
         10006 => 'REGISTER_EMAIL_CHECK_ERROR',          // 注册邮件检查错误
         10007 => 'SAVE_TO_DATABASE_ERROR',              // 保存到数据库错误
 
+        // 登录接口
+        10008 => 'LOGIN_IN_TYPE_ERROR',                 // 登录类型错误, 在不接受的范围内
+        10009 => 'USER_IS_NOT_EXISTS',                  // 用户不存在 默认登录的电子邮件
+        10010 => 'USER_PASSWORD_ERROR',                 // 用户名密码错误
+        // 第三方 登录信息
+        10011 => 'USER_TOKEN_CHECK_ERROR',              // 第三方用户登录 token 错误
+        10012 => 'USER_INFO_GET_ERROR',                 // 第三方用户信息获取错误
 
 
 

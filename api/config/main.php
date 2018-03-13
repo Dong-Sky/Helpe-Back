@@ -74,21 +74,33 @@ return [
 
         'response' => [
 
-//            'class' => 'yii\web\Response',
-//            'on beforeSend' => function ($event) {
-//                $response = $event->sender;
-//                $response->format = yii\web\Response::FORMAT_JSON;
-//            },
-
-            'formatters' => [
-                \yii\web\Response::FORMAT_JSON => [
-                    'class' => 'yii\web\JsonResponseFormatter',
-                    'prettyPrint' => YII_DEBUG,
-                    'encodeOptions' => JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE,
-                ],
-            ],
+            'class' => 'yii\web\Response',
+            'on beforeSend' => function ($event) {
+                $response = $event->sender;
+                $response->format = yii\web\Response::FORMAT_JSON;
+                if($response->data !== null) {
+                    if(isset($response->data['name']) && $response->data['name'] === 'Exception') {
+                        $response->data = [
+                            'code' => $response->data['code'],
+                            'message' => \api\helpers\ResponseStatus::getMessage($response->data['code']),
+                            'data' => [],
+                        ];
+                    }
+                }
+            },
+//
+//            'formatters' => [
+//                \yii\web\Response::FORMAT_JSON => [
+//                    'class' => 'yii\web\JsonResponseFormatter',
+//                    'prettyPrint' => YII_DEBUG,
+//                    'encodeOptions' => JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE,
+//                ],
+//            ],
         ],
 
+        'errorHandler' => [
+            'errorAction' => 'v1/site/error',
+        ],
 
     ],
 
