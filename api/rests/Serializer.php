@@ -35,14 +35,16 @@ class Serializer extends \yii\rest\Serializer
 
     public $preserveKeys = true;
 
+    public $singleEnvelope = false;
+
     protected function __serializeDataProvider($dataProvider){
+
         if ($this->preserveKeys) {
             $models = $dataProvider->getModels();
         } else {
             $models = array_values($dataProvider->getModels());
         }
         $models = $this->serializeModels($models);
-        //var_dump($models);exit;
 
         if (($pagination = $dataProvider->getPagination()) !== false) {
             $this->addPaginationHeaders($pagination);
@@ -52,7 +54,8 @@ class Serializer extends \yii\rest\Serializer
             return null;
         } elseif ($this->collectionEnvelope === null) {
             //return $models;
-            return ['code' => '0', 'message' => 'success', 'data' => $models];
+            //如果没有要求包装就默认返回第一个数组
+            return ['code' => '0', 'message' => 'success', 'data' => $models[0]];
         } else {
             //var_dump($models);
             $result = [

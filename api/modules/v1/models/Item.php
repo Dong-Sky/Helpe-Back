@@ -1,6 +1,7 @@
 <?php
 namespace api\modules\v1\models;
 
+use Yii;
 use yii\db\ActiveRecord;
 use api\modules\v1\models\Itemdetail;
 use api\modules\v1\models\Itemimg;
@@ -21,7 +22,8 @@ class Item extends ActiveRecord
         ];
     }
 
-    protected $data_field = [];
+    protected $relation_fields = [];
+
     public static function tableName()
     {
         return '{{%item}}';
@@ -36,41 +38,44 @@ class Item extends ActiveRecord
     }
 
 
-//    public function scenarios()
-//    {
-//        return [
-//            'create'=>['teacher_id', 'name', 'price', 'address', 'class_time', 'limit_num', 'description', 'create_time', 'update_time'],
-//            'update'=>['teacher_id', 'name', 'price', 'address', 'class_time', 'limit_num', 'description', 'update_time'],
-//        ];
-//    }
+    public function scenarios()
+    {
+        return [
+            'index'=>$this->fields()+['itemdetail','itemimg'],
+            'update'=>['teacher_id', 'name', 'price', 'address', 'class_time', 'limit_num', 'description', 'update_time'],
+        ];
+    }
 
 
     public function rules(){
         return [
             //[['username','password'],'required','message'=>'不能为空']
-            ['username','required','message' => '用户名不能为空'],
-            ['password','required','message' => '密码不能为空']
+            ['uid','required','message' => '用户名不能为空'],
+            ['cid', 'in', 'range' => array(0, 1)],
+            ['uid', 'numerical', 'integerOnly'=>true],
         ];
     }
 
     public function fields()
     {
-        if($this->data_field){
-            $fields = parent::fields();
-
-            //$fields += ['itemdetail','itemimg'];
-        }else{
-            $fields = parent::fields();
+        $action_id = Yii::$app->controller->action->id;
+        $fields = parent::fields();
+        if($action_id=="index"||$action_id=="info"){
+            $fields += ['itemdetail','itemimg'];
         }
 
         // 删除一些包含敏感信息的字段
         //unset($fields['auth_key'], $fields['password_hash'], $fields['password_reset_token']);
-
+        //$fields += ['itemdetail','itemimg'];
         return $fields;
     }
 
-    public function setFields($fields){
-        $this->data_field = $fields;
+    /**
+     * 设置关联字段
+     * @param $fields
+     */
+    public function setRelationFields($fields){
+        $this->relation_fields = $fields;
     }
 
     public function extraFields()

@@ -6,7 +6,6 @@ use yii\base\InvalidConfigException;
 
 class HelpeDataProvider extends \yii\data\ActiveDataProvider
 {
-
     public $cache_timeout = 300;
     /**
      * @var ['key'=>"",'cache_depend'=>""]
@@ -27,6 +26,10 @@ class HelpeDataProvider extends \yii\data\ActiveDataProvider
 
     public function getCacheTimeout(){
         return $this->cache_timeout;
+    }
+
+    public function setIsOne($isOne){
+        return $this->isOne;
     }
 }
 ?>
