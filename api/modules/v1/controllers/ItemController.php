@@ -8,6 +8,8 @@ use yii\web\Response;
 use yii\data\ActiveDataProvider;
 use api\rests\HelpeDataProvider;
 use yii\caching\TagDependency;
+use api\modules\v1\models\Item;
+use api\modules\v1\models\Itemdetail;
 
 class ItemController extends BaseController
 {
@@ -132,29 +134,102 @@ class ItemController extends BaseController
             $paytp = \Yii::$app->request->post("paytp",0);
             $conact =  \Yii::$app->request->post("contact");
 
+            /*
+             public $id;             //用户id
+    public $name;
+    public $appid=0;
+    public $cid=1;
+    public $img="";
+    public $tp=1;
+    public $t=NOW_TIME;
+    public $mt=NOW_TIME;
+    public $pt = NOW_TIME;
+
+    public $price;
+    public $flag = 0;
+    public $uid=0;
+    public $tag=0;
+
+
+    public $aid;
+    public $pet=0;
+    public $lat;
+    public $lng;
+    public $aaid=0;
+    public $paytp=0;
+    public $contact="";
+    public $salenum=0;
+    public $u="";
+    public $deadline="";
+             */
             $data = [
-                'Test' => [
+                'Item' => [
                     'uid' => $uid,
                     'aid' => $aid,
+                    'appid'=> 0,
                     'name' => $name,
                     'type' => $type,
                     'cid' => $cid,
                     'price' => $price,
-                    'mark' => $mark,
                     'paytp' => $paytp,
-                    'contact' => $conact
+                    'contact' => $conact,
+                    'img' =>"/sstetttt.jpg",
+                    'flag' =>1,
+                    'tag'=>"133333",
+                    'aaid'=>1,
+                    //todo 获取地理位置
+                    'lat'=>1,
+                    'lng'=>1,
+                    'aaid'=>0,
+                    'paytp'=>0,
+                    'salenum'=>0,
+                    'unit'=>"",
+                    //'deadline'=>"",
+                    'pt'=>time(),
+                    'pet'=>0,
                 ]
             ];
+            //$data_detail = ['itemdetail' => ["mark"=>$mark]];
+            // 开始事务查询
+            $transaction = Yii::$app->db->beginTransaction();
+            $saveSuccess = false;
+            try{
+                //var_dump($data);exit;
+                $item = new Item();
+                $item->load($data);
+                var_dump($data);
+                if($data && $item->validate()){
+                    echo 'ok';
+                    $item->save();
 
-            $model = new Item();
-            $model->load($data);
-            if($data && $model->validate()){
-                echo 'ok';
-                $model->save();
-                TagDependency::invalidate(Yii::$app->cache, 'num');
-            }else{
-                var_dump($model->errors);
+                    $itmedetail = new Itemdetail();
+                    $itmedetail->mark = $mark;
+                    //$itmedetail->itemid = $item->id;
+
+                    if($itmedetail->validate()){
+                        echo 'ok2';
+                        //$itmedetail->save();
+                        $item->link('itemdetail', $itmedetail);
+                    }else{
+                        var_dump($itmedetail->errors);
+                    }
+
+                    $transaction->commit();
+                    $saveSuccess = true;
+
+
+                }else{
+                    var_dump($item->errors);
+                }
+            } catch (\Exception $e) {
+                var_dump($e->getMessage());
+                $transaction->rollBack();
+                exit;
             }
+
+            TagDependency::invalidate(Yii::$app->cache, 'num');
+        }else{
+            echo 2222;
         }
 
 

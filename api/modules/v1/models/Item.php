@@ -40,7 +40,9 @@ class Item extends ActiveRecord
 
     public function scenarios()
     {
+        $default_scenarios = parent::scenarios();
         return [
+            'default'=>$default_scenarios["default"],
             'index'=>$this->fields()+['itemdetail','itemimg'],
             'update'=>['teacher_id', 'name', 'price', 'address', 'class_time', 'limit_num', 'description', 'update_time'],
         ];
@@ -50,9 +52,11 @@ class Item extends ActiveRecord
     public function rules(){
         return [
             //[['username','password'],'required','message'=>'不能为空']
-            ['uid','required','message' => '用户名不能为空'],
+            [['uid','name','appid','type','cid','price','paytp','contact','img','flag','tag','aid','aaid','lat','lng',
+                'pt','pet'],
+                'required','message' => '字段不能为空'],
             ['cid', 'in', 'range' => array(0, 1)],
-            ['uid', 'numerical', 'integerOnly'=>true],
+            ['uid', 'integer'],
         ];
     }
 
