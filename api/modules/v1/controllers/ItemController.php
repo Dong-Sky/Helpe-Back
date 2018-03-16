@@ -10,8 +10,10 @@ use api\rests\HelpeDataProvider;
 use yii\caching\TagDependency;
 use api\modules\v1\models\Item;
 use api\modules\v1\models\Itemdetail;
+use yii\helpers\ArrayHelper;
+use api\controllers\BaseActiveController;
 
-class ItemController extends BaseController
+class ItemController extends BaseActiveController
 {
     public $modelClass = 'api\modules\v1\models\Item';
 
@@ -31,24 +33,12 @@ class ItemController extends BaseController
         ]);
     }
 
-    public function actions()
-    {
-        $actions = parent::actions();
-
-        //使用自己写action类
-        //$actions['index']['class'] = 'api\modules\v1\rests\item\IndexAction';
-
-        // 注销系统自带的实现方法
-        unset($actions['index'], $actions['update'], $actions['create'], $actions['delete'], $actions['view']);
-        return $actions;
-    }
 
 
-
-//    public $serializer = [
-//        'class'=>'api\rests\Serializer',
-//        'collectionEnvelope' => 'data',
-//    ];
+    public $serializer = [
+        'class'=>'api\rests\Serializer',
+        'collectionEnvelope' => 'data',
+    ];
 
 
     public function getCacheRule(){
@@ -88,8 +78,13 @@ class ItemController extends BaseController
     public function updateCache(){
         $rule = $this->getCacheRule();
         if($rule){
-            TagDependency::invalidate(Yii::$app->cache, $rule["cache_depend"]);
-            Yii::$app->cache->delete($rule["modify_tag"]);
+            if($rule["cache_depend"]){
+                TagDependency::invalidate(Yii::$app->cache, $rule["cache_depend"]);
+            }
+            if($rule["modify_tag"]){
+                Yii::$app->cache->delete($rule["modify_tag"]);
+            }
+
         }
     }
 
@@ -208,7 +203,6 @@ class ItemController extends BaseController
                 $item = new Item();
                 $item->load($data);
                 if($data && $item->validate()){
-                    echo 'ok';
                     $item->save();
 
                     $itmedetail = new Itemdetail();
@@ -238,14 +232,14 @@ class ItemController extends BaseController
             }
 
             $this->updateCache();
-
+            echo 11111;
         }else{
             //echo 2222;
             throw new ApiException(9997);
         }
 
+        echo 222222;
         return new Response(0, []);
-
     }
 
     public function actionInfo() {
