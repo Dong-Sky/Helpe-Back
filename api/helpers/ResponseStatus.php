@@ -17,6 +17,7 @@ class ResponseStatus {
     public static $status = [
         // 基础信息
         0 => "",                                        // 正常返回
+        9998 => 'REQUEST_PARAM_ERROR',                  // 请求参数错误
         9999 => 'UNKNOWN_ERROR',                        // 未知错误
 
         // 注册接口步奏1 错误内容
@@ -34,10 +35,11 @@ class ResponseStatus {
         10008 => 'LOGIN_IN_TYPE_ERROR',                 // 登录类型错误, 在不接受的范围内
         10009 => 'USER_IS_NOT_EXISTS',                  // 用户不存在 默认登录的电子邮件
         10010 => 'USER_PASSWORD_ERROR',                 // 用户名密码错误
+        10011 => 'USER_INFO_GET_ERROR',                 // 常规登录用户信息获取错误
+        10012 => 'USER_INFO_SAVE_ERROR',                 // 常规登录用户信息获取错误
         // 第三方 登录信息
-        10011 => 'USER_TOKEN_CHECK_ERROR',              // 第三方用户登录 token 错误
-        10012 => 'USER_INFO_GET_ERROR',                 // 第三方用户信息获取错误
-
+        10012 => 'USER_TOKEN_CHECK_ERROR',              // 第三方用户登录 token 错误
+        10013 => 'GET_USER_BY_TOKEN_ERROR',             // 第三方token 获取用户信息错误
 
 
 

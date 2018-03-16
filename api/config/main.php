@@ -79,10 +79,19 @@ return [
                 $response = $event->sender;
                 $response->format = yii\web\Response::FORMAT_JSON;
                 if($response->data !== null) {
+                    //var_dump($response->statusCode);
+                    //var_dump('<pre>', $response);
                     if(isset($response->data['name']) && $response->data['name'] === 'Exception') {
+                        //var_dump($response->data, 'ccc');
                         $response->data = [
                             'code' => $response->data['code'],
                             'message' => \api\helpers\ResponseStatus::getMessage($response->data['code']),
+                            'data' => [],
+                        ];
+                    } else if($response->statusCode !== 200) {
+                        $response->data = [
+                            'code' => $response->statusCode,
+                            'message' => \api\helpers\ResponseStatus::getMessage($response->statusCode),
                             'data' => [],
                         ];
                     }
@@ -96,10 +105,6 @@ return [
 //                    'encodeOptions' => JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE,
 //                ],
 //            ],
-        ],
-
-        'errorHandler' => [
-            'errorAction' => 'v1/site/error',
         ],
 
     ],

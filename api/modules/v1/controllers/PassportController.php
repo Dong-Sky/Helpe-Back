@@ -11,6 +11,7 @@ namespace api\modules\v1\controllers;
 use api\controllers\ApiException;
 use api\models\Passport;
 use api\models\Register;
+use api\modules\v1\models\CommonLogin;
 use common\models\User;
 use Yii;
 use api\controllers\BaseActiveController;
@@ -163,22 +164,48 @@ class PassportController extends BaseActiveController {
      * 用户登录分2部分, 第三方登录和默认登录, 根据类型判断 type 判断
      * 1 是默认登录
      * 2 是 facebook 登录
+     *
      * @return Response
      * @throws ApiException
      */
     public function actionLogin() {
         $type = (int) trim($this->get['type']);
+        $ret = [];
         switch ($type) {
             case 1:
-
+                $commonLogin = new CommonLogin();
+                if($commonLogin->load($this->get,'') && $commonLogin->login()) {
+                    // 处理 user token
+                    $transaction = Yii::$app->db->beginTransaction();
+                    $success = false;
+                    try {
+                        $user = User::findIdentityByEmail(1, $commonLogin->email);
+                        if(!$user) {
+                            throw new ApiException(10011);
+                        } else {
+                            Yii::$app->cache->delete('access_token_' . $user->access_token);
+                            $user->access_token = substr(str_replace(['-', '_', '0', 'o', 'O', 'l', 'L', '1'], '', Yii::$app->security->generateRandomString(70)),0, 40);;
+                            $user->save();
+                        }
+                        $success = true;
+                        $ret = $user->attributes;
+                    } catch (\Exception $e) {
+                        $transaction->rollBack();
+                    }
+                    if(!$success) {
+                        throw new ApiException(10012);
+                    }
+                } else {
+                    throw new ApiException(9998);
+                }
                 break;
             case 2:
 
                 break;
             default:
-                throw new ApiException();
+                throw new ApiException(10008);
         }
-        return new Response(0, []);
+        return new Response(0, $ret);
     }
 
 }

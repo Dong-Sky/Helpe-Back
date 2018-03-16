@@ -10,13 +10,18 @@ namespace api\controllers;
 
 
 
-use Throwable;
+
 
 class ApiException extends \Exception {
 
     public function __construct($code = 0)
     {
         parent::__construct("", $code);
+    }
+
+    public function getName()
+    {
+        return 'ApiException';
     }
 
 }

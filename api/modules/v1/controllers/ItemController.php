@@ -40,10 +40,10 @@ class ItemController extends ActiveController
 
 
 
-    public $serializer = [
-        'class'=>'api\rests\Serializer',
-        'collectionEnvelope' => 'data',
-    ];
+//    public $serializer = [
+//        'class'=>'api\rests\Serializer',
+//        'collectionEnvelope' => 'data',
+//    ];
 
 
     public function getCacheRule(){
