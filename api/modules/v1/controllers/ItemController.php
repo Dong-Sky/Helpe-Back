@@ -15,18 +15,20 @@ class ItemController extends BaseController
 {
     public $modelClass = 'api\modules\v1\models\Item';
 
+    /**
+     * @return array
+     * 设置过滤方法
+     */
     public function behaviors() {
-        $behaviors = parent::behaviors();
-//        $behaviors['authenticator'] = [
-//            'class' => CompositeAuth::className(),
-//            'authMethods' => [
-//                //3.请求参数: access token 当作API URL请求参数发送，这种方式应主要用于JSONP请求，因为它不能使用HTTP头来发送access token
-//                //http://localhost/user/index/index?access-token=123
-//                QueryParamAuth::className(),
-//            ],
-//        ];
-        $behaviors['contentNegotiator']['formats']['text/html'] = Response::FORMAT_JSON;
-        return $behaviors;
+        return ArrayHelper::merge(parent::behaviors(), [
+            'authenticator' => [
+                'optional' => [
+                    'check-email',
+                    'register',
+                    'login',
+                ],
+            ]
+        ]);
     }
 
     public function actions()
@@ -56,6 +58,7 @@ class ItemController extends BaseController
         $action_id = Yii::$app->controller->action->id;
         $qs = \Yii::$app->request->queryParams;
 
+        //在这里写cache_rule
         if($action_id=="info"){
             $key = "item_info_".$qs["id"];
             $modify_tag = "item_list";
@@ -80,6 +83,14 @@ class ItemController extends BaseController
         }
 
         return $rule;
+    }
+
+    public function updateCache(){
+        $rule = $this->getCacheRule();
+        if($rule){
+            TagDependency::invalidate(Yii::$app->cache, $rule["cache_depend"]);
+            Yii::$app->cache->delete($rule["modify_tag"]);
+        }
     }
 
     public function actionUpdate() {
@@ -194,10 +205,8 @@ class ItemController extends BaseController
             $transaction = Yii::$app->db->beginTransaction();
             $saveSuccess = false;
             try{
-                //var_dump($data);exit;
                 $item = new Item();
                 $item->load($data);
-                var_dump($data);
                 if($data && $item->validate()){
                     echo 'ok';
                     $item->save();
@@ -207,11 +216,10 @@ class ItemController extends BaseController
                     //$itmedetail->itemid = $item->id;
 
                     if($itmedetail->validate()){
-                        echo 'ok2';
-                        //$itmedetail->save();
                         $item->link('itemdetail', $itmedetail);
                     }else{
-                        var_dump($itmedetail->errors);
+                        //var_dump($itmedetail->errors);
+                        throw new ApiException(9998);
                     }
 
                     $transaction->commit();
@@ -219,20 +227,24 @@ class ItemController extends BaseController
 
 
                 }else{
-                    var_dump($item->errors);
+                    //var_dump($item->errors);
+                    throw new ApiException(9998);
                 }
             } catch (\Exception $e) {
-                var_dump($e->getMessage());
+                //var_dump($e->getMessage());
                 $transaction->rollBack();
-                exit;
+                //exit;
+                throw new ApiException(20002);
             }
 
-            TagDependency::invalidate(Yii::$app->cache, 'num');
+            $this->updateCache();
+
         }else{
-            echo 2222;
+            //echo 2222;
+            throw new ApiException(9997);
         }
 
-
+        return new Response(0, []);
 
     }
 

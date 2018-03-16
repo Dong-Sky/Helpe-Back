@@ -23,7 +23,8 @@ Thumbs.db
 #/composer.lock
 
 *.yml
-
+app.log.*
+app.log
 
 # composer itself is not needed
 composer.phar
