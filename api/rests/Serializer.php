@@ -55,17 +55,17 @@ class Serializer extends \yii\rest\Serializer
         } elseif ($this->collectionEnvelope === null) {
             //return $models;
             //如果没有要求包装就默认返回第一个数组
-            return ['code' => '0', 'message' => 'success', 'data' => $models[0]];
+            return ['status' => '0', 'err' => 'success', 'data' => $models[0]];
         } else {
             //var_dump($models);
             $result = [
                 $this->collectionEnvelope => $models,
             ];
             if ($pagination !== false) {
-                return ['code' => '0', 'message' => 'success', 'data' => array_merge($result, $this->serializePagination($pagination))];
+                return ['status' => '0', 'err' => 'success', 'data' => array_merge($result, $this->serializePagination($pagination))];
                 // return array_merge($result, $this->serializePagination($pagination));
             } else {
-                return ['code' => '0', 'message' => 'success', 'data' => $result];
+                return ['status' => '0', 'err' => 'success', 'data' => $result];
                 // return $result;
             }
         }
