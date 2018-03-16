@@ -185,8 +185,10 @@ class PassportController extends BaseActiveController {
                         } else {
                             Yii::$app->cache->delete('access_token_' . $user->access_token);
                             $user->access_token = substr(str_replace(['-', '_', '0', 'o', 'O', 'l', 'L', '1'], '', Yii::$app->security->generateRandomString(70)),0, 40);;
+                            $user->ip = Yii::$app->request->getUserIP();
                             $user->save();
                         }
+                        $transaction->commit();
                         $success = true;
                         $ret = $user->attributes;
                     } catch (\Exception $e) {

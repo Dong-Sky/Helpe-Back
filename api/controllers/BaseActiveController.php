@@ -11,8 +11,7 @@ namespace api\controllers;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
-use yii\filters\auth\QueryParamAuth;
-use \yii\rest\Controller;
+use yii\rest\Controller;
 
 class BaseActiveController extends Controller {
 
@@ -41,7 +40,7 @@ class BaseActiveController extends Controller {
                     'text/html' => Response::FORMAT_JSON,
                 ]
             ], 'authenticator' => [
-                'class' => QueryParamAuth::className(),
+                'class' => ApiAuth::className(),
                 'tokenParam' => 't',
             ]]
         );
