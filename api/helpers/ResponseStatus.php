@@ -17,6 +17,7 @@ class ResponseStatus {
     public static $status = [
         // 基础信息
         0 => "",                                        // 正常返回
+        9997 => 'REQUEST_TYPE_ERROR',                   // 请求类型错误指定get或post
         9998 => 'REQUEST_PARAM_ERROR',                  // 请求参数错误
         9999 => 'UNKNOWN_ERROR',                        // 未知错误
 
@@ -41,7 +42,8 @@ class ResponseStatus {
         10012 => 'USER_TOKEN_CHECK_ERROR',              // 第三方用户登录 token 错误
         10013 => 'GET_USER_BY_TOKEN_ERROR',             // 第三方token 获取用户信息错误
 
-
+        20001=> '',
+        20002 => 'SAVE_TO_DATABASE_ERROR',              // 保存到数据库错误
 
     ];
 
