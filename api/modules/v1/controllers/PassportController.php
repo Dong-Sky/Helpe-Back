@@ -15,7 +15,7 @@ use api\modules\v1\models\CommonLogin;
 use common\models\User;
 use Yii;
 use api\controllers\BaseActiveController;
-use api\models\Response;
+use api\models\ApiResponse;
 use yii\helpers\ArrayHelper;
 use common\helpers\Mailer;
 use common\helpers\Cache;
@@ -40,7 +40,7 @@ class PassportController extends BaseActiveController {
 
 
     /**
-     * @return Response
+     * @return ApiResponse
      * @throws ApiException
      * 检查电子邮件是否有效
      */
@@ -89,12 +89,12 @@ class PassportController extends BaseActiveController {
         } else {
             throw new ApiException(10001);
         }
-        return new Response(0, []);
+        return new ApiResponse(0, []);
     }
 
     /**
      * 用户注册方法, 注册邮件根据客户端上报的key
-     * @return Response
+     * @return ApiResponse
      * @throws ApiException
      */
     public function actionRegister() {
@@ -157,7 +157,7 @@ class PassportController extends BaseActiveController {
             throw new ApiException(10006);
         }
 
-        return new Response(0, []);
+        return new ApiResponse(0, []);
     }
 
     /**
@@ -165,7 +165,7 @@ class PassportController extends BaseActiveController {
      * 1 是默认登录
      * 2 是 facebook 登录
      *
-     * @return Response
+     * @return ApiResponse
      * @throws ApiException
      */
     public function actionLogin() {
@@ -207,7 +207,7 @@ class PassportController extends BaseActiveController {
             default:
                 throw new ApiException(10008);
         }
-        return new Response(0, $ret);
+        return new ApiResponse(0, $ret);
     }
 
 }

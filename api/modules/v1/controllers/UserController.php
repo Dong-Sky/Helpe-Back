@@ -10,7 +10,7 @@ namespace api\modules\v1\controllers;
 
 use Yii;
 use api\controllers\BaseActiveController;
-use api\models\Response;
+use api\models\ApiResponse;
 
 class UserController extends BaseActiveController {
 
@@ -18,11 +18,11 @@ class UserController extends BaseActiveController {
 
     public function actionIndex() {
 
-        return new Response(0, [], "");
+        return new ApiResponse(0, [], "");
     }
 
     public function actionLogin() {
-        return new Response(0, ['code' => 'dw'], "");
+        return new ApiResponse(0, ['code' => 'dw'], "");
     }
 
     public function actionAct() {

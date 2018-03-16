@@ -99,7 +99,7 @@ return [
             },
 //
 //            'formatters' => [
-//                \yii\web\Response::FORMAT_JSON => [
+//                \yii\web\ApiResponse::FORMAT_JSON => [
 //                    'class' => 'yii\web\JsonResponseFormatter',
 //                    'prettyPrint' => YII_DEBUG,
 //                    'encodeOptions' => JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE,

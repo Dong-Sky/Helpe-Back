@@ -11,7 +11,7 @@ namespace api\models;
 use api\helpers\ResponseStatus;
 use yii\base\Arrayable;
 
-class Response implements \ArrayAccess {
+class ApiResponse implements \ArrayAccess {
 
     /**
      * @var int
