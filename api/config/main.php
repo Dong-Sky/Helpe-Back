@@ -84,14 +84,14 @@ return [
                     if(isset($response->data['name']) && $response->data['name'] === 'Exception') {
                         //var_dump($response->data, 'ccc');
                         $response->data = [
-                            'code' => $response->data['code'],
-                            'message' => \api\helpers\ResponseStatus::getMessage($response->data['code']),
+                            'status' => $response->data['code'],
+                            'err' => \api\helpers\ResponseStatus::getMessage($response->data['code']),
                             'data' => [],
                         ];
                     } else if($response->statusCode !== 200) {
                         $response->data = [
-                            'code' => $response->statusCode,
-                            'message' => \api\helpers\ResponseStatus::getMessage($response->statusCode),
+                            'status' => $response->statusCode,
+                            'err' => \api\helpers\ResponseStatus::getMessage($response->statusCode),
                             'data' => [],
                         ];
                     }
