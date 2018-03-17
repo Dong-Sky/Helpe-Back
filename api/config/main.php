@@ -79,21 +79,30 @@ return [
                 $response = $event->sender;
                 $response->format = yii\web\Response::FORMAT_JSON;
                 if($response->data !== null) {
-                    //var_dump($response->statusCode);
+                    //var_dump($response->data);exit;
                     //var_dump('<pre>', $response);
                     if(isset($response->data['name']) && $response->data['name'] === 'Exception') {
                         //var_dump($response->data, 'ccc');
+                        $debug = unserialize($response->data['message']);
                         $response->data = [
                             'status' => $response->data['code'],
                             'err' => \api\helpers\ResponseStatus::getMessage($response->data['code']),
                             'data' => [],
                         ];
+                        if(YII_DEBUG){
+                            $response->data['debug'] = [$debug];
+                        };
                     } else if($response->statusCode !== 200) {
+                        $debug = unserialize($response->data['message']);
                         $response->data = [
                             'status' => $response->statusCode,
                             'err' => \api\helpers\ResponseStatus::getMessage($response->statusCode),
                             'data' => [],
                         ];
+                        if(YII_DEBUG){
+                            $response->data['debug'] = [$debug];
+                        };
+
                     }
                 }
             },

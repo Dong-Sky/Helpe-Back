@@ -27,8 +27,10 @@ class Itemdetail extends ActiveRecord
     public function rules(){
         return [
             //[['username','password'],'required','message'=>'不能为空']
-            [['mark'],
-                'required','message' => '字段不能为空']
+            [['itemid','mark'],
+                'required','message' => '字段不能为空'],
+            ['itemid', 'integer'],
+            ['mark', 'string', 'length' => [1, 400]]
         ];
     }
 

@@ -4,7 +4,7 @@ namespace api\modules\v1\controllers;
 use Yii;
 use yii\rest\ActiveController;
 use api\models\Passport;
-use yii\web\Response;
+use api\models\ApiResponse;
 use yii\data\ActiveDataProvider;
 use api\rests\HelpeDataProvider;
 use yii\caching\TagDependency;
@@ -12,6 +12,8 @@ use api\modules\v1\models\Item;
 use api\modules\v1\models\Itemdetail;
 use yii\helpers\ArrayHelper;
 use api\controllers\BaseActiveController;
+use api\controllers\ApiException;
+use yii\log\Logger;
 
 class ItemController extends BaseActiveController
 {
@@ -41,22 +43,44 @@ class ItemController extends BaseActiveController
     ];
 
 
-    public function getCacheRule(){
+    public function getCacheRule($item_id=null){
         //$vaid_query_key = ["expand",""]
         //todo
         $key = $modify_tag = $cache_depend = null;
         $action_id = Yii::$app->controller->action->id;
         $qs = \Yii::$app->request->queryParams;
 
+        $modify_key = false;//是否
+        if(!$item_id){
+            if(\Yii::$app->request->post("id")){
+                $item_id = \Yii::$app->request->post("id");
+            }else{
+                if(!empty($qs["id"])){
+                    $item_id = $qs["id"];
+                }
+
+            }
+
+        }
+
         //在这里写cache_rule
+        //$modify_tag为是否需要设置失效的缓存依赖,相关依赖的缓存都会更新
+        //$key 写入key
+        //$cache_depend 需要检查的依赖
         if($action_id=="info"){
-            $key = "item_info_".$qs["id"];
-            $modify_tag = "item_list";
-        }elseif($action_id=="index"){
+            //只要更新key
+            $key = "item_info_".$item_id;
+        }elseif($action_id=="index"&&$action_id=="myitem"){
+            //有依赖，有读写key
             sort($qs);
             $condition = implode(",",array_values($qs));
-            $key = "item_info_".$condition;
+            $key = "item_list_".$condition;
             $cache_depend = "item_list";
+        }elseif($action_id=="pub"||$action_id=="online"||$action_id=="unline") {
+            //有读写可以，有要设置失效的缓存依赖
+            $key = "item_info_".$item_id;
+            $modify_tag = "item_list";
+            $modify_key = true;
         }
 
         $rule = [];
@@ -72,17 +96,24 @@ class ItemController extends BaseActiveController
             $rule["cache_depend"] = $cache_depend;
         }
 
+        if($modify_key){
+            $rule["modify_key"] =  true;
+        }
+
         return $rule;
     }
 
-    public function updateCache(){
-        $rule = $this->getCacheRule();
+    public function updateCache($item_id=null){
+        $rule = $this->getCacheRule($item_id);
+
         if($rule){
-            if($rule["cache_depend"]){
-                TagDependency::invalidate(Yii::$app->cache, $rule["cache_depend"]);
+            if(isset($rule["modify_tag"])){
+                TagDependency::invalidate(Yii::$app->cache, $rule["modify_tag"]);
+                Yii::getLogger()->log("cache TagDependency invalidate ".$rule["modify_tag"]->tags, Logger::LEVEL_INFO);
             }
-            if($rule["modify_tag"]){
-                Yii::$app->cache->delete($rule["modify_tag"]);
+            if(isset($rule["modify_key"]) && $rule["modify_key"] == true){
+                Yii::$app->cache->delete($rule["key"]);
+                Yii::getLogger()->log("cache key delete  ".$rule["key"], Logger::LEVEL_INFO);
             }
 
         }
@@ -140,34 +171,6 @@ class ItemController extends BaseActiveController
             $paytp = \Yii::$app->request->post("paytp",0);
             $conact =  \Yii::$app->request->post("contact");
 
-            /*
-             public $id;             //用户id
-    public $name;
-    public $appid=0;
-    public $cid=1;
-    public $img="";
-    public $tp=1;
-    public $t=NOW_TIME;
-    public $mt=NOW_TIME;
-    public $pt = NOW_TIME;
-
-    public $price;
-    public $flag = 0;
-    public $uid=0;
-    public $tag=0;
-
-
-    public $aid;
-    public $pet=0;
-    public $lat;
-    public $lng;
-    public $aaid=0;
-    public $paytp=0;
-    public $contact="";
-    public $salenum=0;
-    public $u="";
-    public $deadline="";
-             */
             $data = [
                 'Item' => [
                     'uid' => $uid,
@@ -199,48 +202,152 @@ class ItemController extends BaseActiveController
             // 开始事务查询
             $transaction = Yii::$app->db->beginTransaction();
             $saveSuccess = false;
-            try{
+            $insert_id = null;
+            try {
                 $item = new Item();
                 $item->load($data);
-                if($data && $item->validate()){
-                    $item->save();
+                if ($data && $item->validate()) {
+                    $saved = $item->save();
 
-                    $itmedetail = new Itemdetail();
-                    $itmedetail->mark = $mark;
-                    //$itmedetail->itemid = $item->id;
 
-                    if($itmedetail->validate()){
-                        $item->link('itemdetail', $itmedetail);
-                    }else{
-                        //var_dump($itmedetail->errors);
-                        throw new ApiException(9998);
+                    if($saved){
+                        $itmedetail = new Itemdetail();
+                        $itmedetail->mark = $mark;
+                        $itmedetail->itemid = $item->id;
+
+                        if ($itmedetail->validate()) {
+                            $itmedetail->save();
+                            //$item->link('itemdetail', $itmedetail);
+                        } else {
+                            //var_dump($itmedetail->errors);exit;
+                            throw new ApiException(9998,$itmedetail->errors);
+                        }
                     }
-
                     $transaction->commit();
                     $saveSuccess = true;
-
-
-                }else{
+                    $insert_id = $item->id;
+                } else {
                     //var_dump($item->errors);
-                    throw new ApiException(9998);
+                    throw new ApiException(9998,$item->errors);
                 }
+
+            }catch (ApiException $e) {
+                    //var_dump($e->getMessage());exit;
+                    $transaction->rollBack();
+                    $insert_id = null;
+                    //exit;
+                    throw $e;
             } catch (\Exception $e) {
-                //var_dump($e->getMessage());
+                //var_dump($e->getMessage());exit;
                 $transaction->rollBack();
+                $insert_id = null;
                 //exit;
-                throw new ApiException(20002);
+                throw new ApiException(20002,$e->getMessage());
             }
 
-            $this->updateCache();
-            echo 11111;
+            $this->updateCache($insert_id);
+
         }else{
             //echo 2222;
             throw new ApiException(9997);
         }
 
-        echo 222222;
-        return new Response(0, []);
+        return new ApiResponse(0, []);
     }
+
+
+    /**
+    - a 	值为itempub
+    -m online
+    - token  登陆后服务器给的token
+    - uid  登陆后服务器给的uid
+    -id  商品ID
+     */
+    public function actionOnline() {
+        if (Yii::$app->request->isPost) {
+            //todo 文件处理
+
+            $uid = \Yii::$app->request->post("uid",0);
+            $id = \Yii::$app->request->post("id",0);
+
+
+            $saveSuccess = false;
+            try{
+
+                $item = Item::find()->where('id=:id and uid=:uid ', [':id' => $id,':uid' => $uid])->one();
+
+                $item->flag = 1;
+                if($item->save()){
+
+                    $saveSuccess = true;
+
+
+                }else{
+                    //var_dump($item->errors);
+                    throw new ApiException(9998,$item->errors);
+                }
+            } catch (\Exception $e) {
+                //var_dump($e->getMessage());
+                throw new ApiException(20002,$e->getMessage());
+            }
+
+            $this->updateCache();
+
+        }else{
+            //echo 2222;
+            throw new ApiException(9997);
+        }
+
+        return new ApiResponse(0, []);
+    }
+
+
+    /**
+    - a 	值为itempub
+    -m unline
+    - token  登陆后服务器给的token
+    - uid  登陆后服务器给的uid
+    -id  商品ID
+     */
+    public function actionUnline() {
+        if (Yii::$app->request->isPost) {
+            //todo 文件处理
+
+            $uid = \Yii::$app->request->post("uid",0);
+            $id = \Yii::$app->request->post("id",0);
+
+
+            $saveSuccess = false;
+            try{
+
+                $item = Item::find()->where('id=:id and uid=:uid ', [':id' => $id,':uid' => $uid])->one();
+
+                $item->flag = 0;
+                if($item->save()){
+
+                    $saveSuccess = true;
+
+
+                }else{
+                    //var_dump($item->errors);
+                    throw new ApiException(9998,$item->errors);
+                }
+            } catch (\Exception $e) {
+                //var_dump($e->getMessage());
+                throw new ApiException(20002,$e->getMessage());
+            }
+
+            $this->updateCache();
+
+        }else{
+            //echo 2222;
+            throw new ApiException(9997);
+        }
+
+        return new ApiResponse(0, []);
+    }
+
+
 
     public function actionInfo() {
 

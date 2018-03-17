@@ -43,7 +43,7 @@ class Item extends ActiveRecord
         $default_scenarios = parent::scenarios();
         return [
             'default'=>$default_scenarios["default"],
-            'index'=>$this->fields()+['itemdetail','itemimg'],
+            'online'=>['flag'],
             'update'=>['teacher_id', 'name', 'price', 'address', 'class_time', 'limit_num', 'description', 'update_time'],
         ];
     }
