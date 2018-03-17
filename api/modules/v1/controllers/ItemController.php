@@ -43,104 +43,6 @@ class ItemController extends BaseActiveController
     ];
 
 
-    public function getCacheRule($item_id=null){
-        //$vaid_query_key = ["expand",""]
-        //todo
-        $key = $modify_tag = $cache_depend = null;
-        $action_id = Yii::$app->controller->action->id;
-        $qs = \Yii::$app->request->queryParams;
-
-        $modify_key = false;//是否
-        if(!$item_id){
-            if(\Yii::$app->request->post("id")){
-                $item_id = \Yii::$app->request->post("id");
-            }else{
-                if(!empty($qs["id"])){
-                    $item_id = $qs["id"];
-                }
-
-            }
-
-        }
-
-        //在这里写cache_rule
-        //$modify_tag为是否需要设置失效的缓存依赖,相关依赖的缓存都会更新
-        //$key 写入key
-        //$cache_depend 需要检查的依赖
-        if($action_id=="info"){
-            //只要更新key
-            $key = "item_info_".$item_id;
-        }elseif($action_id=="index"&&$action_id=="myitem"){
-            //有依赖，有读写key
-            sort($qs);
-            $condition = implode(",",array_values($qs));
-            $key = "item_list_".$condition;
-            $cache_depend = "item_list";
-        }elseif($action_id=="pub"||$action_id=="online"||$action_id=="unline") {
-            //有读写可以，有要设置失效的缓存依赖
-            $key = "item_info_".$item_id;
-            $modify_tag = "item_list";
-            $modify_key = true;
-        }
-
-        $rule = [];
-        $rule["key"] = $key;
-        if($modify_tag){
-            $rule["modify_tag"] = new TagDependency(['tags' => $modify_tag]);
-        }else{
-            $rule["modify_tag"] = $modify_tag;
-        }
-        if($cache_depend){
-            $rule["cache_depend"] =  new TagDependency(['tags' => $cache_depend]);
-        }else{
-            $rule["cache_depend"] = $cache_depend;
-        }
-
-        if($modify_key){
-            $rule["modify_key"] =  true;
-        }
-
-        return $rule;
-    }
-
-    public function updateCache($item_id=null){
-        $rule = $this->getCacheRule($item_id);
-
-        if($rule){
-            if(isset($rule["modify_tag"])){
-                TagDependency::invalidate(Yii::$app->cache, $rule["modify_tag"]);
-                Yii::getLogger()->log("cache TagDependency invalidate ".$rule["modify_tag"]->tags, Logger::LEVEL_INFO);
-            }
-            if(isset($rule["modify_key"]) && $rule["modify_key"] == true){
-                Yii::$app->cache->delete($rule["key"]);
-                Yii::getLogger()->log("cache key delete  ".$rule["key"], Logger::LEVEL_INFO);
-            }
-
-        }
-    }
-
-    public function actionUpdate() {
-
-        //模拟数据，数组的一维必须是相关模型名
-        //手动封盖值用于测试
-        $data = [
-            'Test' => [
-                'username' => 'hello',
-                'password' => '123321'
-            ]
-        ];
-
-        $model = new Item();
-        $model->load($data);
-        if($data && $model->validate()){
-            echo 'ok';
-            $model->save();
-        }else{
-            var_dump($model->errors);
-        }
-    }
-
-
     /**
     - a 	值为itempub
     - token  登陆后服务器给的token
@@ -245,7 +147,7 @@ class ItemController extends BaseActiveController
                 throw new ApiException(20002,$e->getMessage());
             }
 
-            $this->updateCache($insert_id);
+            Item::updateCache('ow',$insert_id);
 
         }else{
             //echo 2222;
@@ -291,7 +193,7 @@ class ItemController extends BaseActiveController
                 throw new ApiException(20002,$e->getMessage());
             }
 
-            $this->updateCache();
+            Item::updateCache('ow',$id);
 
         }else{
             //echo 2222;
@@ -337,7 +239,7 @@ class ItemController extends BaseActiveController
                 throw new ApiException(20002,$e->getMessage());
             }
 
-            $this->updateCache();
+            Item::updateCache("ow",$id);
 
         }else{
             //echo 2222;
@@ -369,10 +271,10 @@ class ItemController extends BaseActiveController
         //$query = $model->setScenario("index")->find()->where($condition);
         $query = $modelClass::find()->where($condition);
 
-        //var_dump($this->getCacheRule());exit;
+        //var_dump($modelClass::getCacheRule("or",$id));exit;
         $ActiveDataProvider =  new HelpeDataProvider([
             'query' => $query,
-            'cache_rule'=>$this->getCacheRule()
+            'cache_rule'=>Item::getCacheRule("or",$id)
         ]);
 
         $this->serializer['collectionEnvelope'] = null;
@@ -431,7 +333,7 @@ class ItemController extends BaseActiveController
 
         $ActiveDataProvider =  new HelpeDataProvider([
             'query' => $query,
-            'cache_rule'=>$this->getCacheRule()
+            'cache_rule'=>Item::getCacheRule("list")
         ]);
 
         return $ActiveDataProvider;
@@ -482,48 +384,9 @@ class ItemController extends BaseActiveController
 
         $ActiveDataProvider =  new HelpeDataProvider([
             'query' => $query,
-            'cache_rule'=>$this->getCacheRule()
+            'cache_rule'=>Item::getCacheRule("list")
         ]);
 
         return $ActiveDataProvider;
-    }
-
-
-    public function actionIndex1() {
-        $session = \Yii::$app->session;
-
-        $cache = \Yii::$app->cache;
-        $key = "item";
-        //Yii::$app->request->setQueryParams(array_merge(Yii::$app->request->getQueryParams(),
-        //    ['expand' => 'itemdetail,itemimg']));
-        $modelClass = $this->modelClass;
-        //$query = $modelClass::find();
-        //return $query;
-        //$query->where(["id" => 1]);
-
-        $query = $modelClass::find()->setRelationFields(['itemdetail','itemimg']);
-
-//        $ActiveDataProvider =  new ActiveDataProvider([
-//            'query' => $query
-//        ]);
-//        return $ActiveDataProvider;
-
-
-        $ActiveDataProvider =  new HelpeDataProvider([
-            'query' => $query,
-            'cache_rule'=>['key'=>$key,"cache_depend"=>new TagDependency(['tags' => 'item_list'])]
-        ]);
-
-        return $ActiveDataProvider;
-
-//        $adp = $cache->getOrSet($key, function () use ($modelClass) {
-//             $query = $modelClass::find();
-//            $ActiveDataProvider =  new HelpeDataProvider([
-//                'query' => $query
-//            ]);
-//            $ActiveDataProvider->prepare();
-//            return $ActiveDataProvider;
-//        },300);
-//        return $adp;
     }
 }

@@ -17,6 +17,7 @@ class ResponseStatus {
     public static $status = [
         // 基础信息
         0 => "",                                        // 正常返回
+        9996 => 'SAVE_TO_DATABASE_ERROR',              // 保存到数据库错误
         9997 => 'REQUEST_TYPE_ERROR',                   // 请求类型错误指定get或post
         9998 => 'REQUEST_PARAM_ERROR',                  // 请求参数错误
         9999 => 'UNKNOWN_ERROR',                        // 未知错误
@@ -44,6 +45,10 @@ class ResponseStatus {
 
         20001=> '',
         20002 => 'SAVE_TO_DATABASE_ERROR',              // 保存到数据库错误
+
+        30001 => 'ORDER_INVILAD_ITEM',                  // item不存在或者是自己的
+
+        40001 => 'ORDER_INVILAD_ADDRESS',               // 地址不存在
 
     ];
 
