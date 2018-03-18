@@ -51,7 +51,7 @@ class UserController extends BaseActiveController {
         $userInfo->validate();
         $userInfo->save();
         if($userInfo->validate() && $userInfo->save()) {
-            Yii::$app->cache->delete(GlobalPre::REDIS_CACHE_PRE_ACCESS_TOKEN . $this->user->access_token);
+            Yii::$app->cache->delete(GlobalPre::CACHE_PRE_ACCESS_TOKEN . $this->user->access_token);
         } else {
             throw new ApiException(10007);
         }

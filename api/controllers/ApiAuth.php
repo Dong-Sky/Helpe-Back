@@ -30,7 +30,7 @@ class ApiAuth extends QueryParamAuth {
     public function authenticate($user, $request, $response) {
         $accessToken = $request->get($this->tokenParam);
         if (is_string($accessToken)) {
-            $key = GlobalPre::REDIS_CACHE_PRE_ACCESS_TOKEN . $accessToken;
+            $key = GlobalPre::CACHE_PRE_ACCESS_TOKEN . $accessToken;
             $identity = Cache::getOrSet($key, function() use ($user, $accessToken) {
                 return $user->loginByAccessToken($accessToken);
             }, 600);

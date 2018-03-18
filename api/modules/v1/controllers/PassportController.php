@@ -53,7 +53,7 @@ class PassportController extends BaseActiveController {
         $status = 0;
         if(preg_match($pattern, $email)) {
 
-            $passportInfo = Cache::getOrSet("dd", function () use ($email) {
+            $passportInfo = Cache::getOrSet(GlobalPre::CACHE_PRE_PASSPORT_EMAIL . $email, function () use ($email) {
                 return Passport::find()->where(['type' => 1, 'email' => $email])->one();
             }, 24 * 3600);
             if($passportInfo) {
@@ -190,7 +190,7 @@ class PassportController extends BaseActiveController {
                         if(!$user) {
                             throw new ApiException(10011);
                         } else {
-                            Yii::$app->cache->delete(GlobalPre::REDIS_CACHE_PRE_ACCESS_TOKEN . $user->access_token);
+                            Yii::$app->cache->delete(GlobalPre::CACHE_PRE_ACCESS_TOKEN . $user->access_token);
                             $user->access_token = substr(str_replace(['-', '_', '0', 'o', 'O', 'l', 'L', '1'], '', Yii::$app->security->generateRandomString(70)),0, 40);;
                             $user->ip = Yii::$app->request->getUserIP();
                             $user->save();
@@ -227,7 +227,7 @@ class PassportController extends BaseActiveController {
 
         $accessToken = $this->user->access_token;
         try {
-            Yii::$app->cache->delete(GlobalPre::REDIS_CACHE_PRE_ACCESS_TOKEN . $accessToken);
+            Yii::$app->cache->delete(GlobalPre::CACHE_PRE_ACCESS_TOKEN . $accessToken);
             $this->user->access_token = "";
             $this->user->save();
         } catch (\Exception $e) {

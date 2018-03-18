@@ -11,7 +11,8 @@ namespace api\helpers;
 
 class GlobalPre {
 
-    const REDIS_CACHE_PRE_ACCESS_TOKEN = 'access_token_';
+    const CACHE_PRE_ACCESS_TOKEN = 'access_token_';
+    const CACHE_PRE_PASSPORT_EMAIL = 'passport_item_';
 
 
 }
