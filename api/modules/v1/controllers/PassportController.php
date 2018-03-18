@@ -47,51 +47,55 @@ class PassportController extends BaseActiveController {
      * 检查电子邮件是否有效
      */
     public function actionCheckEmail() {
-        $email = trim($this->get['email']);
-        $pattern = "/^([a-zA-Z0-9])+([.a-zA-Z0-9_-])*@([.a-zA-Z0-9_-])+([.a-zA-Z0-9_-]+)+([.a-zA-Z0-9_-])$/";
-        $status = 0;
 
-        if(preg_match($pattern, $email)) {
+        try {
+            $email = trim($this->get['email']);
+            $pattern = "/^([a-zA-Z0-9])+([.a-zA-Z0-9_-])*@([.a-zA-Z0-9_-])+([.a-zA-Z0-9_-]+)+([.a-zA-Z0-9_-])$/";
+            $status = 0;
+            if(preg_match($pattern, $email)) {
 
-            $passportInfo = Cache::getOrSet("dd", function () use ($email) {
-                return Passport::find()->where(['type' => 1, 'email' => $email])->one();
-            }, 24 * 3600);
-            if($passportInfo) {
-                throw new ApiException(10003);
-            } else {
-                $recentTime = time() - 2 * 3600;
-                $registerInfo = Register::find()
-                    ->andWhere(['and', ['=', 'email', $email], ['>', 'updated_at', $recentTime]])
-                    ->orderBy('updated_at DESC')->one();
-
-                if($registerInfo && (time() - $registerInfo['created_at'] < Yii::$app->params['passportSendMailMinTime']) ) {
-                    throw new ApiException(10002);
+                $passportInfo = Cache::getOrSet("dd", function () use ($email) {
+                    return Passport::find()->where(['type' => 1, 'email' => $email])->one();
+                }, 24 * 3600);
+                if($passportInfo) {
+                    throw new ApiException(10003);
                 } else {
-                    //再次发送验证码, 并保存到数据库中, 验证码保存不区分大小写
-                    $authToken = substr(str_replace(['-', '_', '0', 'o', 'O', 'l', 'L', '1'], '', Yii::$app->security->generateRandomString(50)),0, 6);
-                    // 保存到数据库中
-                    $register = new Register();
-                    $register->email = $email;
-                    $register->auth_token = $authToken;
-                    $register->save();
-                    // 发送邮件, 重试3次
-                    $sendStatus = false;
-                    for($i = 0; $i <= 3; $i ++) {
-                        $ret = Mailer::registerCheckDigit($email, $authToken);
-                        if($ret) {
-                            $sendStatus = true;
-                            break;
+                    $recentTime = time() - 2 * 3600;
+                    $registerInfo = Register::find()
+                        ->andWhere(['and', ['=', 'email', $email], ['>', 'updated_at', $recentTime]])
+                        ->orderBy('updated_at DESC')->one();
+
+                    if($registerInfo && (time() - $registerInfo['created_at'] < Yii::$app->params['passportSendMailMinTime']) ) {
+                        throw new ApiException(10002);
+                    } else {
+                        //再次发送验证码, 并保存到数据库中, 验证码保存不区分大小写
+                        $authToken = substr(str_replace(['-', '_', '0', 'o', 'O', 'l', 'L', '1'], '', Yii::$app->security->generateRandomString(50)),0, 6);
+                        // 保存到数据库中
+                        $register = new Register();
+                        $register->email = $email;
+                        $register->auth_token = $authToken;
+                        $register->save();
+                        // 发送邮件, 重试3次
+                        $sendStatus = false;
+                        for($i = 0; $i <= 3; $i ++) {
+                            $ret = Mailer::registerCheckDigit($email, $authToken);
+                            if($ret) {
+                                $sendStatus = true;
+                                break;
+                            }
+                        }
+                        if(!$sendStatus) {
+                            throw new ApiException(10004);
                         }
                     }
-                    if(!$sendStatus) {
-                        throw new ApiException(10004);
-                    }
                 }
+            } else {
+                throw new ApiException(10001);
             }
-        } else {
-            throw new ApiException(10001);
+            return new ApiResponse(0, []);
+        } catch (\Exception $e) {
+            throw new ApiException(9998);
         }
-        return new ApiResponse(0, []);
     }
 
     /**
@@ -100,66 +104,69 @@ class PassportController extends BaseActiveController {
      * @throws ApiException
      */
     public function actionRegister() {
-        $status = 0;
+        try {
+            $email = trim($this->get['email']);
+            $username = trim($this->get['username']);
+            $password = trim($this->get['password']);
+            $authToken = trim($this->get['auth_token']);
 
-        $email = trim($this->get['email']);
-        $username = trim($this->get['username']);
-        $password = trim($this->get['password']);
-        $authToken = trim($this->get['auth_token']);
+            $recentTime = time() - 2 * 3600;
+            $registerInfo = Register::find()
+                ->andWhere(['and', ['=', 'email', $email], ['>', 'updated_at', $recentTime]])
+                ->orderBy('updated_at DESC')->one();
 
-        $recentTime = time() - 2 * 3600;
-        $registerInfo = Register::find()
-            ->andWhere(['and', ['=', 'email', $email], ['>', 'updated_at', $recentTime]])
-            ->orderBy('updated_at DESC')->one();
+            if($registerInfo) {
 
-        if($registerInfo) {
-
-            $passportInfo = Cache::getOrSet("passport_check_email_".$email, function () use ($email) {
-                return Passport::find()->where(['type' => 1, 'email' => $email])->one();
-            }, 24 * 3600);
-            if($passportInfo) {
-                throw new ApiException(10003);
-            } else {
-                if($registerInfo['auth_token'] === $authToken) {
-
-                    // 开始事务查询
-                    $transaction = Yii::$app->db->beginTransaction();
-                    $saveSuccess = false;
-
-                    try {
-                        $passport = new Passport();
-                        $passport->type = 1;
-                        $passport->email = $email;
-                        $passport->password = Yii::$app->security->generatePasswordHash($password);
-
-                        // 用户信息表
-                        $user = new User();
-                        $user->type = 1;
-                        $user->email = $email;
-                        $user->username = $username;
-                        $user->status = 1;
-
-                        $passport->save();
-                        $user->save();
-                        $transaction->commit();
-                        $saveSuccess = true;
-
-                    } catch (\Exception $e) {
-                        $transaction->rollBack();
-                    }
-
-                    if(!$saveSuccess) {
-                        throw new ApiException(10007);
-                    }
+                $passportInfo = Cache::getOrSet("passport_check_email_".$email, function () use ($email) {
+                    return Passport::find()->where(['type' => 1, 'email' => $email])->one();
+                }, 24 * 3600);
+                if($passportInfo) {
+                    throw new ApiException(10003);
                 } else {
-                    throw new ApiException(10005);
+                    if($registerInfo['auth_token'] === $authToken) {
+
+                        // 开始事务查询
+                        $transaction = Yii::$app->db->beginTransaction();
+                        $saveSuccess = false;
+
+                        try {
+                            $passport = new Passport();
+                            $passport->type = 1;
+                            $passport->email = $email;
+                            $passport->password = Yii::$app->security->generatePasswordHash($password);
+
+                            // 用户信息表
+                            $user = new User();
+                            $user->type = 1;
+                            $user->email = $email;
+                            $user->username = $username;
+                            $user->status = 1;
+
+                            $passport->save();
+                            $user->save();
+                            $transaction->commit();
+                            $saveSuccess = true;
+
+                        } catch (\Exception $e) {
+                            $transaction->rollBack();
+                        }
+
+                        if(!$saveSuccess) {
+                            throw new ApiException(10007);
+                        }
+                    } else {
+                        throw new ApiException(10005);
+                    }
                 }
+            } else {
+                throw new ApiException(10006);
             }
-        } else {
-            throw new ApiException(10006);
+
+            return new ApiResponse(0, []);
+        } catch (\Exception $e) {
+            throw new ApiException(9998);
         }
 
-        return new ApiResponse(0, []);
     }
 
     /**
@@ -171,45 +178,49 @@ class PassportController extends BaseActiveController {
      * @throws ApiException
      */
     public function actionLogin() {
-        $type = (int) trim($this->get['type']);
-        $ret = [];
-        switch ($type) {
-            case 1:
-                $commonLogin = new CommonLogin();
-                if($commonLogin->load($this->get,'') && $commonLogin->login()) {
-                    // 处理 user token
-                    $transaction = Yii::$app->db->beginTransaction();
-                    $success = false;
-                    try {
-                        $user = User::findIdentityByEmail(1, $commonLogin->email);
-                        if(!$user) {
-                            throw new ApiException(10011);
-                        } else {
-                            Yii::$app->cache->delete(GlobalPre::REDIS_CACHE_PRE_ACCESS_TOKEN . $user->access_token);
-                            $user->access_token = substr(str_replace(['-', '_', '0', 'o', 'O', 'l', 'L', '1'], '', Yii::$app->security->generateRandomString(70)),0, 40);;
-                            $user->ip = Yii::$app->request->getUserIP();
-                            $user->save();
+        try {
+            $type = (int) trim($this->get['type']);
+            $ret = [];
+            switch ($type) {
+                case 1:
+                    $commonLogin = new CommonLogin();
+                    if($commonLogin->load($this->get,'') && $commonLogin->login()) {
+                        // 处理 user token
+                        $transaction = Yii::$app->db->beginTransaction();
+                        $success = false;
+                        try {
+                            $user = User::findIdentityByEmail(1, $commonLogin->email);
+                            if(!$user) {
+                                throw new ApiException(10011);
+                            } else {
+                                Yii::$app->cache->delete(GlobalPre::REDIS_CACHE_PRE_ACCESS_TOKEN . $user->access_token);
+                                $user->access_token = substr(str_replace(['-', '_', '0', 'o', 'O', 'l', 'L', '1'], '', Yii::$app->security->generateRandomString(70)),0, 40);;
+                                $user->ip = Yii::$app->request->getUserIP();
+                                $user->save();
+                            }
+                            $transaction->commit();
+                            $success = true;
+                            $ret = $user->attributes;
+                        } catch (\Exception $e) {
+                            $transaction->rollBack();
                         }
-                        $transaction->commit();
-                        $success = true;
-                        $ret = $user->attributes;
-                    } catch (\Exception $e) {
-                        $transaction->rollBack();
+                        if(!$success) {
+                            throw new ApiException(10012);
+                        }
+                    } else {
+                        throw new ApiException(9998);
                     }
-                    if(!$success) {
-                        throw new ApiException(10012);
-                    }
-                } else {
-                    throw new ApiException(9998);
-                }
-                break;
-            case 2:
+                    break;
+                case 2:
 
-                break;
-            default:
-                throw new ApiException(10008);
+                    break;
+                default:
+                    throw new ApiException(10008);
+            }
+            return new ApiResponse(0, $ret);
+        } catch (\Exception $e) {
+            throw new ApiException(9998);
         }
-        return new ApiResponse(0, $ret);
     }
 
     /**
@@ -218,15 +229,19 @@ class PassportController extends BaseActiveController {
      * @throws ApiException
      */
     public function actionLogout() {
-        $accessToken = $this->user->access_token;
         try {
-            Yii::$app->cache->delete(GlobalPre::REDIS_CACHE_PRE_ACCESS_TOKEN . $accessToken);
-            $this->user->access_token = "";
-            $this->user->save();
+            $accessToken = $this->user->access_token;
+            try {
+                Yii::$app->cache->delete(GlobalPre::REDIS_CACHE_PRE_ACCESS_TOKEN . $accessToken);
+                $this->user->access_token = "";
+                $this->user->save();
+            } catch (\Exception $e) {
+                throw new ApiException(9999);
+            }
+            return new ApiResponse(0, []);
         } catch (\Exception $e) {
-            throw new ApiException(9999);
+            throw new ApiException(9998);
         }
-        return new ApiResponse(0, []);
     }
 
 

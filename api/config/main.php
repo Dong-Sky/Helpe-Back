@@ -17,6 +17,10 @@ return [
         'v2' => [
             'class' => 'api\modules\v2\Module',
         ],
+        'debug' => [
+            'class' => 'yii\debug\Module',
+            'allowedIPs' => ['127.0.0.1', '::1', '*']
+        ],
     ],
 
     'components' => [
@@ -93,7 +97,11 @@ return [
                             $response->data['debug'] = [$debug];
                         };
                     } else if($response->statusCode !== 200) {
-                        $debug = unserialize($response->data['message']);
+                        if(isset($response->data['message'])) {
+                            $debug = unserialize($response->data['message']);
+                        } else {
+                            $debug = "";
+                        }
                         $response->data = [
                             'status' => $response->statusCode,
                             'err' => \api\helpers\ResponseStatus::getMessage($response->statusCode),

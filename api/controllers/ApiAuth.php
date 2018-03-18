@@ -35,6 +35,8 @@ class ApiAuth extends QueryParamAuth {
                 return $user->loginByAccessToken($accessToken);
             }, 600);
             if ($identity !== null && $identity !== false) {
+                // 确认再次登录,保证用户信息的登录状态
+                $user->login($identity);
                 return $identity;
             } else {
                 throw new ApiException(10000);

@@ -17,7 +17,8 @@ class ResponseStatus {
     public static $status = [
         // 基础信息
         0 => "",                                        // 正常返回
-        9996 => 'SAVE_TO_DATABASE_ERROR',              // 保存到数据库错误
+        404 => 'REQUEST_PATH_ERROR',                    // 页面请求的路径错误
+        9996 => 'SAVE_TO_DATABASE_ERROR',               // 保存到数据库错误
         9997 => 'REQUEST_TYPE_ERROR',                   // 请求类型错误指定get或post
         9998 => 'REQUEST_PARAM_ERROR',                  // 请求参数错误
         9999 => 'UNKNOWN_ERROR',                        // 未知错误
@@ -43,6 +44,10 @@ class ResponseStatus {
         // 第三方 登录信息
         10012 => 'THIRD_PARTY_USER_TOKEN_CHECK_ERROR',  // 第三方用户登录 token 错误
         10013 => 'THIRD_PARTY_GET_USER_INFO_ERROR',     // 第三方token 获取用户信息错误
+
+        // 用户更新接口
+        10014 => 'USERNAME_CHECK_ERROR',                // 用户名检查错误
+
 
         20001=> '',
         20002 => 'SAVE_TO_DATABASE_ERROR',              // 保存到数据库错误

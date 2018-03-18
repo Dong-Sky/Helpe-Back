@@ -8,6 +8,9 @@
 
 namespace api\modules\v1\controllers;
 
+use api\controllers\ApiException;
+use api\helpers\GlobalPre;
+use api\modules\v1\models\UserInfo;
 use Yii;
 use api\controllers\BaseActiveController;
 use api\models\ApiResponse;
@@ -15,17 +18,53 @@ use api\models\ApiResponse;
 class UserController extends BaseActiveController {
 
 
+    /**
+     * 获取用户信息
+     * @return ApiResponse
+     * @throws ApiException
+     */
+    public function actionInfo() {
+        try {
+            $ret = $this->user->attributes;
+            return new ApiResponse(0, $ret);
+        } catch (\Exception $e) {
+            throw new ApiException(9998);
+        }
 
-    public function actionIndex() {
-
-        return new ApiResponse(0, [], "");
     }
 
-    public function actionLogin() {
-        return new ApiResponse(0, ['code' => 'dw'], "");
+
+    /**
+     * 更新用户信息字段, username, gender, career, birthday, city, tel, info
+     * 更新完成之后, 删除缓存的key
+     * @return ApiResponse
+     * @throws ApiException
+     */
+    public function actionUpdate() {
+        try {
+            $userInfo = UserInfo::findOne(['access_token' => $this->user->access_token]);
+            //$userInfo->load($this->post, '');
+            $userInfo->username = $this->post['username'];
+            $userInfo->gender = $this->post['gender'];
+            $userInfo->birthday = $this->post['birthday'];
+            $userInfo->city = $this->post['city'];
+            $userInfo->career = $this->post['career'];
+            $userInfo->tel = $this->post['tel'];
+            $userInfo->info = $this->post['info'];
+            $userInfo->validate();
+            $userInfo->save();
+            if($userInfo->validate() && $userInfo->save()) {
+                Yii::$app->cache->delete(GlobalPre::REDIS_CACHE_PRE_ACCESS_TOKEN . $this->user->access_token);
+            } else {
+                throw new ApiException(10007);
+            }
+            return new ApiResponse(0, []);
+        } catch (\Exception $e) {
+            throw new ApiException($e->getCode());
+        }
     }
 
-    public function actionAct() {
+    public function actionResetPassword() {
         var_dump(Yii::$app->user);
         var_dump('actionAct');
     }
