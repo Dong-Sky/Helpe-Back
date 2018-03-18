@@ -303,8 +303,8 @@ class ItemController extends BaseActiveController
         $st = \Yii::$app->request->get("st");
 
         if($et && $st){
-            $condition[] = ['>', 'pt', $st];
-            $condition[] = ['<', 'pt', $et];
+            $condition[] = ['>', 'ct', $st];
+            $condition[] = ['<', 'ct', $et];
         }
 
         $uid = \Yii::$app->request->get("uid",0);
@@ -323,7 +323,7 @@ class ItemController extends BaseActiveController
 
         $modelClass = $this->modelClass;
 
-        $query = $modelClass::find();
+        $query = $modelClass::find()->with('itemdetail')->with('itemimg');;
         if($condition){
             foreach ($condition as $cond){
                 $query->andWhere($cond);
@@ -354,19 +354,93 @@ class ItemController extends BaseActiveController
      * @return HelpeDataProvider|ActiveDataProvider
      */
     public function actionIndex() {
+        //todo 处理距离
+        /*
+
+        $lat = $this->getFloat('lat',0);
+        $lng = $this->getFloat('lng',0);
+
+        if ($lat!=0 || $lng!=0){
+            $data = model\Item::instance()->getByJuLi($lat,$lng,$where,$limit);
+        }else{
+            $data= model\Item::instance()->fetchWhere($where,$fileds,$orderby,$limit);
+        }
+
+        */
 
         $condition = [];
+
+        //起始时间
         $et = \Yii::$app->request->get("et");
         $st = \Yii::$app->request->get("st");
 
         if($et && $st){
-            $condition[] = ['>', 'pt', $st];
-            $condition[] = ['<', 'pt', $et];
+            $condition[] = ['>', 'ct', $st];
+            $condition[] = ['<', 'ct', $et];
         }
 
+        //经纬度范围判断
+        $minlat = \Yii::$app->request->get('minlat',0);
+        $maxlat = \Yii::$app->request->get('maxlat',0);
+        $minlng = \Yii::$app->request->get('minlng',0);
+        $maxlng = \Yii::$app->request->get('maxlng',0);
+        $fileds = "*,0 as juli";
+
+        if ($minlat!=0 && $maxlat!=0){
+            $condition[] = ['>=', 'lat', $minlat];
+            $condition[] = ['<=', 'lat', $maxlat];
+        }
+
+        if ($minlng!=0 && $maxlng!=0){
+            $condition[] = ['>=', 'lng', $minlng];
+            $condition[] = ['<=', 'lng', $maxlng];
+        }
+
+
+        //类型判断
         $cid = \Yii::$app->request->get("cid",0);
-        if($cid){
+        if($cid>0){
             $condition[] = ['=', 'cid', $cid];
+        }
+
+        //商品所属用户
+        $owner = Yii::$app->request->get("owner",0);
+        if ($owner>0){
+            $condition[] = ['=', 'uid', $owner];
+        }
+
+        //服务或者求助
+        $type = Yii::$app->request->get("type",-1);
+        if ($type!=-1){
+            $condition[] = ['=', 'type', $type];
+        }
+
+        //标题模糊查询
+        $name = Yii::$app->request->get("name","");
+        if ($name!=""){
+            $condition[] = ['like', 'name', $name];
+        }
+
+        //只显示发布
+        $condition[] = ['=', 'flag', 1];
+
+        //处理排序
+        //0 距离  1时间 2销量 默认为0
+        $searchtp = \Yii::$app->request->get("searchtp",0);
+        switch($searchtp){
+            case 0:
+                $orderby =['ct' => SORT_DESC];
+                break;
+            case 1:
+                $orderby =['ct' => SORT_DESC];
+                break;
+            default:
+                $orderby =['salenum' => SORT_DESC];
+
+        }
+
+        if ($owner > 0){
+            $orderby = ['ct' => SORT_DESC,'salenum' => SORT_DESC];
         }
 
         //Yii::$app->request->setQueryParams(array_merge(Yii::$app->request->getQueryParams(),
@@ -374,13 +448,15 @@ class ItemController extends BaseActiveController
 
         $modelClass = $this->modelClass;
 
-        $query = $modelClass::find();
+        $query = $modelClass::find()->with('itemdetail')->with('itemimg');
         if($condition){
             foreach ($condition as $cond){
                 $query->andWhere($cond);
 
             }
         }
+
+        $query->orderby($orderby);
 
         $ActiveDataProvider =  new HelpeDataProvider([
             'query' => $query,

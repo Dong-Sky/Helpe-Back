@@ -202,16 +202,22 @@ POST GET 请求
 ###列表接口
 /v1/item[/list]
 
-根据请求条件返回列表结果，支持字段筛选
+根据请求条件返回已经发布的列表结果
 
 ### 请求参数 ###
 GET 请求
 
-- t
-- page=2
-- per-page=2 	
-- order 
-- fields
+- et st  开始创建时间 结束创建时间 成对否则忽略
+- minlat maxlat 最小纬度 最大纬度 成对否则忽略
+- minlng maxlng 最小经度 最大经度 成对否则忽略
+- cid 如果不传或者小于0则忽略
+- owner 商品所属用户uid 有owner参数按照创建时间，销售量降序排序
+- type 0 服务 1 求助 -1 全部 
+- name 为空就忽略
+- searchtp 排序类型 0 距离  1时间 2销量 默认为0
+- page 指定页面
+- per-page 每页多少个 	
+- 
 
 ### 返回结果 ###
 ```

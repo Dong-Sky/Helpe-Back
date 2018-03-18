@@ -7,8 +7,6 @@
  */
 
 namespace api\modules\v1\controllers;
-
-use api\modules\v1\models\Orderinfo;
 use Yii;
 use api\models\ApiResponse;
 use yii\rest\ActiveController;
@@ -16,8 +14,8 @@ use api\models\Passport;
 use yii\data\ActiveDataProvider;
 use api\rests\HelpeDataProvider;
 use yii\caching\TagDependency;
-use api\modules\v1\models\Item;
-use api\modules\v1\models\Itemdetail;
+use api\modules\v1\models\Orderinfo;
+use api\modules\v1\models\Orderaddr;
 use api\modules\v1\models\Address;
 use yii\helpers\ArrayHelper;
 use api\controllers\BaseActiveController;
@@ -26,7 +24,7 @@ use yii\log\Logger;
 
 class OrderController extends BaseActiveController {
 
-    public $modelClass = 'api\modules\v1\models\Item';
+    public $modelClass = 'api\modules\v1\models\Orderinfo';
 
     /**
      * @return array
@@ -85,8 +83,6 @@ class OrderController extends BaseActiveController {
             if (empty($item) || $item['uid'] == $uid){
                 throw new ApiException(30001);
             }
-
-
 
             $data = ['order' => array(
                 'uid'=>$uid,
@@ -180,6 +176,191 @@ class OrderController extends BaseActiveController {
             //echo 2222;
             throw new ApiException(9997);
         }
+    }
+
+    /**
+    * 我的下单列表
+    - a 	值为order
+    - token  登陆后服务器给的token
+    - uid  登陆后服务器给的uid
+    -   选择的地址ID  （当是购买商品时候 需要选择地址ID  求助不需要 会记录求助者的信息）
+    -tp  0 商品  1 求助
+
+     * @return HelpeDataProvider|ActiveDataProvider
+     */
+    public function actionIndex() {
+
+
+        $fileds = " o.id AS oid,o.paytp as opayty,o.remark AS oremark,o.*,u.*,i.*";
+
+
+        $condition = [];
+
+        //$uid = Yii::$app->request->get("uid",0);
+        $check_user = true;
+
+        $uid = 1;//todo
+        if($check_user){
+            $condition[] = ['=', 'uid', $uid];
+        }
+
+        //订单的商品类型 服务还是求助
+        $type = Yii::$app->request->get('type');
+
+        if ($type>-1||$type===null){
+            $condition[] = ['=', 'type', $type];
+        }
+
+        $st = Yii::$app->request->get('st',0);
+        $et = Yii::$app->request->get('et',0);
+
+        //订单创建时间
+        if ($st>0 && $et>0){
+            $condition[] = ['>', 'ct', $st];
+            $condition[] = ['<', 'ct', $et];
+        }
+
+        $status = Yii::$app->request->get('status',"");
+
+        //如果1,2,3 或者 1
+        if ($status!=""){
+            if(strpos($status,",")!==false){
+                $condition[] = ['in', 'status', explode(",",$status)];
+            }else{
+                $condition[] = ['=', 'status', $status];
+            }
+        }
+
+        $modelClass = $this->modelClass;
+
+        $query = $modelClass::find();
+        if($condition){
+            foreach ($condition as $cond){
+                $query->andWhere($cond);
+
+            }
+        }
+
+        $orderby =["ct"=>SORT_DESC];
+        $query->orderby($orderby);
+
+        $ActiveDataProvider =  new HelpeDataProvider([
+            'query' => $query,
+            'cache_rule'=>Orderinfo::getCacheRule("list")
+        ]);
+
+        return $ActiveDataProvider;
+    }
+
+    /**
+     * 具体订单详情
+    -m info
+    - token  登陆后服务器给的token
+    - uid  登陆后服务器给的uid
+    -id  商品id
+
+     * @return HelpeDataProvider
+     */
+
+    public function actionInfo() {
+
+        $id = \Yii::$app->request->get("id");
+        if($id){
+            $condition = ['=', 'id', $id];
+        }
+
+        $modelClass = $this->modelClass;
+
+        $model = new $this->modelClass();
+        $query = $model->setScenario("info")->find()->where($condition);
+        //$query = $modelClass::find()->where($condition);
+
+        $ActiveDataProvider =  new HelpeDataProvider([
+            'query' => $query,
+            'cache_rule'=>Item::getCacheRule("or",$id)
+        ]);
+
+        $this->serializer['collectionEnvelope'] = null;
+        return $ActiveDataProvider;
+    }
+
+
+    /**
+     *用户出售的 订单列表
+    - token  登陆后服务器给的token
+    - uid  登陆后服务器给的uid
+    -   选择的地址ID  （当是购买商品时候 需要选择地址ID  求助不需要 会记录求助者的信息）
+    -tp  0 商品  1 求助
+     * @return HelpeDataProvider|ActiveDataProvider
+     */
+    public function actionSale() {
+        $fileds = "o.id AS oid,o.paytp as opayty,o.remark AS oremark,o.*,u.*,i.* ";
+
+
+        $check_user = true;
+
+
+        $uid = 1;//todo
+        if($check_user){
+            $condition[] = ['=', 'owner', $uid];
+        }
+
+        //订单的商品类型 服务还是求助
+        $type = Yii::$app->request->get('type');
+
+        if ($type>-1||$type===null){
+            $condition[] = ['=', 'type', $type];
+        }
+
+        $condition = [];
+        $et = \Yii::$app->request->get("et");
+        $st = \Yii::$app->request->get("st");
+
+        if($et && $st){
+            $condition[] = ['>', 'ct', $st];
+            $condition[] = ['<', 'ct', $et];
+        }
+
+        $status = Yii::$app->request->get('status',"");
+
+        //如果1,2,3 或者 1
+        if ($status!=""){
+            if(strpos($status,",")!==false){
+                $condition[] = ['in', 'status', explode(",",$status)];
+            }else{
+                $condition[] = ['=', 'status', $status];
+            }
+        }
+
+        $type = \Yii::$app->request->get("type");
+        if($type!==NULL && in_array($type,[0,1])){
+            $condition[] = ['=', 'type', $type];
+        }
+
+        //var_dump($condition);exit;
+        //Yii::$app->request->setQueryParams(array_merge(Yii::$app->request->getQueryParams(),
+        //    ['expand' => 'itemdetail,itemimg']));
+
+        $modelClass = $this->modelClass;
+
+        $query = $modelClass::find();
+
+        $orderby =["ct"=>SORT_DESC];
+        $query->orderby($orderby);
+
+        if($condition){
+            foreach ($condition as $cond){
+                $query->andWhere($cond);
+
+            }
+        }
+
+        $ActiveDataProvider =  new HelpeDataProvider([
+            'query' => $query,
+            'cache_rule'=>Orderinfo::getCacheRule("list")
+        ]);
+
+        return $ActiveDataProvider;
     }
 
 }
