@@ -9,6 +9,7 @@
 namespace api\controllers;
 
 
+use api\helpers\GlobalPre;
 use common\helpers\Cache;
 use yii\filters\auth\QueryParamAuth;
 
@@ -24,16 +25,19 @@ class ApiAuth extends QueryParamAuth {
      * @param \yii\web\Request $request
      * @param \yii\web\Response $response
      * @return null|\yii\web\IdentityInterface
+     * @throws ApiException
      */
     public function authenticate($user, $request, $response) {
         $accessToken = $request->get($this->tokenParam);
         if (is_string($accessToken)) {
-            $key = "access_token_" . $accessToken;
+            $key = GlobalPre::REDIS_CACHE_PRE_ACCESS_TOKEN . $accessToken;
             $identity = Cache::getOrSet($key, function() use ($user, $accessToken) {
                 return $user->loginByAccessToken($accessToken);
             }, 600);
             if ($identity !== null && $identity !== false) {
                 return $identity;
+            } else {
+                throw new ApiException(10000);
             }
         }
         if ($accessToken !== null) {

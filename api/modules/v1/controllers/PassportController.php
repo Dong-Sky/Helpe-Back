@@ -9,6 +9,7 @@
 namespace api\modules\v1\controllers;
 
 use api\controllers\ApiException;
+use api\helpers\GlobalPre;
 use api\models\Passport;
 use api\models\Register;
 use api\modules\v1\models\CommonLogin;
@@ -16,6 +17,7 @@ use common\models\User;
 use Yii;
 use api\controllers\BaseActiveController;
 use api\models\ApiResponse;
+use yii\db\Exception;
 use yii\helpers\ArrayHelper;
 use common\helpers\Mailer;
 use common\helpers\Cache;
@@ -183,7 +185,7 @@ class PassportController extends BaseActiveController {
                         if(!$user) {
                             throw new ApiException(10011);
                         } else {
-                            Yii::$app->cache->delete('access_token_' . $user->access_token);
+                            Yii::$app->cache->delete(GlobalPre::REDIS_CACHE_PRE_ACCESS_TOKEN . $user->access_token);
                             $user->access_token = substr(str_replace(['-', '_', '0', 'o', 'O', 'l', 'L', '1'], '', Yii::$app->security->generateRandomString(70)),0, 40);;
                             $user->ip = Yii::$app->request->getUserIP();
                             $user->save();
@@ -209,5 +211,23 @@ class PassportController extends BaseActiveController {
         }
         return new ApiResponse(0, $ret);
     }
+
+    /**
+     * 用户登出使用 access token, 如果当前用户存在, 则清空用户信息表和redis里的token
+     * @return ApiResponse
+     * @throws ApiException
+     */
+    public function actionLogout() {
+        $accessToken = $this->user->access_token;
+        try {
+            Yii::$app->cache->delete(GlobalPre::REDIS_CACHE_PRE_ACCESS_TOKEN . $accessToken);
+            $this->user->access_token = "";
+            $this->user->save();
+        } catch (\Exception $e) {
+            throw new ApiException(9999);
+        }
+        return new ApiResponse(0, []);
+    }
+
 
 }
