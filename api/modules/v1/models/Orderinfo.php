@@ -28,12 +28,20 @@ class Orderinfo extends CacheAR
         return '{{%orderinfo}}';
     }
 
-    public function getItemdetail(){
-        return $this->hasOne(Itemdetail::className(), ['itemid' => 'id']);
+    public function getOrderaddr(){
+        return $this->hasOne(Orderaddr::className(), ['id' => 'orderid']);
     }
 
-    public function getItemimg(){
-        return $this->hasMany(Itemimg::className(), ['itemid' => 'id']);
+    public function getIteminfo(){
+        return $this->hasOne(Item::className(), ['itemid' => 'id']);
+    }
+
+    public function getOwnerinfo(){
+        return $this->hasOne(Item::className(), ['owner' => 'id']);
+    }
+
+    public function getUserinfo(){
+        return $this->hasOne(Item::className(), ['userid' => 'id']);
     }
 
 
@@ -42,7 +50,7 @@ class Orderinfo extends CacheAR
         $default_scenarios = parent::scenarios();
         return [
             'default'=>$default_scenarios["default"],
-            'online'=>[''],
+            'info'=>$default_scenarios+["default","iteminfo","ownerinfo","userinfo"],
             'update'=>['teacher_id', 'name', 'price', 'address', 'class_time', 'limit_num', 'description', 'update_time'],
         ];
     }

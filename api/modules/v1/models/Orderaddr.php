@@ -3,11 +3,12 @@ namespace api\modules\v1\models;
 
 use Yii;
 use yii\db\ActiveRecord;
-use api\modules\v1\models\Itemdetail;
-use api\modules\v1\models\Itemimg;
 use yii\behaviors\TimestampBehavior;
+use api\modules\v1\models\CacheAR;
+use yii\caching\TagDependency;
+use yii\log\Logger;
 
-class Item extends ActiveRecord
+class Orderaddr extends CacheAR
 {
     public function behaviors()
     {
@@ -22,19 +23,9 @@ class Item extends ActiveRecord
         ];
     }
 
-    protected $relation_fields = [];
-
     public static function tableName()
     {
-        return '{{%item}}';
-    }
-
-    public function getItemdetail(){
-        return $this->hasOne(Itemdetail::className(), ['itemid' => 'id']);
-    }
-
-    public function getItemimg(){
-        return $this->hasMany(Itemimg::className(), ['itemid' => 'id']);
+        return '{{%address}}';
     }
 
 
@@ -57,7 +48,6 @@ class Item extends ActiveRecord
                 'required','message' => '字段不能为空'],
             ['cid', 'in', 'range' => array(0, 1)],
             ['uid', 'integer'],
-            ['uid', 'unique', 'targetClass' => '\common\models\Users']
         ];
     }
 
@@ -73,19 +63,6 @@ class Item extends ActiveRecord
         //unset($fields['auth_key'], $fields['password_hash'], $fields['password_reset_token']);
         //$fields += ['itemdetail','itemimg'];
         return $fields;
-    }
-
-    /**
-     * 设置关联字段
-     * @param $fields
-     */
-    public function setRelationFields($fields){
-        $this->relation_fields = $fields;
-    }
-
-    public function extraFields()
-    {
-        return ['itemdetail','itemimg'];
     }
 
 }
