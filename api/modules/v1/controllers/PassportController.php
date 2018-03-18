@@ -105,6 +105,9 @@ class PassportController extends BaseActiveController {
         $email = trim($this->get['email']);
         $username = trim($this->get['username']);
         $password = trim($this->get['password']);
+        if(strlen($password) < 6 || strlen($password) > 32) {
+            throw new ApiException(9995);
+        }
         $authToken = trim($this->get['auth_token']);
 
         $recentTime = time() - 2 * 3600;

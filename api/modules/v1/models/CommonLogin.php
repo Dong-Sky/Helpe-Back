@@ -32,7 +32,7 @@ class CommonLogin extends ActiveRecord
             [['email', 'password'], 'required'],
             ['email', 'email'],
             ['email', 'string', 'min' => 2, 'max' => 64],
-            ['password', 'string', 'min' => 6, 'max' => 50],
+            ['password', 'string', 'min' => 6, 'max' => 32],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
         ];

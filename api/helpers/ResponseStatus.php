@@ -18,6 +18,7 @@ class ResponseStatus {
         // 基础信息
         0 => "",                                        // 正常返回
         404 => 'REQUEST_PATH_ERROR',                    // 页面请求的路径错误
+        9995 => 'PASSWORD_CHECK_ERROR',                 // 密码检查错误
         9996 => 'SAVE_TO_DATABASE_ERROR',               // 保存到数据库错误
         9997 => 'REQUEST_TYPE_ERROR',                   // 请求类型错误指定get或post
         9998 => 'REQUEST_PARAM_ERROR',                  // 请求参数错误
