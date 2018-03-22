@@ -159,8 +159,7 @@ class ItemController extends BaseActiveController
 
 
     /**
-     * 上架
-
+    - a 	值为itempub
     -m online
     - token  登陆后服务器给的token
     - uid  登陆后服务器给的uid
@@ -251,12 +250,7 @@ class ItemController extends BaseActiveController
     }
 
 
-    /**
-     * 获取订单详情
-     - token  登陆后服务器给的token
-     - uid  登陆后服务器给的uid
-     - id  商品id
-     */
+
     public function actionInfo() {
 
         $id = \Yii::$app->request->get("id");

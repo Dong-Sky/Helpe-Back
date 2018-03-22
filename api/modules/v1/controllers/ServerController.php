@@ -50,12 +50,12 @@ class ServerController extends BaseActiveController
 
     public function actionImsign(){
         $client_id = $id = \Yii::$app->request->get('client_id');
-        $app_id = Yii::$app->params('leancloudAppID');
+        $app_id = Yii::$app->params['leancloudAppID'];
         // $app_key = System::getConfig('leancloud_app_key');
         $timestamp = time();
         $nonce = $this->generateRandomString(5);
         $str = $app_id . ':' . $client_id . '::' . $timestamp . ':' . $nonce;
-        $signature = hash_hmac('sha1', Yii::$app->params('leancloudMasterKey'), $str);
+        $signature = hash_hmac('sha1', Yii::$app->params['leancloudMasterKey'], $str);
         $data =  [
             'str'=>$str,
             //'master'=>System::getConfig('leancloud_master_key'),
@@ -64,7 +64,6 @@ class ServerController extends BaseActiveController
             'timestamp'=>$timestamp,
             'nonce'=>$nonce
         ];
-
         return new ApiResponse(0, $data);
     }
 

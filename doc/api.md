@@ -16,20 +16,17 @@
     * 我的订单
     * 下单
     * 我的出售订单
-    * 订单状态更新()
-6. 支付记录
-    * 支付记录
-  
-7. 举报
+    * 订单状态更新() 
+6. 举报
     * 添加举报
-8. 收藏
+7. 收藏
     * 收藏动作
     * 删除收藏
     * 收藏列表
-9. 评价
+8. 评价
     * 评价动作
     * 评价列表
-10. 商品
+9. 商品
     * 发布
     * 上架
     * 下架
@@ -38,12 +35,12 @@
     * 商品列表
     * 商品详情  
     * 我商品列表  
-11. 地址    
+10. 地址    
     * 增加用户地址
     * 用户地址列表
     * 用户地址修改
     * 用户地址删除
-12. 服务器
+11. 服务器
     * 服务器信息
     * 聊天im认证接口
 
@@ -158,6 +155,54 @@ https://api.helpe.online/
 }
 ```
 
+##2.商品（服务，求助）分类模块##
+###2.1列表接口
+/v1/category[/index]
+
+根据请求条件返回已经发布的分类列表
+
+### 请求参数 ###
+URL /v1/category?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
+GET 请求 
+
+- pid 父分类id
+- page 指定页面
+- per-page 每页多少个 	
+
+### 返回结果 ###
+```
+{
+    "status": "0",
+    "err": "success",
+    "data": {
+        "data": [
+            {
+                "id": 1,
+                "jp_name": "古本",
+                "cn_name": "",
+                "pid": 0,
+                "sort": 1,
+                "flag": 1,
+                "ct": 0,
+                "mt": null
+            },
+            ......
+                   ],
+        "_links": {
+            "self": {
+                "href": "http://devapi.helpe.online/v1/category/index?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5&pid=0&page=1"
+            }
+        },
+        "_meta": {
+            "totalCount": 8,
+            "pageCount": 1,
+            "currentPage": 1,
+            "perPage": 20
+        }
+    }
+}
+
+```
 
 ## 注册接口 2个步骤
 POST GET 请求
@@ -198,8 +243,8 @@ POST GET 请求
 ```
 
 
-##商品（服务，求助）模块##
-###列表接口
+##9.商品（服务，求助）模块##
+###9.1列表接口
 /v1/item[/list]
 
 根据请求条件返回已经发布的列表结果
@@ -217,7 +262,99 @@ GET 请求
 - searchtp 排序类型 0 距离  1时间 2销量 默认为0
 - page 指定页面
 - per-page 每页多少个 	
-- 
+- 距离
+
+### 返回结果 ###
+```
+{
+    "status": "0",
+    "err": "success",
+    "data": {
+        "data": [
+            {
+                "id": 1,
+                "name": "1",
+                "appid": 1,
+                "price": "1000.00",
+                "img": "/img",
+                "flag": 0,
+                "ct": 1520696319,
+                "mt": 1521261910,
+                "uid": 1,
+                "cid": 1,
+                "tag": 0,
+                "type": 1,
+                "aid": 1,
+                "aaid": 1,
+                "lat": 1,
+                "lng": 1,
+                "pt": 1520696319,
+                "paytp": 0,
+                "contact": "contact",
+                "salenum": 0,
+                "deadline": "2018-05",
+                "unit": "ci",
+                "pet": 1520696319,
+                "itemdetail": {
+                    "itemid": 1,
+                    "mark": "得到的，个，个，个，个，",
+                    "ct": 1520696319,
+                    "mt": 0
+                },
+                "itemimg": [
+                    {
+                        "id": 1,
+                        "itemid": 1,
+                        "url": "/itemimg1",
+                        "uid": 1,
+                        "ct": 1520696319
+                    },
+                    {
+                        "id": 2,
+                        "itemid": 1,
+                        "url": "/itemimg2",
+                        "uid": 1,
+                        "ct": 1520696319
+                    }
+                ]
+            },
+            {
+				......                
+            }
+        ],
+        "_links": {
+            "self": {
+                "href": "http://devapi.helpe.online/v1/item?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5&page=1&per-page=2"
+            },
+            "next": {
+                "href": "http://devapi.helpe.online/v1/item?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5&page=2&per-page=2"
+            },
+            "last": {
+                "href": "http://devapi.helpe.online/v1/item?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5&page=15&per-page=2"
+            }
+        },
+        "_meta": {
+            "totalCount": 29,
+            "pageCount": 15,
+            "currentPage": 1,
+            "perPage": 2
+        }
+    }
+}
+```
+
+###9.2我的商品(服务和求助)接口
+/v1/item/myitem
+
+根据请求条件返回已经发布的列表结果
+
+### 请求参数 ###
+GET 请求
+
+- et st  开始创建时间 结束创建时间 成对否则忽略
+- type 0 服务 1 求助 -1 全部 
+- page 指定页面
+- per-page 每页多少个 	
 
 ### 返回结果 ###
 ```
@@ -299,9 +436,9 @@ GET 请求
 ```
 
 
-###发布接口###
+###9.3 发布接口###
 
-/v1/item/list/pub
+/v1/item/pub
 
 根据请求条件返回列表结果，支持字段筛选
 
@@ -332,6 +469,181 @@ POST 请求
     "err": ""
 }
 ```
+
+###9.4 详情接口###
+
+/v1/item/info
+
+根据请求条件返回商品（服务和求助）信息
+
+### 请求参数 ###
+URL /v1/item/info?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
+
+GET 请求
+
+- token  登陆后服务器给的token
+- uid  登陆后服务器给的uid
+- id itemid
+
+###返回结果###
+```
+{
+    "status": "0",
+    "err": "success",
+    "data": {
+        "id": 1,
+        "name": "1",
+        "appid": 1,
+        "price": "1000.00",
+        "img": "/img",
+        "flag": 0,
+        "ct": 1520696319,
+        "mt": 1521261910,
+        "uid": 1,
+        "cid": 1,
+        "tag": 0,
+        "type": 1,
+        "aid": 1,
+        "aaid": 1,
+        "lat": 1,
+        "lng": 1,
+        "pt": 1520696319,
+        "paytp": 0,
+        "contact": "contact",
+        "salenum": 0,
+        "deadline": "2018-05",
+        "unit": "ci",
+        "pet": 1520696319,
+        "itemdetail": {
+            "itemid": 1,
+            "mark": "得到的，个，个，个，个，",
+            "ct": 1520696319,
+            "mt": 0
+        },
+        "itemimg": [
+            {
+                "id": 1,
+                "itemid": 1,
+                "url": "/itemimg1",
+                "uid": 1,
+                "ct": 1520696319
+            },
+            {
+                "id": 2,
+                "itemid": 1,
+                "url": "/itemimg2",
+                "uid": 1,
+                "ct": 1520696319
+            }
+        ]
+    }
+}
+```
+
+###9.5 上架接口###
+
+/v1/item/online
+
+根据商品id上架
+
+### 请求参数 ###
+URL /v1/item/online?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
+
+POST 请求
+
+- token  登陆后服务器给的token
+- uid  登陆后服务器给的uid
+- id  商品id
+
+###返回结果###
+```
+{
+    "status": 0,
+    "data": [],
+    "err": ""
+}
+```
+
+###9.6 下架接口###
+
+/v1/item/unline
+
+根据商品id下架
+
+### 请求参数 ###
+URL /v1/item/unline?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
+
+POST 请求
+
+- token  登陆后服务器给的token
+- uid  登陆后服务器给的uid
+- id  商品id
+
+###返回结果###
+```
+{
+    "status": 0,
+    "data": [],
+    "err": ""
+}
+```
+##11. 服务器模块##
+###11.1 配置信息接口###
+
+/v1/server/info
+
+返回服务器信息，无需登录
+
+### 请求参数 ###
+URL /v1/item/info
+
+GET 请求
+
+- 
+###返回结果###
+```
+{
+    "status": 0,
+    "data": {
+        "f&qUrl": "faq/index.html",
+        "staticUrl": "https://testimg.heple.online",
+        "version": "1.0.0"
+    },
+    "err": ""
+}
+```
+
+
+###11.1 配置信息接口###
+
+/v1/server/imsign
+
+返回服务器信息
+
+### 请求参数 ###
+URL /v1/item/imsign?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
+
+GET 请求
+- client_id im客户端id
+ 
+###返回结果###
+```
+{
+    "status": 0,
+    "data": {
+        "str": "YUk7QH8aEBusDod00FYqVxeI-MdYXbMMI:test::1521703449:cs2EV",
+        "signature": "0349dbdc6687f32c7af3796b6be9ebed3381b2d8",
+        "timestamp": 1521703449,
+        "nonce": "cs2EV"
+    },
+    "err": ""
+}
+```
+
+
+
+
+
 
 
 
