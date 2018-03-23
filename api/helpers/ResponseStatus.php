@@ -49,6 +49,11 @@ class ResponseStatus {
         // 用户更新接口
         10014 => 'USERNAME_CHECK_ERROR',                // 用户名检查错误
 
+        // 用户重置密码接口
+        10015 => 'THIRD_PARTY_NOT_SUPPORT',             // 第三方登录不支持, 比如重置密码
+
+        10016 => 'AUTH_TOKEN_CHECK_ERROR',              // 校验码检查错误
+
 
         20001=> '',
         20002 => 'SAVE_TO_DATABASE_ERROR',              // 保存到数据库错误

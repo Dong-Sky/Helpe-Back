@@ -71,6 +71,13 @@ return [
                 [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning', 'info'],
+                ],
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'levels' => ['error', 'warning', 'info'],
+                    'categories' => ['api'],
+                    'logVars' => ['*'],
+                    'logFile' => '@runtime/logs/api.log',
                 ]
             ]
         ],
@@ -112,6 +119,7 @@ return [
                         };
 
                     }
+                    //var_dump($response);
                 }
             },
 //

@@ -55,4 +55,24 @@ class BaseActiveController extends Controller {
         $this->userId = yii::$app->user->id;
         return $action;
     }
+
+    public function getData($key, $default = null) {
+        return $this->getItemData($this->get, $key, $default);
+    }
+
+    public function postData($key, $default = null) {
+        return $this->getItemData($this->post, $key, $default);
+    }
+
+    public function getItemData($data, $key, $default) {
+        if(isset($data[$key]) && strlen(trim($data[$key])) > 0 ) {
+            return trim($data[$key]);
+        } else {
+            if($default) {
+                return $default;
+            } else {
+                throw new ApiException(9998);
+            }
+        }
+    }
 }

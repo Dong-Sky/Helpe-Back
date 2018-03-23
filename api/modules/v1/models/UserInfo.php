@@ -16,6 +16,13 @@ use yii\behaviors\TimestampBehavior;
 
 class UserInfo extends ActiveRecord {
 
+    public $username;
+    public $gender;
+    public $birthday;
+    public $city;
+    public $tel;
+    public $info;
+    public $career;
 
     public static function tableName() {
         return '{{%user}}';
@@ -30,7 +37,13 @@ class UserInfo extends ActiveRecord {
 
     public function rules() {
         return [
-            ['username','required','message'=> ResponseStatus::getMessage(10014)]
+            ['username','required','message'=> ResponseStatus::getMessage(10014)],
+            ['gender', 'in', 'range' => [1, 2, 3]],
+            ['birthday', 'date', 'format' => 'yyyy-MM-dd'],
+            ['city', 'string'],
+            ['tel', 'string'],
+            ['info', 'string'],
+            ['career', 'string'],
         ];
     }
 

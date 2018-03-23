@@ -12,6 +12,7 @@ namespace api\models;
 use yii\db\ActiveRecord;
 use common\behaviors\TimestampBehavior;
 use Yii;
+use yii\db\Exception;
 
 class Passport extends ActiveRecord {
 
@@ -27,7 +28,10 @@ class Passport extends ActiveRecord {
     }
 
     public function validatePassword($password) {
-        return Yii::$app->security->validatePassword($password, $this->password);
+        try {
+            return Yii::$app->security->validatePassword($password, $this->password);
+        } catch (\Exception $e) {}
+        return false;
     }
 
 }

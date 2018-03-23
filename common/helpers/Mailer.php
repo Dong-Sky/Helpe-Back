@@ -15,12 +15,41 @@ use Mailgun\Mailgun;
 class Mailer
 {
 
+
     /**
+     * 注册发送校验码
+     * 文本模板存储在数据库中
      * @param $email
      * @param $checkDigit
      * @return bool
+     */
+    public static function forgetPassword($email, $checkDigit) {
+        $mailTemplate = MailTemplate::findOne('forgetPassword');
+        if(!empty($mailTemplate['text'])) {
+            $text = str_replace(
+                ['{{email}}', '{{checkDigit}}'], [$email, $checkDigit], $mailTemplate['text']
+            );
+        } else {
+            $text = null;
+        }
+        if(!empty($mailTemplate['html'])) {
+            $html = str_replace(
+                ['{{email}}', '{{checkDigit}}'], [$email, $checkDigit], $mailTemplate['text']
+            );
+        } else {
+            $html = null;
+        }
+        return self::sendMailItem($mailTemplate['from'], $email, $mailTemplate['subject'], $text, $html);
+
+    }
+
+
+    /**
      * 注册发送校验码
      * 文本模板存储在数据库中
+     * @param $email
+     * @param $checkDigit
+     * @return bool
      */
     public static function registerCheckDigit($email, $checkDigit) {
         $mailTemplate = MailTemplate::findOne('registerCheckDigit');
@@ -48,7 +77,7 @@ class Mailer
      * @param $subject
      * @param $text
      * @param $html
-     * @return \stdClass
+     * @return bool
      * 返回发送邮件的结果
      */
     public static function sendMailItem($from, $to, $subject, $text, $html) {
@@ -65,7 +94,12 @@ class Mailer
         if(!empty($html)) {
             $param['html'] = $html;
         }
-        $ret = $mgClient->sendMessage($domain, $param);
-        return $ret->http_response_code === 200;
+        try {
+            $ret = $mgClient->sendMessage($domain, $param);
+        } catch (\Exception $e) {
+            $ret = false;
+        }
+
+        return  $ret ? $ret->http_response_code === 200 : false;
     }
 }

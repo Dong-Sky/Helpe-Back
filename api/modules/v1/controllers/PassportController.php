@@ -50,7 +50,6 @@ class PassportController extends BaseActiveController {
 
         $email = trim($this->get['email']);
         $pattern = "/^([a-zA-Z0-9])+([.a-zA-Z0-9_-])*@([.a-zA-Z0-9_-])+([.a-zA-Z0-9_-]+)+([.a-zA-Z0-9_-])$/";
-        $status = 0;
         if(preg_match($pattern, $email)) {
 
             $passportInfo = Cache::getOrSet(GlobalPre::CACHE_PRE_PASSPORT_EMAIL . $email, function () use ($email) {
@@ -171,9 +170,9 @@ class PassportController extends BaseActiveController {
      * 用户登录分2部分, 第三方登录和默认登录, 根据类型判断 type 判断
      * 1 是默认登录
      * 2 是 facebook 登录
-     *
      * @return ApiResponse
      * @throws ApiException
+     * @throws Exception
      */
     public function actionLogin() {
         $type = (int) trim($this->get['type']);
