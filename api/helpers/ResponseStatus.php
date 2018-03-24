@@ -53,7 +53,7 @@ class ResponseStatus {
         10015 => 'THIRD_PARTY_NOT_SUPPORT',             // 第三方登录不支持, 比如重置密码
 
         10016 => 'AUTH_TOKEN_CHECK_ERROR',              // 校验码检查错误
-
+        10017 => 'ALIYUN_OSS_OPERATE_ERROR',            // 阿里云OSS操作错误
 
         20001=> '',
         20002 => 'SAVE_TO_DATABASE_ERROR',              // 保存到数据库错误

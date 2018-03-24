@@ -99,7 +99,7 @@ class Mailer
         } catch (\Exception $e) {
             $ret = false;
         }
-
+        Yii::info(json_encode($param) . ', return code : ' . $ret->http_response_code, 'api');
         return  $ret ? $ret->http_response_code === 200 : false;
     }
 }

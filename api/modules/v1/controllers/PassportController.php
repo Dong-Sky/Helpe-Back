@@ -14,6 +14,8 @@ use api\models\Passport;
 use api\models\Register;
 use api\modules\v1\models\CommonLogin;
 use common\models\User;
+use Facebook\Exceptions\FacebookResponseException;
+use Facebook\Exceptions\FacebookSDKException;
 use Yii;
 use api\controllers\BaseActiveController;
 use api\models\ApiResponse;
@@ -98,6 +100,7 @@ class PassportController extends BaseActiveController {
      * 用户注册方法, 注册邮件根据客户端上报的key
      * @return ApiResponse
      * @throws ApiException
+     * @throws Exception
      */
     public function actionRegister() {
 
@@ -173,6 +176,7 @@ class PassportController extends BaseActiveController {
      * @return ApiResponse
      * @throws ApiException
      * @throws Exception
+     * @throws FacebookSDKException
      */
     public function actionLogin() {
         $type = (int) trim($this->get['type']);
@@ -208,13 +212,98 @@ class PassportController extends BaseActiveController {
                 }
                 break;
             case 2:
+                $saveSuccess = false;
 
+                try {
+
+                    // facebook 登录
+                    $fbAccessToken = $this->getData('fb_access_token');
+                    $graphUser = $this->facebookCheckLogin($fbAccessToken);
+                    //var_dump($graphUser);
+                    // 更新用户信息
+                    $fbId = $graphUser->getId();
+                    $fbName = $graphUser->getName();
+                    $fbGender = $graphUser->getGender();
+                    $gender = 0;
+                    if($fbGender) {
+                        if($fbGender == 'male') {
+                            $gender = 1;
+                        } else {
+                            $gender = 2;
+                        }
+                    }
+                    $fbBirthday = $graphUser->getBirthday();
+
+                    // 开始事务查询
+                    $transaction = Yii::$app->db->beginTransaction();
+
+
+                    $passport = Passport::findOne(['type' => 2, 'email' => $fbId]);
+
+                    if(!$passport) {
+                        $passport = new Passport();
+                        $passport->type = 2;
+                        $passport->email = $fbId;
+                    }
+                    $passport->token = $fbAccessToken;
+
+                    // 用户信息表
+                    $user = User::findOne(['type' => 2, 'email' => $fbId]);
+
+                    if(!$user) {
+                        $user = new User();
+                        $user->type = 2;
+                        $user->email = $fbId;
+                        $user->status = 1;
+                    }
+                    $user->username = $fbName;
+                    $user->gender = $gender;
+                    $user->birthday = '';
+                    $user->access_token = substr(str_replace(['-', '_', '0', 'o', 'O', 'l', 'L', '1'], '', Yii::$app->security->generateRandomString(70)),0, 40);;
+                    $user->ip = Yii::$app->request->getUserIP();
+
+                    $passport->save();
+                    $user->save();
+                    $transaction->commit();
+                    $saveSuccess = true;
+
+                } catch (\Exception $e) {
+                    $transaction->rollBack();
+                }
+
+                if(!$saveSuccess) {
+                    throw new ApiException(10007);
+                }
+                $ret = User::findIdentityByEmail(2, $fbId);
                 break;
             default:
                 throw new ApiException(10008);
         }
         return new ApiResponse(0, $ret);
 
+    }
+
+    /**
+     * 需要检查facebook的access-token是否有效
+     * @param $accessToken
+     * @return \Facebook\GraphNodes\GraphUser
+     * @throws ApiException
+     * @throws FacebookSDKException
+     */
+    private function facebookCheckLogin($accessToken) {
+        $fb = new \Facebook\Facebook([
+            'app_id' => '212122489339371',
+            'app_secret' => '80f7fb624eaa4fa4142209c8c3dff9f7',
+            'default_graph_version' => 'v2.12',
+        ]);
+        try {
+            $response = $fb->get("/me", $accessToken);
+            return $response->getGraphUser();
+        } catch (\Exception $e) {
+            var_dump($e);
+            Yii::warning("get fb user info error, info : " . $e->getMessage(), 'api');
+        }
+        throw new ApiException(10013);
     }
 
     /**

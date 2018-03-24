@@ -30,7 +30,9 @@
         "aliyuncs/oss-sdk-php": "~2.0",
         "mailgun/mailgun-php": "*",
         "php-http/guzzle6-adapter": "*",
-        "php-http/message": "*"
+        "php-http/message": "*",
+        "yii-dream-team/yii2-upload-behavior": "*",
+        "facebook/graph-sdk": "~5.6"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

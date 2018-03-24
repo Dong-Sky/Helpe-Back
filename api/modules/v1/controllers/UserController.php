@@ -14,6 +14,7 @@ use api\models\Passport;
 use api\modules\v1\models\UserInfo;
 use common\models\User;
 use Yii;
+use common\helpers\Mailer;
 use api\controllers\BaseActiveController;
 use api\models\ApiResponse;
 use yii\helpers\ArrayHelper;
@@ -175,6 +176,13 @@ class UserController extends BaseActiveController {
             throw new ApiException(10001);
         }
         return new ApiResponse(0, []);
+    }
+
+    /**
+     * 更新用户头像
+     */
+    public function actionUpdateAvatar() {
+
     }
 
 }
