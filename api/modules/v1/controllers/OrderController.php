@@ -363,4 +363,73 @@ class OrderController extends BaseActiveController {
         return $ActiveDataProvider;
     }
 
+
+    /**
+    接受订单
+     */
+    public function actionAccept() {
+        if (Yii::$app->request->isPost) {
+            $id = \Yii::$app->request->post("id",0);
+            $uid = $this->userId;
+
+            $this->updateOrderStatus($id,10,0);
+
+        }else{
+            //echo 2222;
+            throw new ApiException(9997);
+        }
+
+        return new ApiResponse(0, []);
+    }
+
+
+    protected function updateOrderStatus($id, $status, $p_status)
+    {
+        $saveSuccess = false;
+        try {
+
+            $order = Orderinfo::find()->where('id=:id', [':id' => $id])->one();
+
+            if (empty($order)) {
+                throw new ApiException(40002);
+            }
+
+            if ($order['owner'] != $this->userId) {
+                throw new ApiException(40003);
+            }
+
+            if ($order['status'] != $p_status) {
+                throw new ApiException(40004);
+            }
+
+            $result = \Yii::$app->db->createCommand()
+                ->update('{{%orderinfo}}', ['status' => $status], "status=$p_status")
+                ->execute();
+
+            if ($result) {
+                $saveSuccess = true;
+                //记录订单状态
+//            if ($order['tp']==0){
+//                model\Log::instance()->addLog($order['uid'],3,array("username"=>$my['name'],"itemname"=>$item["name"]));
+//            }else{
+//                model\Log::instance()->addLog($order['uid'],4,array("username"=>$my['name'],"itemname"=>$item["name"]));
+//            }
+            } else {
+                //var_dump($item->errors);
+                throw new ApiException(9998);
+            }
+        }catch (ApiException $e) {
+                throw $e;
+        } catch (\Exception $e) {
+            //var_dump($e->getMessage());
+            throw new ApiException(9996, $e->getMessage());
+        }
+
+
+        //更新item表订单计数
+        Orderinfo::updateCache("ow", $id);
+
+        return $saveSuccess;
+    }
+
 }

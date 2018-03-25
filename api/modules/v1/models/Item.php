@@ -5,6 +5,7 @@ use Yii;
 use yii\db\ActiveRecord;
 use api\modules\v1\models\Itemdetail;
 use api\modules\v1\models\Itemimg;
+use api\modules\v1\models\Fav;
 use api\modules\v1\models\CacheAR;
 use yii\behaviors\TimestampBehavior;
 use yii\caching\TagDependency;
@@ -26,6 +27,12 @@ class Item extends CacheAR
     }
 
 
+    private $_favnum;
+
+    public function setFavnum($count)
+    {
+        $this->_favnum = (int) $count;
+    }
 
     public static function tableName()
     {
@@ -36,8 +43,44 @@ class Item extends CacheAR
         return $this->hasOne(Itemdetail::className(), ['itemid' => 'id']);
     }
 
+    public function getUserInfo(){
+        return $this->hasOne(UserInfo::className(), ['id' => 'uid']);
+    }
+
     public function getItemimg(){
         return $this->hasMany(Itemimg::className(), ['itemid' => 'id']);
+    }
+
+    public function getFav(){
+        return $this->hasMany(Fav::className(), ['itemid' => 'id']);
+    }
+
+    public function getIsfav(){
+        if ($this->isNewRecord) {
+            return 0; // 这样可以避免调用空主键进行查询
+        }
+        $isfav = 0;
+        if(Yii::$app->controller->userId > 0){
+            $fav = Fav::find(['uid=:uid and itemid=:itemid',[":uid"=>Yii::$app->controller->userId,":item"=>$this->id]]);
+            if($fav->count()){
+                $isfav = 1;
+            }
+        }
+
+        return $isfav;
+    }
+
+    public function getFavnum()
+    {
+        if ($this->isNewRecord) {
+            return null; // 这样可以避免调用空主键进行查询
+        }
+
+        if ($this->_favnum === null) {
+            $this->setFavnum($this->getFav()->count());
+        }
+
+        return $this->_favnum;
     }
 
 
@@ -67,8 +110,10 @@ class Item extends CacheAR
     {
         $action_id = Yii::$app->controller->action->id;
         $fields = parent::fields();
-        if($action_id=="index"||$action_id=="info"){
+        if($action_id=="index"){
             $fields += ['itemdetail','itemimg'];
+        }elseif($action_id=="info"){
+            $fields += ['itemdetail','itemimg','isfav','favnum','userInfo'];
         }
 
         // 删除一些包含敏感信息的字段
