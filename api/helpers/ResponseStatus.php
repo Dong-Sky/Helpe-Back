@@ -62,7 +62,13 @@ class ResponseStatus {
 
         30001 => 'ORDER_INVILAD_ITEM',                  // item不存在或者是自己的
 
-        40001 => 'ORDER_INVILAD_ADDRESS',               // 地址不存在
+        40001 => 'ORDER_INVILAD_ADDRESS',               // 订单地址不存在
+        40002 => 'ORDER_NO_EXIST',                      // 订单不存在
+        40003 => 'ORDER_NOT_OWNER',                      // 订单用户不是owner
+        40004 => 'ORDER_STATUS_VALID',                   // 订单状态无效
+
+
+        50001 => 'FAV_EXIST',               // 收藏已经存在
 
     ];
 
