@@ -11,7 +11,9 @@ namespace api\modules\v1\controllers;
 use api\controllers\ApiException;
 use api\helpers\GlobalPre;
 use api\models\Passport;
+use api\models\UserAvatar;
 use api\modules\v1\models\UserInfo;
+use common\helpers\AliyunOss;
 use common\models\User;
 use Yii;
 use common\helpers\Mailer;
@@ -42,6 +44,8 @@ class UserController extends BaseActiveController {
      */
     public function actionInfo() {
         $ret = $this->user->attributes;
+        unset($ret['access_token']);
+        unset($ret['password_reset_token']);
         return new ApiResponse(0, $ret);
     }
 
@@ -181,8 +185,31 @@ class UserController extends BaseActiveController {
     /**
      * 更新用户头像
      */
-    public function actionUpdateAvatar() {
+    public function actionAvatar() {
+        $userAvatar = new UserAvatar();
+        $aliyunOss = new AliyunOss();
+        $imagePath = "";
+        $imageUrl = "";
+        try {
 
+            if($userAvatar->validate() && $userAvatar->upload('face')) {
+                $imagePath = $userAvatar->imagePath;
+                $imageUrl = $userAvatar->imageUrl;
+            } else {
+                throw new ApiException(10018);
+            }
+        } catch (\Exception $e) {
+            Yii::warning("upload image error, " . $e->getMessage(), 'api');
+            throw new ApiException(10018);
+        }
+        $ossFile = trim($imageUrl, '/');
+        $aliyunOss->uploadFile("helpe-avatar", $ossFile, $imagePath);
+
+        $user = User::findIdentity($this->userId);
+        $user->face = $imageUrl;
+        $user->save();
+
+        return new ApiResponse(0, []);
     }
 
 }

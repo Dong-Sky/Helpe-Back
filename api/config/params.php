@@ -6,4 +6,5 @@ return [
     'f&qUrl'=>"faq/index.html",
     'staticUrl'=>"https://testimg.heple.online",
     'version'=>"1.0.0",//最新版本
+
 ];

@@ -28,7 +28,7 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 1;
 
-
+//    private $_faceurl;
 
     /**
      * @inheritdoc
@@ -47,6 +47,23 @@ class User extends ActiveRecord implements IdentityInterface
             TimestampBehavior::className(),
         ];
     }
+
+//    public function setFaceurl($faceurl) {
+//        $this->_faceurl = $faceurl;
+//    }
+//
+//    public function getFaceurl() {
+//        return Yii::$app->params['avatarImageBaseUrl'];
+//    }
+
+//    public function fields()
+//    {
+//        $fields = parent::fields();
+//        $fields += ['faceurl'];
+//        unset($fields['access_token'], $fields['password_reset_token']);
+//        return $fields;
+//    }
+
 
     /**
      * @inheritdoc

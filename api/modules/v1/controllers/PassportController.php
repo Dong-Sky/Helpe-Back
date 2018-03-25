@@ -176,7 +176,6 @@ class PassportController extends BaseActiveController {
      * @return ApiResponse
      * @throws ApiException
      * @throws Exception
-     * @throws FacebookSDKException
      */
     public function actionLogin() {
         $type = (int) trim($this->get['type']);
@@ -259,14 +258,14 @@ class PassportController extends BaseActiveController {
                     $user->username = $fbName;
                     $user->gender = $gender;
                     $user->birthday = '';
-                    $user->access_token = substr(str_replace(['-', '_', '0', 'o', 'O', 'l', 'L', '1'], '', Yii::$app->security->generateRandomString(70)),0, 40);;
+                    $user->access_token = substr(str_replace(['-', '_', '0', 'o', 'O', 'l', 'L', '1'], '', Yii::$app->security->generateRandomString(70)),0, 40);
                     $user->ip = Yii::$app->request->getUserIP();
 
                     $passport->save();
                     $user->save();
                     $transaction->commit();
                     $saveSuccess = true;
-
+                    $ret = $user->attributes;
                 } catch (\Exception $e) {
                     $transaction->rollBack();
                 }
@@ -274,7 +273,7 @@ class PassportController extends BaseActiveController {
                 if(!$saveSuccess) {
                     throw new ApiException(10007);
                 }
-                $ret = User::findIdentityByEmail(2, $fbId);
+
                 break;
             default:
                 throw new ApiException(10008);
