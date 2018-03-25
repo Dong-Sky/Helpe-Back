@@ -543,6 +543,32 @@ POST 请求
 ```
 
 
+##6. 举报模块##
+###6.1添加举报
+POST 请求
+/v1/report/add
+### 请求参数 ###
+- t 							// access_token是服务端给客户端的校验key
+- item_type  					// 举报的类型
+- item_value                    // 举报类型的编号
+- reason                        // 理由
+- info                          // 理由详细, 暂时可以使用
+
+### 返回状态 ###
+- 0												  // 成功
+- 9998 => 'REQUEST_PARAM_ERROR',                  // 请求参数错误
+- 10000 => 'ACCESS_TOKEN_CHECK_ERROR',            // ACCESS TOKEN 检查错误
+
+
+### 返回结果 ###
+```
+{
+	"status" : 0,
+	"err" : null,
+	"data" : [],
+}
+```
+
 ##9.商品（服务，求助）模块##
 ###9.1列表接口
 /v1/item[/list]
