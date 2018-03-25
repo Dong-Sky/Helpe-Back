@@ -17,15 +17,30 @@ use Yii;
 
 class AliyunOss {
 
-    public $accessKeyId = "";
-    public $accessKeySecret = "";
-    public $endpoint = "";
+    public $accessKeyId;
+    public $accessKeySecret;
+    public $endpoint;
 
     private $ossClient;
 
-    public function __construct() {
+    public function __construct($accessKeyId = null, $accessKeySecret = null, $endpoint = null) {
         try {
-            $this->ossClient = new OssClient($this->accessKeyId, $this->accessKeySecret, $this->endpoint, true);
+            if($accessKeyId) {
+                $this->accessKeyId = $accessKeyId;
+            } else {
+                $this->accessKeyId = Yii::$app->params['aliyunOssAppId'];
+            }
+            if($accessKeySecret) {
+                $this->accessKeySecret = $accessKeySecret;
+            } else {
+                $this->accessKeySecret = Yii::$app->params['aliyunOssAppSecret'];
+            }
+            if($endpoint) {
+                $this->endpoint = $endpoint;
+            } else {
+                $this->endpoint = Yii::$app->params['aliyunOssEndpoint'];
+            }
+            $this->ossClient = new OssClient($this->accessKeyId, $this->accessKeySecret, $this->endpoint);
             $this->ossClient->setTimeout(3600);
         } catch (OssException $e) {
             Yii::warning("linked to aliyun oss error, error : " . $e->getMessage(), 'api');
@@ -44,7 +59,7 @@ class AliyunOss {
 
 
     /**
-     * OSS 上传到指定文件夹的
+     * OSS 上传到指定bucket 的 文件, ossFile 是包含目录信息的
      * @param $bucket
      * @param $ossFile
      * @param $localFile
@@ -52,9 +67,26 @@ class AliyunOss {
      */
     public function uploadFile($bucket, $ossFile, $localFile) {
         try {
+            Yii::info("upload file info : bucket : " . $bucket . ", ossFile : " . $ossFile . ', localFile : ' . $localFile, 'api');
             $this->ossClient->uploadFile($bucket, $ossFile, $localFile);
         } catch (OssException $e) {
             Yii::warning("upload file error : " . $e->getMessage(), 'api');
+            throw new ApiException(10017);
+        }
+    }
+
+
+    /**
+     * OSS 创建目录
+     * @param $bucket
+     * @param $dir
+     * @throws ApiException
+     */
+    public function createObjectDir($bucket, $dir) {
+        try {
+            $this->ossClient->createObjectDir($bucket, $dir);
+        } catch (OssException $e) {
+            Yii::warning("create object dir error : " . $e->getMessage(), 'api');
             throw new ApiException(10017);
         }
     }
