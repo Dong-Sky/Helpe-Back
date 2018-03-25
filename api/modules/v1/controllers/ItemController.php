@@ -1,6 +1,7 @@
 <?php
 namespace api\modules\v1\controllers;
 
+use api\modules\v1\models\Itemimg;
 use Yii;
 use yii\rest\ActiveController;
 use api\models\Passport;
@@ -13,7 +14,9 @@ use api\modules\v1\models\Itemdetail;
 use yii\helpers\ArrayHelper;
 use api\controllers\BaseActiveController;
 use api\controllers\ApiException;
+use yii\web\UploadedFile;
 use yii\log\Logger;
+use common\helpers\AliyunOss;
 
 class ItemController extends BaseActiveController
 {
@@ -63,7 +66,7 @@ class ItemController extends BaseActiveController
         if (Yii::$app->request->isPost) {
             //todo 文件处理
 
-            $uid = \Yii::$app->request->post("uid",0);
+            $uid = $this->userId;
             $aid = \Yii::$app->request->post("aid",0);
             $name = \Yii::$app->request->post("name");
             $type = \Yii::$app->request->post("type",0);
@@ -72,6 +75,9 @@ class ItemController extends BaseActiveController
             $mark= \Yii::$app->request->post("mark",0);
             $paytp = \Yii::$app->request->post("paytp",0);
             $conact =  \Yii::$app->request->post("contact");
+            $unit =  \Yii::$app->request->post("unit","");
+            $deadline =  \Yii::$app->request->post("deadline","");
+            $pet =  \Yii::$app->request->post("pet",0);
 
             $data = [
                 'Item' => [
@@ -94,10 +100,10 @@ class ItemController extends BaseActiveController
                     'aaid'=>0,
                     'paytp'=>0,
                     'salenum'=>0,
-                    'unit'=>"",
-                    //'deadline'=>"",
+                    'unit'=>$unit,
+                    'deadline'=>$deadline,
                     'pt'=>time(),
-                    'pet'=>0,
+                    'pet'=>$pet,
                 ]
             ];
             //$data_detail = ['itemdetail' => ["mark"=>$mark]];
@@ -113,6 +119,7 @@ class ItemController extends BaseActiveController
 
 
                     if($saved){
+                        //更新商品详情
                         $itmedetail = new Itemdetail();
                         $itmedetail->mark = $mark;
                         $itmedetail->itemid = $item->id;
@@ -123,6 +130,29 @@ class ItemController extends BaseActiveController
                         } else {
                             //var_dump($itmedetail->errors);exit;
                             throw new ApiException(9998,$itmedetail->errors);
+                        }
+
+                        $imgModel = new Itemimg();
+                        $aliyunOss = new AliyunOss();
+
+                        $imgFiles = UploadedFile::getInstancesByName( 'itemfile');
+                        foreach ($imgFiles as $file){
+                            $_imgModel = clone $imgModel;
+                            if($imgModel->upload($file)){
+                                $_imgModel->url = $imgModel->imageUrl;
+                                $_imgModel->itemid = $item->id;
+                                $_imgModel->uid = $uid;
+                                $imagePath = $imgModel->imagePath;
+                                $imageUrl = $imgModel->imageUrl;
+                                if($_imgModel->save()){
+                                    $ossFile = trim($imageUrl, '/');
+                                    $aliyunOss->uploadFile("helpe-avatar", $ossFile, $imagePath);
+                                }else{
+                                    //var_dump($itmedetail->errors);exit;
+                                    throw new ApiException(9998,$imgModel->errors);
+                                }
+                            }
+
                         }
                     }
                     $transaction->commit();
@@ -169,6 +199,156 @@ class ItemController extends BaseActiveController
     public function actionOnline() {
         if (Yii::$app->request->isPost) {
             //todo 文件处理
+
+            $uid = \Yii::$app->request->post("uid",0);
+            $id = \Yii::$app->request->post("id",0);
+
+
+            $saveSuccess = false;
+            try{
+
+                $item = Item::find()->where('id=:id and uid=:uid ', [':id' => $id,':uid' => $uid])->one();
+
+                $item->flag = 1;
+                if($item->save()){
+
+                    $saveSuccess = true;
+
+
+                }else{
+                    //var_dump($item->errors);
+                    throw new ApiException(9998,$item->errors);
+                }
+            } catch (\Exception $e) {
+                //var_dump($e->getMessage());
+                throw new ApiException(20002,$e->getMessage());
+            }
+
+            Item::updateCache('ow',$id);
+
+        }else{
+            //echo 2222;
+            throw new ApiException(9997);
+        }
+
+        return new ApiResponse(0, []);
+    }
+
+
+    /**
+     * 设置封面
+
+    -m online
+    - token  登陆后服务器给的token
+    - uid  登陆后服务器给的uid
+    -id  商品ID
+     */
+    public function actionDimg() {
+        if (Yii::$app->request->isPost) {
+            //todo 文件处理
+
+//            $id = $this->getInteger('id');
+//            $pid = $this->getInteger('pid');
+//
+//            $item = model\Item::instance()->getOne($id);
+//            if (empty($item) || $item['uid'] !=$this->uid){
+//                throw new \Exception("item_not_exists");
+//            }
+//
+//            $img = model\ItemImg::instance()->getOne($pid);
+//            if (empty($img) || $img['uid'] !=$this->uid){
+//                throw new \Exception("img_not_exists");
+//            }
+//
+//            $item['img'] = $img['url'];
+//
+//            $update = array(
+//                'img'=>$item['img'],
+//                'mt'=>NOW_TIME,
+//            );
+//            $rs  = model\Item::instance()->updateByWhere4Cache($update,$item['id']);
+//            if (!$rs){
+//                throw new \Exception("item_dimg_fail");
+//            }
+//            $res = array(
+//                'item' =>$item,
+//            );
+
+
+            $uid = \Yii::$app->request->post("uid",0);
+            $id = \Yii::$app->request->post("id",0);
+
+
+            $saveSuccess = false;
+            try{
+
+                $item = Item::find()->where('id=:id and uid=:uid ', [':id' => $id,':uid' => $uid])->one();
+
+                $item->flag = 1;
+                if($item->save()){
+
+                    $saveSuccess = true;
+
+
+                }else{
+                    //var_dump($item->errors);
+                    throw new ApiException(9998,$item->errors);
+                }
+            } catch (\Exception $e) {
+                //var_dump($e->getMessage());
+                throw new ApiException(20002,$e->getMessage());
+            }
+
+            Item::updateCache('ow',$id);
+
+        }else{
+            //echo 2222;
+            throw new ApiException(9997);
+        }
+
+        return new ApiResponse(0, []);
+    }
+
+
+    /**
+     * 设置封面
+
+    -m online
+    - token  登陆后服务器给的token
+    - uid  登陆后服务器给的uid
+    -id  商品ID
+     */
+    public function actionUpdate() {
+        if (Yii::$app->request->isPost) {
+            //todo 文件处理
+
+//            $id = $this->getInteger('id');
+//            $pid = $this->getInteger('pid');
+//
+//            $item = model\Item::instance()->getOne($id);
+//            if (empty($item) || $item['uid'] !=$this->uid){
+//                throw new \Exception("item_not_exists");
+//            }
+//
+//            $img = model\ItemImg::instance()->getOne($pid);
+//            if (empty($img) || $img['uid'] !=$this->uid){
+//                throw new \Exception("img_not_exists");
+//            }
+//
+//            $item['img'] = $img['url'];
+//
+//            $update = array(
+//                'img'=>$item['img'],
+//                'mt'=>NOW_TIME,
+//            );
+//            $rs  = model\Item::instance()->updateByWhere4Cache($update,$item['id']);
+//            if (!$rs){
+//                throw new \Exception("item_dimg_fail");
+//            }
+//            $res = array(
+//                'item' =>$item,
+//            );
+
 
             $uid = \Yii::$app->request->post("uid",0);
             $id = \Yii::$app->request->post("id",0);

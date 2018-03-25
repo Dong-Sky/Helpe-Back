@@ -15,7 +15,7 @@ use api\controllers\BaseActiveController;
 use api\controllers\ApiException;
 use yii\log\Logger;
 
-class ItemController extends BaseActiveController
+class FeedbackController extends BaseActiveController
 {
     public $modelClass = 'api\modules\v1\models\Item';
 

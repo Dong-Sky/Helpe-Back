@@ -101,7 +101,7 @@ class Item extends CacheAR
             [['uid','name','appid','type','cid','price','paytp','contact','img','flag','tag','aid','aaid','lat','lng',
                 'pt','pet'],
                 'required','message' => '字段不能为空'],
-            ['cid', 'in', 'range' => array(0, 1)],
+            ['type', 'in', 'range' => array(0, 1)],
             ['uid', 'integer'],
         ];
     }
