@@ -7,10 +7,12 @@
 	* 登录
    * 注册
    * 修改密码
+   * 忘记密码
    * 登出
 4. 用户
    * 用户信息
    * 修改
+   * 更新用户头像
 5. 订单
     * 订单详情
     * 我的订单
@@ -204,34 +206,332 @@ GET 请求
 
 ```
 
-## 注册接口 2个步骤
-POST GET 请求
+
+
+##3. 认证模块 ##
+### 3.1 登录接口
+#### 标准登录 (自有账号体系)
+
+GET 请求
+/v1/passport/login
+根据返回 status 的状态判断,0是正常, 非0是异常, data中包含用户信息
+
+### 请求参数 ###
+- email 	客户端检查电子邮件准确性, 如果准确,往服务端检查校验
+- password  密码
+- type = 1
+
+### 返回状态 ###
+- 0												  // 成功
+- 10008 => 'LOGIN_IN_TYPE_ERROR',                 // 登录类型错误, 在不接受的范围内
+- 10009 => 'USER_IS_NOT_EXISTS',                  // 用户不存在 默认登录的电子邮件
+- 10010 => 'USER_PASSWORD_ERROR',                 // 用户名密码错误
+- 10011 => 'USER_INFO_GET_ERROR',                 // 常规登录用户信息获取错误
+- 10012 => 'USER_INFO_SAVE_ERROR',                // 常规登录用户信息获取错误
+
+### 返回结果 ###
+```
+{
+	"status" : 0,
+	"err" : null,
+	"data" : {
+		"id": 1,																// 用户ID
+        "type": 1,																// 用户类型
+        "email": "ft20082@qq.com",												// 用户账号
+        "username": "ft20082",													// 昵称
+        "access_token": "KVvaPT5cSRErU2hIxEM8c2AERCxF2Vu5dYQ2JF4R",				// access token
+        "password_reset_token": null,											// 重置密码的token 可忽略
+        "face": null,															// 头像, 应该是一个图片
+        "gender": null,															// 性别
+        "birthday": null,														// 生日  (yyyy-mm-dd)
+        "career": null,															// 职业
+        "city": null,															// 城市
+        "tel": null,															// 电话
+        "ip": null,																// 最后登录IP
+        "info": null,															// 说明
+        "status": 1,															// 用户状态
+        "created_at": 1521041986,												// 创建时间
+        "updated_at": 1521207945												// 最后更新时间
+	},
+}
+```
+
+#### facebook登录 (第三方登录)
+GET 请求
+/v1/passport/login
+根据返回 status 的状态判断,0是正常, 非0是异常, data中包含用户信息
+
+### 请求参数 ###
+- fb_access_token 		// facebook用户的access_token
+- type = 2				// 类型为2, 是第三方facebook 登录
+
+### 返回状态 ###
+- 0												  // 成功
+- 10007 => 'SAVE_TO_DATABASE_ERROR',              // 保存到数据库错误
+- 10008 => 'LOGIN_IN_TYPE_ERROR',                 // 登录类型错误, 在不接受的范围内
+- 10013 => 'THIRD_PARTY_GET_USER_INFO_ERROR',     // 第三方token 获取用户信息错误
+- 10017 => 'ALIYUN_OSS_OPERATE_ERROR',            // 阿里云OSS操作错误
+
+### 返回结果 ###
+```
+{
+	"status" : 0,
+	"err" : null,
+	"data" : {
+		"id": 1,																// 用户ID
+        "type": 1,																// 用户类型
+        "email": "ft20082@qq.com",												// 用户账号
+        "username": "ft20082",													// 昵称
+        "access_token": "KVvaPT5cSRErU2hIxEM8c2AERCxF2Vu5dYQ2JF4R",				// access token
+        "password_reset_token": null,											// 重置密码的token 可忽略
+        "face": null,															// 头像, 应该是一个图片
+        "gender": null,															// 性别
+        "birthday": null,														// 生日  (yyyy-mm-dd)
+        "career": null,															// 职业
+        "city": null,															// 城市
+        "tel": null,															// 电话
+        "ip": null,																// 最后登录IP
+        "info": null,															// 说明
+        "status": 1,															// 用户状态
+        "created_at": 1521041986,												// 创建时间
+        "updated_at": 1521207945												// 最后更新时间
+	},
+}
+```
+
+### 3.2 注册接口
+
+#### 注册步骤1 (验证邮件地址)
+GET 请求
 /v1/passport/checkEmail
-注册步骤1
 根据返回 status 的状态判断,0是正常, 非0是异常
 
 ### 请求参数 ###
 - email 	客户端检查电子邮件准确性, 如果准确,往服务端检查校验
 
+### 返回状态 ###
+- 0												  // 成功
+- 10001 => 'EMAIL_ADDRESS_CHECK_ERROR',           // 邮件地址检查错误
+- 10002 => 'SEND_EMAIL_CHECK_FREQUENTLY',         // 邮件发送太频繁, 要隔一定时间,默认是1分钟
+- 10003 => 'PASSPORT_EMAIL_EXISTS',               // 通行证表邮件已存在
+- 10004 => 'SEND_EMAIL_CHECK_FAILURE',            // 电子邮件发送失败
+
 ### 返回结果 ###
 ```
 {
-	"code" : 0,
-	"message" : null,
+	"status" : 0,
+	"err" : null,
 	"data" : [],
 }
 ```
 
-POST GET 请求
+#### 注册步骤2 (提交注册信息)
+GET 请求
 /v1/passport/register
-注册步骤2
 说明: 请求内容必须包含电子邮件的校验key
 
 ### 请求参数 ###
-- username		用户名<电子邮件>
+- username		用户名<昵称>
 - password		密码
-- nickname		昵称
-- authtoken 	电子邮件校验key
+- email			电子邮件
+- auth_token 	电子邮件校验key
+
+### 返回状态 ###
+- 0 											  // 成功
+- 10003 => 'PASSPORT_EMAIL_EXISTS',               // 通行证表邮件已存在
+- 10005 => 'REGISTER_TOKEN_CHECK_ERROR',          // 注册的校验token检查错误
+- 10006 => 'REGISTER_EMAIL_CHECK_ERROR',          // 注册邮件检查错误
+- 10007 => 'SAVE_TO_DATABASE_ERROR',              // 保存到数据库错误
+
+### 返回结果 ###
+```
+{
+	"status" : 0,
+	"err" : null,
+	"data" : [],
+}
+```
+
+### 3.3 修改密码
+GET 请求
+/v1/user/reset-password
+
+### 请求参数 ###
+- t 							// access_token是服务端给客户端的校验key
+- old_password					// 老的密码
+- new_password					// 新的密码
+
+### 返回状态 ###
+- 0												  // 成功
+- 10000 => 'ACCESS_TOKEN_CHECK_ERROR',            // ACCESS TOKEN 检查错误
+- 9995 => 'PASSWORD_CHECK_ERROR',                 // 密码检查错误
+- 9998 => 'REQUEST_PARAM_ERROR',                  // 请求参数错误
+- 10015 => 'THIRD_PARTY_NOT_SUPPORT',             // 第三方登录不支持, 比如重置密码
+
+
+### 返回结果 ###
+```
+{
+	"status" : 0,
+	"err" : null,
+	"data" : [],
+}
+```
+
+### 3.4 忘记密码
+
+#### 忘记密码步骤1 (发送验证邮件)
+GET 请求
+/v1/user/forget-password
+服务端不需要校验
+
+### 请求参数 ###
+- email											  // 电子邮件地址 
+
+### 返回状态 ###
+- 0												  // 成功
+- 10001 => 'EMAIL_ADDRESS_CHECK_ERROR',           // 邮件地址检查错误
+- 10009 => 'USER_IS_NOT_EXISTS',                  // 用户不存在 默认登录的电子邮件
+- 10004 => 'SEND_EMAIL_CHECK_FAILURE',            // 电子邮件发送失败
+
+### 返回结果 ###
+```
+{
+	"status" : 0,
+	"err" : null,
+	"data" : [],
+}
+```
+
+#### 忘记密码步骤2 (更新密码)
+GET 请求
+/v1/user/forget-password-reset
+说明: 请求内容必须包含电子邮件的校验key
+
+### 请求参数 ###
+- email			电子邮件
+- auth_token 	电子邮件校验key
+- password      密码
+
+### 返回状态 ###
+- 0 											  // 成功
+- 10001 => 'EMAIL_ADDRESS_CHECK_ERROR',           // 邮件地址检查错误
+- 10007 => 'SAVE_TO_DATABASE_ERROR',              // 保存到数据库错误
+- 10009 => 'USER_IS_NOT_EXISTS',                  // 用户不存在 默认登录的电子邮件
+- 10016 => 'AUTH_TOKEN_CHECK_ERROR',              // 校验码检查错误
+
+### 返回结果 ###
+```
+{
+	"status" : 0,
+	"err" : null,
+	"data" : [],
+}
+```
+
+### 3.5 登出
+
+GET 请求
+/v1/passport/logout
+根据返回 status 的状态判断,0是正常, 非0是异常
+
+常规登录
+
+### 请求参数 ###
+- t 	access_token是服务端给客户端的校验key
+
+### 返回状态 ###
+- 0												  // 成功
+- 10000 => 'ACCESS_TOKEN_CHECK_ERROR',            // ACCESS TOKEN 检查错误
+
+
+### 返回结果 ###
+```
+{
+	"status" : 0,
+	"err" : null,
+	"data" : [],
+}
+```
+
+## 4. 用户信息模块 ##
+###4.1 获取用户信息
+GET 请求
+/v1/user/info
+### 请求参数 ###
+- t 	access_token是服务端给客户端的校验key
+
+### 返回状态 ###
+- 0												  // 成功
+- 10000 => 'ACCESS_TOKEN_CHECK_ERROR',            // ACCESS TOKEN 检查错误
+
+
+### 返回结果 ###
+```
+{
+	"status" : 0,
+	"err" : null,
+	"data" : {
+		"id": 1,																// 用户ID
+        "type": 1,																// 用户类型
+        "email": "ft20082@qq.com",												// 用户账号
+        "username": "ft20082",													// 昵称
+        "face": null,															// 头像, 应该是一个图片
+        "gender": null,															// 性别
+        "birthday": null,														// 生日 (yyyy-mm-dd)
+        "career": null,															// 职业
+        "city": null,															// 城市
+        "tel": null,															// 电话
+        "ip": null,																// 最后登录IP
+        "info": null,															// 说明
+        "status": 1,															// 用户状态
+        "created_at": 1521041986,												// 创建时间
+        "updated_at": 1521207945												// 最后更新时间
+	},
+}
+```
+
+###4.2 更新用户信息
+POST 请求
+/v1/user/update
+### 请求参数 ###
+- t 					// access_token是服务端给客户端的校验key
+- username				// 用户昵称
+- gender				// 性别
+- birthday				// 生日 (yyyy-mm-dd)
+- career				// 职业
+- city					// 城市
+- tel 					// 电话
+- info 					// 个人简介
+
+### 返回状态 ###
+- 0												  // 成功
+- 10000 => 'ACCESS_TOKEN_CHECK_ERROR',            // ACCESS TOKEN 检查错误
+- 9998 => 'REQUEST_PARAM_ERROR',                  // 请求参数错误
+- 10007 => 'SAVE_TO_DATABASE_ERROR',              // 保存到数据库错误
+
+### 返回结果 ###
+```
+{
+	"status" : 0,
+	"err" : null,
+	"data" : [],
+}
+```
+
+###4.3 更新用户头像
+POST 请求
+/v1/user/avatar
+### 请求参数 ###
+- t 							// access_token是服务端给客户端的校验key
+- face  						// 用户头像 file 类型 
+
+### 返回状态 ###
+- 0												  // 成功
+- 10000 => 'ACCESS_TOKEN_CHECK_ERROR',            // ACCESS TOKEN 检查错误
+- 10017 => 'ALIYUN_OSS_OPERATE_ERROR',            // 阿里云OSS操作错误
+- 10018 => 'USER_IMG_UPLOAD_ERROR',               // 用户图片上传错误
+
 
 ### 返回结果 ###
 ```
