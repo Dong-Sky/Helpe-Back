@@ -57,8 +57,11 @@ class ResponseStatus {
         10018 => 'USER_IMG_UPLOAD_ERROR',               // 用户图片上传错误
 
 
-        20001=> '',
+        20001 => 'ITEM_NO_EXIST',                        //商品不存在
         20002 => 'SAVE_TO_DATABASE_ERROR',              // 保存到数据库错误
+        20003 => 'ITEM_IMAGE_NO_EXIST',                  //商品图片不存在
+        20004 => 'ITEM_NO_OWNER',                        //当前用户不是所有者
+        20005 => 'ITEM_ON_ONLINE',                         //商品当前发布状态
 
         30001 => 'ORDER_INVILAD_ITEM',                  // item不存在或者是自己的
 
@@ -66,6 +69,8 @@ class ResponseStatus {
         40002 => 'ORDER_NO_EXIST',                      // 订单不存在
         40003 => 'ORDER_NOT_OWNER',                      // 订单用户不是owner
         40004 => 'ORDER_STATUS_VALID',                   // 订单状态无效
+        40005 => 'ORDER_NOT_ITEM_OWNER',                   //不是求助商品的所有者
+        40006 => 'ORDER_NOT_ORDER_USER',                   //下单用户本人
 
 
         50001 => 'FAV_EXIST',               // 收藏已经存在

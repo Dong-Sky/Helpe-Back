@@ -237,59 +237,32 @@ class ItemController extends BaseActiveController
 
     /**
      * 设置封面
-
-    -m online
     - token  登陆后服务器给的token
-    - uid  登陆后服务器给的uid
     -id  商品ID
+    - pid  图片id
      */
     public function actionDimg() {
         if (Yii::$app->request->isPost) {
-            //todo 文件处理
-
-//            $id = $this->getInteger('id');
-//            $pid = $this->getInteger('pid');
-//
-//            $item = model\Item::instance()->getOne($id);
-//            if (empty($item) || $item['uid'] !=$this->uid){
-//                throw new \Exception("item_not_exists");
-//            }
-//
-//            $img = model\ItemImg::instance()->getOne($pid);
-//            if (empty($img) || $img['uid'] !=$this->uid){
-//                throw new \Exception("img_not_exists");
-//            }
-//
-//            $item['img'] = $img['url'];
-//
-//            $update = array(
-//                'img'=>$item['img'],
-//                'mt'=>NOW_TIME,
-//            );
-//            $rs  = model\Item::instance()->updateByWhere4Cache($update,$item['id']);
-//            if (!$rs){
-//                throw new \Exception("item_dimg_fail");
-//            }
-//            $res = array(
-//                'item' =>$item,
-//            );
-
-
-            $uid = \Yii::$app->request->post("uid",0);
+            $pid = \Yii::$app->request->post("pid",0);
             $id = \Yii::$app->request->post("id",0);
 
 
+            $item = Item::find()->where('id=:id', [':id' => $id])->one();
+
+            if (empty($item) || $item['uid'] !=$this->userId){
+                throw new ApiException(20001);
+            }
+            $img = ItemImg::find()->where('id=:id', [':id' => $pid])->one();
+            if (empty($img) || $img['uid'] !=$this->userId){
+                throw new \Exception(20003);
+            }
+
+            $item->img = $img['url'];
             $saveSuccess = false;
             try{
 
-                $item = Item::find()->where('id=:id and uid=:uid ', [':id' => $id,':uid' => $uid])->one();
-
-                $item->flag = 1;
                 if($item->save()){
-
                     $saveSuccess = true;
-
-
                 }else{
                     //var_dump($item->errors);
                     throw new ApiException(9998,$item->errors);
@@ -320,46 +293,72 @@ class ItemController extends BaseActiveController
      */
     public function actionUpdate() {
         if (Yii::$app->request->isPost) {
-            //todo 文件处理
-
-//            $id = $this->getInteger('id');
-//            $pid = $this->getInteger('pid');
-//
-//            $item = model\Item::instance()->getOne($id);
-//            if (empty($item) || $item['uid'] !=$this->uid){
-//                throw new \Exception("item_not_exists");
-//            }
-//
-//            $img = model\ItemImg::instance()->getOne($pid);
-//            if (empty($img) || $img['uid'] !=$this->uid){
-//                throw new \Exception("img_not_exists");
-//            }
-//
-//            $item['img'] = $img['url'];
-//
-//            $update = array(
-//                'img'=>$item['img'],
-//                'mt'=>NOW_TIME,
-//            );
-//            $rs  = model\Item::instance()->updateByWhere4Cache($update,$item['id']);
-//            if (!$rs){
-//                throw new \Exception("item_dimg_fail");
-//            }
-//            $res = array(
-//                'item' =>$item,
-//            );
-
-
-            $uid = \Yii::$app->request->post("uid",0);
             $id = \Yii::$app->request->post("id",0);
+
+            $item = Item::find()->where('id=:id', [':id' => $id])->one();
+
+            if (empty($item)){
+                throw new ApiException(20001);
+            }
+
+            if ($item['flag']){
+                throw new ApiException(20005);
+            }
+
+            if ($item['uid'] !=$this->userId){
+                throw new ApiException(20004);
+            }
+
+
+            $aid = \Yii::$app->request->post("aid",0);
+            if ($aid>0){
+                $item['aid'] = $aid;
+            }
+
+            $paytp = \Yii::$app->request->post("paytp",0);
+            if ($paytp<2){
+                $item['paytp'] = $paytp;
+            }
+
+            $name = \Yii::$app->request->post("name","");
+            if ($name!=""){
+                $item['name'] = $name;
+            }
+
+            $cid = \Yii::$app->request->post("cid",0);
+            if ($cid>0){
+                $item['cid'] = $cid;
+            }
+
+            $type = \Yii::$app->request->post("type",0);
+            if ($type<2){
+                $item['type'] = $type;
+            }
+
+            $price = \Yii::$app->request->post("price",0);
+            if ($price>0){
+                $item['price'] = $price;
+            }
+
+            $contact = \Yii::$app->request->post("contact","");
+            if ($contact!=""){
+                $item['contact'] = $contact;
+            }
+
+            $unit = \Yii::$app->request->post("unit","");
+            if ($unit!=""){
+                $item['unit'] = $unit;
+            }
+
+            $deadline = \Yii::$app->request->post("deadline","");
+            if ($deadline!=""){
+                $item['deadline'] = $deadline;
+            }
 
 
             $saveSuccess = false;
             try{
 
-                $item = Item::find()->where('id=:id and uid=:uid ', [':id' => $id,':uid' => $uid])->one();
-
-                $item->flag = 1;
                 if($item->save()){
 
                     $saveSuccess = true;

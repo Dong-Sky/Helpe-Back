@@ -368,25 +368,11 @@ class OrderController extends BaseActiveController {
     接受订单
      */
     public function actionAccept() {
+        $change_status = 10;
+        $prev_status = 0;
         if (Yii::$app->request->isPost) {
             $id = \Yii::$app->request->post("id",0);
             $uid = $this->userId;
-
-            $this->updateOrderStatus($id,10,0);
-
-        }else{
-            //echo 2222;
-            throw new ApiException(9997);
-        }
-
-        return new ApiResponse(0, []);
-    }
-
-
-    protected function updateOrderStatus($id, $status, $p_status)
-    {
-        $saveSuccess = false;
-        try {
 
             $order = Orderinfo::find()->where('id=:id', [':id' => $id])->one();
 
@@ -398,13 +384,274 @@ class OrderController extends BaseActiveController {
                 throw new ApiException(40003);
             }
 
-            if ($order['status'] != $p_status) {
+            if ($order['status'] != $prev_status ) {
                 throw new ApiException(40004);
             }
 
-            $result = \Yii::$app->db->createCommand()
-                ->update('{{%orderinfo}}', ['status' => $status], "status=$p_status")
-                ->execute();
+            $this->updateOrderStatus($id,$change_status,$prev_status);
+
+        }else{
+            //echo 2222;
+            throw new ApiException(9997);
+        }
+
+        return new ApiResponse(0, []);
+    }
+
+
+    /**
+    拒绝订单
+     */
+    public function actionRefuse() {
+        $change_status = 50;
+        $prev_status = 0;
+        if (Yii::$app->request->isPost) {
+            $id = \Yii::$app->request->post("id",0);
+            $uid = $this->userId;
+
+            $order = Orderinfo::find()->where('id=:id', [':id' => $id])->one();
+
+            if (empty($order)) {
+                throw new ApiException(40002);
+            }
+
+            if ($order['owner'] != $this->userId) {
+                throw new ApiException(40003);
+            }
+
+            if ($order['status'] != $prev_status ) {
+                throw new ApiException(40004);
+            }
+
+            $this->updateOrderStatus($id,$change_status,$prev_status);
+
+        }else{
+            //echo 2222;
+            throw new ApiException(9997);
+        }
+
+        return new ApiResponse(0, []);
+    }
+
+
+    /**
+    到达订单
+     */
+    public function actionArrival() {
+        $change_status = 20;
+        $prev_status = 10;
+
+        if (Yii::$app->request->isPost) {
+            $id = \Yii::$app->request->post("id",0);
+            $uid = $this->userId;
+
+            $order = Orderinfo::find()->where('id=:id', [':id' => $id])->one();
+
+            if (empty($order)||$order['paytp']!=0) {
+                throw new ApiException(40002);
+            }
+
+            if ($order['type']==1){ //求助  要求是求助者本人
+                if ($order['owner']!=$this->userId){
+                    throw new ApiException(40005);
+                }
+            }else{//服务 要求就是下单用户
+                if ($order['uid']!=$this->userId){
+                    throw new ApiException(40006);
+                }
+            }
+
+            if ($order['status'] != $prev_status ) {
+                throw new ApiException(40004);
+            }
+
+            $this->updateOrderStatus($id,$change_status,$prev_status);
+
+        }else{
+            //echo 2222;
+            throw new ApiException(9997);
+        }
+
+        return new ApiResponse(0, []);
+    }
+
+
+    /**
+    付钱订单
+     */
+    public function actionMoney() {
+        $change_status = 30;
+        $prev_status = 20;
+
+        if (Yii::$app->request->isPost) {
+            $id = \Yii::$app->request->post("id",0);
+            $uid = $this->userId;
+
+            $order = Orderinfo::find()->where('id=:id', [':id' => $id])->one();
+
+            if (empty($order)||$order['paytp']!=0) {
+                throw new ApiException(40002);
+            }
+
+            if ($order['type']==1){ //求助  要求是求助者本人
+                if ($order['owner']!=$this->userId){
+                    throw new ApiException(40005);
+                }
+            }else{//服务 要求就是下单用户
+                if ($order['uid']!=$this->userId){
+                    throw new ApiException(40006);
+                }
+            }
+
+            if ($order['status'] != $prev_status ) {
+                throw new ApiException(40004);
+            }
+
+            $this->updateOrderStatus($id,$change_status,$prev_status);
+
+        }else{
+            //echo 2222;
+            throw new ApiException(9997);
+        }
+
+        return new ApiResponse(0, []);
+    }
+
+    /**
+    拿钱订单
+     */
+    public function actionGetmoney() {
+        $change_status = 40;
+        $prev_status = 30;
+
+        if (Yii::$app->request->isPost) {
+            $id = \Yii::$app->request->post("id",0);
+            $uid = $this->userId;
+
+            $order = Orderinfo::find()->where('id=:id', [':id' => $id])->one();
+
+            if (empty($order)||$order['paytp']!=0) {
+                throw new ApiException(40002);
+            }
+
+            if ($order['type']==1){//求助  要求提供服务的人确认
+                if ($order['uid']!=$this->userId){
+                    throw new ApiException(40006);
+                }
+            }else{//服务 服务所有者确认
+                if ($order['owner']!=$this->userId){
+                    throw new ApiException(40005);
+                }
+            }
+
+
+            if ($order['status'] != $prev_status ) {
+                throw new ApiException(40004);
+            }
+
+            $this->updateOrderStatus($id,$change_status,$prev_status);
+
+        }else{
+            //echo 2222;
+            throw new ApiException(9997);
+        }
+
+        return new ApiResponse(0, []);
+    }
+
+
+    public function  actionCancel()
+    {
+
+        $change_status = 60;
+        $prev_status = array(0,10,20,30);
+
+        if (Yii::$app->request->isPost) {
+            $id = \Yii::$app->request->post("id",0);
+            $uid = $this->userId;
+
+            $order = Orderinfo::find()->where('id=:id', [':id' => $id])->one();
+
+            if (empty($order)) {
+                throw new ApiException(40002);
+            }
+
+            //判断是否是2种身份中的一个
+            if ($order['owner']!=$this->userId && $order['uid']!=$this->userId){
+                throw new ApiException(40005);
+            }
+
+
+            if (!in_array($order['status'],array(0,10,20,30))) {
+                throw new ApiException(40004);
+            }
+
+            $this->updateOrderStatus($id,$change_status,$prev_status);
+
+        }else{
+            //echo 2222;
+            throw new ApiException(9997);
+        }
+
+        return new ApiResponse(0, []);
+    }
+
+
+    public function actionFinish()
+    {
+        $change_status = 40;
+        $prev_status = array(10);
+
+        if (Yii::$app->request->isPost) {
+            $id = \Yii::$app->request->post("id",0);
+            $uid = $this->userId;
+
+            $order = Orderinfo::find()->where('id=:id', [':id' => $id])->one();
+
+            if (empty($order) || $order['paytp']!=1) {
+                throw new ApiException(40002);
+            }
+
+            if ($order['type']==1){ //求助  要求是求助者本人
+                if ($order['owner']!=$this->userId){
+                    throw new ApiException(40005);
+                }
+            }else{//服务 要求就是下单用户
+                if ($order['uid']!=$this->userId){
+                    throw new ApiException(40006);
+                }
+            }
+
+
+            if (!in_array($order['status'],array(10))) {
+                throw new ApiException(40004);
+            }
+
+            $this->updateOrderStatus($id,$change_status,$prev_status);
+
+        }else{
+            //echo 2222;
+            throw new ApiException(9997);
+        }
+
+        return new ApiResponse(0, []);
+    }
+
+    protected function updateOrderStatus($id, $status, $p_status)
+    {
+        $saveSuccess = false;
+        try {
+
+            if(is_array($p_status)){
+                $result = \Yii::$app->db->createCommand()
+                    ->update('{{%orderinfo}}', ['status' => $status], "status=$p_status and id=$id")
+                    ->execute();
+            }else{
+                $result = \Yii::$app->db->createCommand()
+                    ->update('{{%orderinfo}}', ['status' => $status], "status in (".implode(",",$p_status).") and id=$id")
+                    ->execute();
+            }
+
 
             if ($result) {
                 $saveSuccess = true;
