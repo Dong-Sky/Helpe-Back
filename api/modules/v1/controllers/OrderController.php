@@ -17,6 +17,7 @@ use yii\caching\TagDependency;
 use api\modules\v1\models\Orderinfo;
 use api\modules\v1\models\Orderaddr;
 use api\modules\v1\models\Address;
+use api\modules\v1\models\Item;
 use yii\helpers\ArrayHelper;
 use api\controllers\BaseActiveController;
 use api\controllers\ApiException;
@@ -63,13 +64,13 @@ class OrderController extends BaseActiveController {
         if (Yii::$app->request->isPost) {
             //todo 文件处理
 
-            $uid = \Yii::$app->request->post("uid",0);
+            $uid = $this->userId;
             $aid = \Yii::$app->request->post("aid",0);
             $num = \Yii::$app->request->post("num",1);
             $id = \Yii::$app->request->post("id",0);
             $cprice = \Yii::$app->request->post("changeprice",0);
 
-            $remark = \Yii::$app->request->post("mark","");
+            $remark = \Yii::$app->request->post("remark","");
             $paytp = \Yii::$app->request->post('paytp',1);
 
             /**
@@ -84,7 +85,7 @@ class OrderController extends BaseActiveController {
                 throw new ApiException(30001);
             }
 
-            $data = ['order' => array(
+            $data = ['Orderinfo' => array(
                 'uid'=>$uid,
                 'owner'=>$item['uid'],
                 'num'=>$num,
@@ -94,33 +95,31 @@ class OrderController extends BaseActiveController {
                 'changeprice'=>$cprice,
                 'remark'=>$remark,
                 "paytp"=>$paytp,
+                'status'=>0,
+                'pt'=>$item['pt'],
             )];
 
 
-            /**
-             *todo
-             */
-            $check_user = true;
-            if($check_user){
-
+            $addr = null;
+            if($aid>0){
+                $addr = Address::findOne($aid);
+                if (empty($addr)){
+                    throw new ApiException(40001);
+                }
+            }else{
+                throw new ApiException(40001);
             }
 
-
             //item类型 0 服务 1 求助
-            if ($data['order']['type']==0){
-                $data['order']['aid'] = $aid;
+            if ($data['Orderinfo']['type']==0){
+                $data['Orderinfo']['aid'] = $aid;
 
 
                 //model\Log::instance()->addLog($item['uid'],1,array("username"=>$my['name'],"itemname"=>$item["name"]));
             }else{
-                $data['order']['aid'] = $item['aid'];
+                $data['Orderinfo']['aid'] = $item['aid'];
                 //model\Log::instance()->addLog($item['uid'],2,array("username"=>$my['name'],"itemname"=>$item["name"]));
 
-            }
-
-            $addr = Address::findOne(["id=:id",[":id"=>$aid]]);
-            if (empty($addr)){
-                throw new ApiException(40001);
             }
 
             // 开始事务查询
@@ -130,19 +129,20 @@ class OrderController extends BaseActiveController {
             try {
                 $orderinfo = new Orderinfo();
                 $orderinfo->load($data);
-                if ($data && $orderinfo->validate()) {
+
+                if ($orderinfo->validate()) {
                     $saved = $orderinfo->save();
 
                     if($saved){
                         $orderaddr = new Orderaddr();
-                        $adr_data = ['Orderaddr'=>$addr];
+                        $adr_data = ['Orderaddr'=>$addr->toArray()];
                         unset($adr_data['Orderaddr']['id']);
-                        $adr_data['Orderaddr']['id'] = $orderinfo->id;
+
+                        $adr_data['Orderaddr']['orderid'] = $orderinfo->id;
 
                         $orderaddr->load($adr_data);
                         if ($orderaddr->validate()) {
                             $orderaddr->save();
-                            //$item->link('itemdetail', $itmedetail);
                         } else {
                             //var_dump($itmedetail->errors);exit;
                             throw new ApiException(9998,$orderaddr->errors);
@@ -196,18 +196,13 @@ class OrderController extends BaseActiveController {
 
         $condition = [];
 
-        //$uid = Yii::$app->request->get("uid",0);
-        $check_user = true;
-
-        $uid = 1;//todo
-        if($check_user){
-            $condition[] = ['=', 'uid', $uid];
-        }
+        $uid = $this->userId;
+        $condition[] = ['=', 'uid', $uid];
 
         //订单的商品类型 服务还是求助
         $type = Yii::$app->request->get('type');
 
-        if ($type>-1||$type===null){
+        if ($type>-1){
             $condition[] = ['=', 'type', $type];
         }
 
@@ -233,7 +228,7 @@ class OrderController extends BaseActiveController {
 
         $modelClass = $this->modelClass;
 
-        $query = $modelClass::find();
+        $query = $modelClass::find()->with('iteminfo')->with('userinfo');;
         if($condition){
             foreach ($condition as $cond){
                 $query->andWhere($cond);

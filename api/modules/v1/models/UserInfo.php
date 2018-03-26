@@ -47,4 +47,14 @@ class UserInfo extends ActiveRecord {
         ];
     }
 
+
+    public function fields()
+    {
+        $fields = parent::fields();
+
+        // 删除一些包含敏感信息的字段
+        unset($fields['access_token'], $fields['password_reset_token']);
+        return $fields;
+    }
+
 }

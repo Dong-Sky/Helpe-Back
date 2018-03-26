@@ -4,6 +4,7 @@ namespace api\modules\v1\models;
 use Yii;
 use yii\db\ActiveRecord;
 use api\modules\v1\models\CacheAR;
+use api\modules\v1\models\UserInfo;
 use yii\behaviors\TimestampBehavior;
 
 class Orderinfo extends CacheAR
@@ -33,7 +34,7 @@ class Orderinfo extends CacheAR
     }
 
     public function getIteminfo(){
-        return $this->hasOne(Item::className(), ['itemid' => 'id']);
+        return $this->hasOne(Item::className(), ['id' => 'itemid']);
     }
 
     public function getOwnerinfo(){
@@ -41,7 +42,7 @@ class Orderinfo extends CacheAR
     }
 
     public function getUserinfo(){
-        return $this->hasOne(Item::className(), ['userid' => 'id']);
+        return $this->hasOne(Userinfo::className(), ['id' => 'uid']);
     }
 
 
@@ -59,12 +60,18 @@ class Orderinfo extends CacheAR
     public function rules(){
         return [
             //[['username','password'],'required','message'=>'不能为空']
-            [['uid','name','appid','type','cid','price','paytp','contact','img','flag','tag','aid','aaid','lat','lng',
-                'pt','pet'],
+            [['uid','owner','num','cash','type','itemid','changeprice','remark','paytp','status'],
                 'required','message' => '字段不能为空'],
-            ['cid', 'in', 'range' => array(0, 1)],
+            ['type', 'in', 'range' => array(0, 1)],
             ['uid', 'integer'],
-            //['num', 'compare', 'compareValue' => 1, 'operator' => '>=']
+            //['num', 'integer'],
+            ['itemid', 'integer'],
+            ['cash', 'double'],
+            ['num', 'compare', 'compareValue' => 1, 'operator' => '>='],
+            ['remark', 'string', 'length' => [1, 200]],
+            ['no', 'default', 'value' => 0],
+            ['ordertp', 'default', 'value' => 0],
+            ['pt', 'default', 'value' => 0],
         ];
     }
 
@@ -73,7 +80,7 @@ class Orderinfo extends CacheAR
         $action_id = Yii::$app->controller->action->id;
         $fields = parent::fields();
         if($action_id=="index"||$action_id=="info"){
-            $fields += ['itemdetail','itemimg'];
+            $fields += ['iteminfo','userinfo'];
         }
 
         // 删除一些包含敏感信息的字段

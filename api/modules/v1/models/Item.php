@@ -108,11 +108,12 @@ class Item extends CacheAR
 
     public function fields()
     {
+        $controller_id = Yii::$app->controller->id;
         $action_id = Yii::$app->controller->action->id;
         $fields = parent::fields();
-        if($action_id=="index"){
+        if($controller_id=="item" && $action_id=="index"){
             $fields += ['itemdetail','itemimg'];
-        }elseif($action_id=="info"){
+        }elseif($controller_id=="item" && $action_id=="info"){
             $fields += ['itemdetail','itemimg','isfav','favnum','userInfo'];
         }
 

@@ -16,8 +16,7 @@ class Orderaddr extends CacheAR
             'timestamp'=>[
                 'class'=>TimestampBehavior::className(),
                 'attributes'=>[
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['ct', 'mt'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['mt']
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['ct'],
                 ]
             ]
         ];
@@ -25,7 +24,7 @@ class Orderaddr extends CacheAR
 
     public static function tableName()
     {
-        return '{{%address}}';
+        return '{{%orderaddr}}';
     }
 
 
@@ -42,11 +41,9 @@ class Orderaddr extends CacheAR
 
     public function rules(){
         return [
-            //[['username','password'],'required','message'=>'不能为空']
-            [['uid','name','appid','type','cid','price','paytp','contact','img','flag','tag','aid','aaid','lat','lng',
-                'pt','pet'],
+            [['uid','aid','info','orderid','lat','lng'],
                 'required','message' => '字段不能为空'],
-            ['cid', 'in', 'range' => array(0, 1)],
+
             ['uid', 'integer'],
         ];
     }
