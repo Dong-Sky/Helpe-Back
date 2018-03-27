@@ -1095,6 +1095,7 @@ GET 请求
 
 ### 请求参数 ###
 GET 请求
+
 - page 指定页面
 - per-page 每页多少个 	
 
@@ -1160,6 +1161,7 @@ GET 请求
 
 ### 请求参数 ###
 GET 请求
+
 - page 指定页面
 - per-page 每页多少个 	
 
@@ -1227,6 +1229,7 @@ GET 请求
 URL /v1/feedback/save?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
 
 POST 请求
+
 - orderid  订单id
 - content  内容
 - score    评分
@@ -1250,6 +1253,7 @@ POST 请求
 URL /v1/feedback/update?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
 
 POST 请求
+
 - id      评论id
 - content  内容
 - score    评分
@@ -1668,6 +1672,125 @@ POST 请求
 }
 ```
 
+##10.地址模块##
+###10.1列表接口
+/v1/address[/index]
+
+根据请求条件返回当前用户的地址列表结果
+
+### 请求参数 ###
+GET 请求
+
+- page 指定页面
+- per-page 每页多少个 	
+
+### 返回结果 ###
+```
+{
+    "status": "0",
+    "err": "success",
+    "data": {
+        "data": [
+            {
+                "id": 1,
+                "uid": 1,
+                "aid": 1,
+                "info": "测试地址",
+                "ct": 1111,
+                "lat": 1,
+                "lng": 1
+            }
+        ],
+        "_links": {
+            "self": {
+                "href": "http://devapi.helpe.online/v1/address/index?orderid=80&t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5&page=1"
+            }
+        },
+        "_meta": {
+            "totalCount": 1,
+            "pageCount": 1,
+            "currentPage": 1,
+            "perPage": 20
+        }
+    }
+}
+```
+
+###10.2 添加地址接口###
+
+/v1/address/add
+
+添加用户地址
+
+### 请求参数 ###
+URL /v1/address/add?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
+
+POST 请求
+
+- info  地址信息
+- province   区域
+- lat   维度
+- lng  经度
+
+###返回结果###
+```
+{
+    "status": 0,
+    "data": [],
+    "err": ""
+}
+```
+
+###10.3 修改地址接口###
+
+/v1/address/update
+
+修改用户地址
+
+### 请求参数 ###
+URL /v1/address/add?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
+
+POST 请求
+
+- id   地址id
+- info  地址信息
+- province   区域
+- lat   维度
+- lng  经度
+
+###返回结果###
+```
+{
+    "status": 0,
+    "data": [],
+    "err": ""
+}
+```
+
+###10.4 删除地址接口###
+
+/v1/address/del
+
+删除用户地址
+
+### 请求参数 ###
+URL /v1/address/del?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
+
+POST 请求
+
+- id   地址id
+
+###返回结果###
+```
+{
+    "status": 0,
+    "data": [],
+    "err": ""
+}
+```
+
+
+
 ##11. 服务器模块##
 ###11.1 配置信息接口###
 
@@ -1696,7 +1819,7 @@ GET 请求
 ```
 
 
-###11.1 配置信息接口###
+###11.2 im签名接口###
 
 /v1/server/imsign
 

@@ -49,16 +49,16 @@ class AddressController extends BaseActiveController
 
         if (Yii::$app->request->isPost) {
 
-            $phone = \Yii::$app->request->post("phone","");
+            //$phone = \Yii::$app->request->post("phone","");
             $info = \Yii::$app->request->post("info","");
             $aid = \Yii::$app->request->post("province",0);
             $lat = \Yii::$app->request->post("lat",0);
             $lng = \Yii::$app->request->post("lng",0);
-            $uid = 1;
+            $uid = $this->userId;
 
             $data = [
                 'Address' => [
-                    'phone' => $phone,
+                    //'phone' => $phone,
                     'info'=> $info,
                     'aid' => $aid,
                     'lat' => $lat,
@@ -102,37 +102,26 @@ class AddressController extends BaseActiveController
     public function actionUpdate() {
         if (Yii::$app->request->isPost) {
             $id = \Yii::$app->request->post("id",0);
-            $uid = 1;
+            $uid = $this->userId;
 
-
-
-            $phone = \Yii::$app->request->post("phone","");
+            //$phone = \Yii::$app->request->post("phone","");
             $info = \Yii::$app->request->post("info","");
             $aid = \Yii::$app->request->post("province",0);
             $lat = \Yii::$app->request->post("lat",0);
             $lng = \Yii::$app->request->post("lng",0);
-            $uid = 1;
-
-            $data = [
-                'Address' => [
-                    'phone' => $phone,
-                    'info'=> $info,
-                    'aid' => $aid,
-                    'lat' => $lat,
-                    'lng' => $lng,
-                    'uid' => $uid,
-                    'id'  => $id,
-                ]
-            ];
-
 
             $saveSuccess = false;
             try{
 
-                $addr = Address::find()->where('id=:id', [':id' => $id,':uid' => $uid])->one();
+                $addr = Address::find()->where('id=:id and uid=:uid', [':id' => $id,':uid' => $uid])->one();
                 if(empty($addr)){
-                    throw new \Exception("无效的地址");
+                    throw new ApiException(70001);
                 }
+
+                $addr->info = $info;
+                $addr->aid = $aid;
+                $addr->lat = $lat;
+                $addr->lng = $lng;
 
                 if($addr->save()){
 
@@ -208,7 +197,7 @@ class AddressController extends BaseActiveController
      * @return HelpeDataProvider|ActiveDataProvider
      */
     public function actionIndex() {
-        $uid = 1;
+        $uid = $this->userId;
         $condition[] = ['=', 'uid', $uid];
 
         $modelClass = $this->modelClass;
