@@ -30,7 +30,7 @@ class Orderinfo extends CacheAR
     }
 
     public function getOrderaddr(){
-        return $this->hasOne(Orderaddr::className(), ['id' => 'orderid']);
+        return $this->hasOne(Orderaddr::className(), ['orderid' => 'id']);
     }
 
     public function getIteminfo(){
@@ -38,7 +38,7 @@ class Orderinfo extends CacheAR
     }
 
     public function getOwnerinfo(){
-        return $this->hasOne(Item::className(), ['owner' => 'id']);
+        return $this->hasOne(Userinfo::className(), ['id' => 'owner']);
     }
 
     public function getUserinfo(){
@@ -79,9 +79,13 @@ class Orderinfo extends CacheAR
     {
         $action_id = Yii::$app->controller->action->id;
         $fields = parent::fields();
-        if($action_id=="index"||$action_id=="info"){
+        if($action_id=="index"||$action_id=="sale"){
             $fields += ['iteminfo','userinfo'];
+        }elseif($action_id=="info"){
+            $fields += ['iteminfo','userinfo','orderaddr','ownerinfo'];
         }
+
+
 
         // 删除一些包含敏感信息的字段
         //unset($fields['auth_key'], $fields['password_hash'], $fields['password_reset_token']);

@@ -556,7 +556,6 @@ GET 请求
 - type 0 服务 1 求助 -1 全部 
 - page 指定页面
 - per-page 每页多少个 	
-- 距离
 
 ### 返回结果 ###
 
@@ -644,11 +643,221 @@ GET 请求
 }
 ```
 
-###5.3 发布接口###
+###5.2列表接口
+/v1/order/sale
 
-/v1/item/pub
+根据请求条件返回我的出售订单列表
 
-提交服务或求助的信息
+### 请求参数 ###
+GET 请求
+
+- et st  开始创建时间 结束创建时间 成对否则忽略
+- status 一个或者多个状态，多个状态使用10,20,40
+- type 0 服务 1 求助 -1 全部 
+- page 指定页面
+- per-page 每页多少个 	
+
+### 返回结果 ###
+
+```
+{
+    "status": "0",
+    "err": "success",
+    "data": {
+        "data": [
+            {
+                "id": 80,
+                "no": 0,
+                "uid": 1,
+                "status": 0,
+                "ordertp": 0,
+                "cash": "1000.00",
+                "ct": 1522077081,
+                "pt": 1520696319,
+                "mt": 1522077081,
+                "itemid": 5,
+                "num": 1,
+                "type": 1,
+                "owner": 2,
+                "changeprice": "0.00",
+                "remark": "dddddd",
+                "paytp": 1,
+                "fd": 0,
+                "iteminfo": {
+                    "id": 5,
+                    "name": "name555",
+                    "appid": 2,
+                    "price": "1000.00",
+                    "img": "/img",
+                    "flag": 0,
+                    "ct": 1520696319,
+                    "mt": 1520696319,
+                    "uid": 2,
+                    "cid": 1,
+                    "tag": 0,
+                    "type": 1,
+                    "aid": 1,
+                    "aaid": 1,
+                    "lat": 1,
+                    "lng": 1,
+                    "pt": 1520696319,
+                    "paytp": 0,
+                    "contact": "contact",
+                    "salenum": 0,
+                    "deadline": "2018-05",
+                    "unit": "ci",
+                    "pet": 1520696319
+                },
+                "userinfo": {
+                    "id": 1,
+                    "type": 1,
+                    "email": "ft20082@qq.com",
+                    "username": null,
+                    "face": null,
+                    "gender": null,
+                    "birthday": null,
+                    "career": null,
+                    "city": null,
+                    "tel": null,
+                    "ip": "127.0.0.1",
+                    "info": null,
+                    "status": 1,
+                    "created_at": 1521041986,
+                    "updated_at": 1521213114
+                }
+            },
+            ......
+                    ],
+        "_links": {
+            "self": {
+                "href": "http://devapi.helpe.online/v1/order/index?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5&page=1"
+            }
+        },
+        "_meta": {
+            "totalCount": 2,
+            "pageCount": 1,
+            "currentPage": 1,
+            "perPage": 20
+        }
+    }
+}
+```
+
+
+
+###5.3订单信息接口
+/v1/order/info
+
+根据请求条件返回订单信息
+
+### 请求参数 ###
+GET 请求
+
+- id 订单id
+
+### 返回结果 ###
+
+```
+{
+    "status": "0",
+    "err": "success",
+    "data": {
+        "id": 80,
+        "no": 0,
+        "uid": 1,
+        "status": 0,
+        "ordertp": 0,
+        "cash": "1000.00",
+        "ct": 1522077081,
+        "pt": 1520696319,
+        "mt": 1522077081,
+        "itemid": 5,
+        "num": 1,
+        "type": 1,
+        "owner": 2,
+        "changeprice": "0.00",
+        "remark": "dddddd",
+        "paytp": 1,
+        "fd": 0,
+        "iteminfo": {
+            "id": 5,
+            "name": "name555",
+            "appid": 2,
+            "price": "1000.00",
+            "img": "/img",
+            "flag": 0,
+            "ct": 1520696319,
+            "mt": 1520696319,
+            "uid": 2,
+            "cid": 1,
+            "tag": 0,
+            "type": 1,
+            "aid": 1,
+            "aaid": 1,
+            "lat": 1,
+            "lng": 1,
+            "pt": 1520696319,
+            "paytp": 0,
+            "contact": "contact",
+            "salenum": 0,
+            "deadline": "2018-05",
+            "unit": "ci",
+            "pet": 1520696319
+        },
+        "userinfo": {
+            "id": 1,
+            "type": 1,
+            "email": "ft20082@qq.com",
+            "username": null,
+            "face": null,
+            "gender": null,
+            "birthday": null,
+            "career": null,
+            "city": null,
+            "tel": null,
+            "ip": "127.0.0.1",
+            "info": null,
+            "status": 1,
+            "created_at": 1521041986,
+            "updated_at": 1521213114
+        },
+        "orderaddr": {
+            "id": 203,
+            "uid": 1,
+            "aid": 1,
+            "info": "测试地址",
+            "ct": 1522077081,
+            "lat": 1,
+            "lng": 1,
+            "orderid": 80
+        },
+        "ownerinfo": {
+            "id": 2,
+            "type": 1,
+            "email": "824322790@qq.com",
+            "username": null,
+            "face": null,
+            "gender": null,
+            "birthday": null,
+            "career": null,
+            "city": null,
+            "tel": null,
+            "ip": null,
+            "info": null,
+            "status": 1,
+            "created_at": 1521041986,
+            "updated_at": 1521041986
+        }
+    }
+}
+```
+
+
+###5.4 发布接口###
+
+/v1/order/buy
+
+下单购买商品或者提供求助内容
 
 ### 请求参数 ###
 URL /v1/order/buy?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
@@ -656,17 +865,12 @@ URL /v1/order/buy?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
 POST 请求
 
 - token  登陆后服务器给的token
-- uid  登陆后服务器给的uid
 - aid  选择的地址名称
-- name  商品求助名称
-- type   0 商品 1 求助
-- cid  分类ID
-- price 价格
-- unit 单位
-- mark  描述
+- num  数量
+- id  商品id
+- changeprice 折扣
+- remark  描述
 - paytp 支付类型 0 线上支付  1 线下支付 2  线上支付  线下支付
-- contact  联系方式  100字节以内 
-- itemfile 商品图片，类型文件，请把客户端模拟的form里面file 的那么设为itemfile  支持多个图片上传
 
 
 ###返回结果###
@@ -677,6 +881,73 @@ POST 请求
     "err": ""
 }
 ```
+
+###5.5 接受订单接口###
+
+/v1/order/accept
+
+接受订单
+
+### 请求参数 ###
+URL /v1/order/accept?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
+
+POST 请求
+
+- id  订单id
+
+###返回结果###
+```
+{
+    "status": 0,
+    "data": [],
+    "err": ""
+}
+```
+
+###5.5 拒绝订单接口###
+
+/v1/order/refuse
+
+接受订单
+
+### 请求参数 ###
+URL /v1/order/refuse?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
+
+POST 请求
+
+- id  订单id
+
+###返回结果###
+```
+{
+    "status": 0,
+    "data": [],
+    "err": ""
+}
+```
+
+###5.6 结束订单接口###
+
+/v1/order/finish
+
+结束订单
+
+### 请求参数 ###
+URL /v1/order/finish?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
+
+POST 请求
+
+- id  订单id
+
+###返回结果###
+```
+{
+    "status": 0,
+    "data": [],
+    "err": ""
+}
+```
+
 
 ##6. 举报模块##
 ###6.1添加举报

@@ -52,9 +52,6 @@ class Orderaddr extends CacheAR
     {
         $action_id = Yii::$app->controller->action->id;
         $fields = parent::fields();
-        if($action_id=="index"||$action_id=="info"){
-            $fields += ['itemdetail','itemimg'];
-        }
 
         // 删除一些包含敏感信息的字段
         //unset($fields['auth_key'], $fields['password_hash'], $fields['password_reset_token']);

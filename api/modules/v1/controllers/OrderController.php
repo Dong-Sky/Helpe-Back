@@ -228,7 +228,7 @@ class OrderController extends BaseActiveController {
 
         $modelClass = $this->modelClass;
 
-        $query = $modelClass::find()->with('iteminfo')->with('userinfo');;
+        $query = $modelClass::find()->with('iteminfo')->with('userinfo');
         if($condition){
             foreach ($condition as $cond){
                 $query->andWhere($cond);
@@ -262,12 +262,15 @@ class OrderController extends BaseActiveController {
         $id = \Yii::$app->request->get("id");
         if($id){
             $condition = ['=', 'id', $id];
+        }else{
+            throw new ApiException(9998);
         }
 
         $modelClass = $this->modelClass;
 
         $model = new $this->modelClass();
-        $query = $model->setScenario("info")->find()->where($condition);
+        $model->setScenario("info");
+        $query = $model->find()->where($condition);
         //$query = $modelClass::find()->where($condition);
 
         $ActiveDataProvider =  new HelpeDataProvider([
@@ -292,13 +295,9 @@ class OrderController extends BaseActiveController {
         $fileds = "o.id AS oid,o.paytp as opayty,o.remark AS oremark,o.*,u.*,i.* ";
 
 
-        $check_user = true;
+        $uid = $this->userId;
 
-
-        $uid = 1;//todo
-        if($check_user){
-            $condition[] = ['=', 'owner', $uid];
-        }
+        $condition[] = ['=', 'owner', $uid];
 
         //订单的商品类型 服务还是求助
         $type = Yii::$app->request->get('type');
@@ -343,6 +342,9 @@ class OrderController extends BaseActiveController {
         $orderby =["ct"=>SORT_DESC];
         $query->orderby($orderby);
 
+        $modelClass = $this->modelClass;
+
+        $query = $modelClass::find()->with('iteminfo')->with('userinfo');
         if($condition){
             foreach ($condition as $cond){
                 $query->andWhere($cond);
@@ -637,7 +639,7 @@ class OrderController extends BaseActiveController {
         $saveSuccess = false;
         try {
 
-            if(is_array($p_status)){
+            if(!is_array($p_status)){
                 $result = \Yii::$app->db->createCommand()
                     ->update('{{%orderinfo}}', ['status' => $status], "status=$p_status and id=$id")
                     ->execute();
