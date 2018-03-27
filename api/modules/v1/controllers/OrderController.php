@@ -87,7 +87,7 @@ class OrderController extends BaseActiveController {
 
             $data = ['Orderinfo' => array(
                 'uid'=>$uid,
-                'owner'=>$item['uid'],
+                'owner'=>$item['uid'],//
                 'num'=>$num,
                 'cash'=>$item['price']*$num,
                 'type'=>$item['type'],

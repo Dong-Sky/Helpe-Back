@@ -73,7 +73,10 @@ class ResponseStatus {
         40006 => 'ORDER_NOT_ORDER_USER',                   //下单用户本人
 
 
-        50001 => 'FAV_EXIST',               // 收藏已经存在
+        50001 => 'FAV_EXIST',                           // 收藏已经存在
+
+        60001 => 'FEEDBACK_REPEAT',                       //评论重复
+        60002 => 'FEEDBACK_NOT_BUYER_OR_HELPER',          //评论必须是购买者或者求助者
 
     ];
 
