@@ -77,6 +77,7 @@ class ResponseStatus {
 
         60001 => 'FEEDBACK_REPEAT',                       //评论重复
         60002 => 'FEEDBACK_NOT_BUYER_OR_HELPER',          //评论必须是购买者或者求助者
+        60003 => 'FEEDBACK_NO_EXIST',                       //评论不存在
 
     ];
 

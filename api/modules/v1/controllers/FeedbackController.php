@@ -50,12 +50,12 @@ class FeedbackController extends BaseActiveController
         if (Yii::$app->request->isPost) {
             //todo 文件处理
 
-            $id = \Yii::$app->request->post("id",0);
+            $orderid = \Yii::$app->request->post("orderid",0);
             $content = \Yii::$app->request->post("content","");
             $score = \Yii::$app->request->post("score",0);
 
 
-            $order = Orderinfo::find()->where("id=:id",[':id' => $id])->one();
+            $order = Orderinfo::find()->where("id=:id",[':id' => $orderid])->one();
 
             if (empty($order)){
                 throw new ApiException(40002);
@@ -65,6 +65,7 @@ class FeedbackController extends BaseActiveController
             if ($order['fd']!=0){
                 throw new ApiException(60001);
             }
+
 
             if ($order['type']==0){
                 //服务 下订单的用户必须是当前用户
@@ -89,7 +90,7 @@ class FeedbackController extends BaseActiveController
                         'uid'=>$this->userId,
                         'owner'=>$owner,
                         'itemid'=>$order['itemid'],
-                        'orderid'=>$id,
+                        'orderid'=>$orderid,
                 ]
             ];
 
@@ -144,39 +145,97 @@ class FeedbackController extends BaseActiveController
     }
 
 
+    /**
+
+     */
+    public function actionUpdate() {
+        if (Yii::$app->request->isPost) {
+
+            $id = \Yii::$app->request->post("id",0);
+            $content = \Yii::$app->request->post("content","");
+            $score = \Yii::$app->request->post("score",0);
 
 
+            $feedback = Feedback::find()->where("id=:id",[':id' => $id])->one();
 
-    public function actionInfo() {
+            if (empty($feedback)){
+                throw new ApiException(60003);
+            }
 
-        $id = \Yii::$app->request->get("id");
+            if ($feedback->uid!=$this->userId){
+                throw new ApiException(60002);
+            }
 
+            $saveSuccess = false;
+            try {
+                $feedback->content=$content;
+                $feedback->score=$score;
+                if($feedback->save()){
+                    $saveSuccess = true;
+                } else {
+                    //var_dump($itmedetail->errors);exit;
+                    throw new ApiException(9998,$feedback->errors);
+                }
 
-        if($id){
-            $condition = ['=', 'id', $id];
+            }catch (ApiException $e) {
+                //var_dump($e->getMessage());exit;
+                $insert_id = null;
+                //exit;
+                throw $e;
+            } catch (\Exception $e) {
+                //var_dump($e->getMessage());exit;
+                $insert_id = null;
+                //exit;
+                throw new ApiException(20002,$e->getMessage());
+            }
+
+            Feedback::updateCache('ow',$id);
+
+        }else{
+            //echo 2222;
+            throw new ApiException(9997);
         }
 
-        //Yii::$app->request->setQueryParams(array_merge(Yii::$app->request->getQueryParams(),
-        //    ['expand' => 'itemdetail,itemimg']));
-
-        //var_dump($this->getCacheKey());
-        //var_dump(\Yii::$app->request->queryParams);
-        $modelClass = $this->modelClass;
-
-        //$model = new $this->modelClass();
-        //$query = $model->setScenario("index")->find()->where($condition);
-        $query = $modelClass::find()->where($condition);
-
-        //var_dump($modelClass::getCacheRule("or",$id));exit;
-        $ActiveDataProvider =  new HelpeDataProvider([
-            'query' => $query,
-            'cache_rule'=>Item::getCacheRule("or",$id)
-        ]);
-
-        $this->serializer['collectionEnvelope'] = null;
-        return $ActiveDataProvider;
+        return new ApiResponse(0, []);
     }
 
+
+    /**
+    我发布的商品评论
+
+     * @return HelpeDataProvider|ActiveDataProvider
+     */
+    public function actionMy() {
+
+        $condition = [];
+
+        $uid = $this->userId;
+        if($uid){
+            $condition[] = ['=', 'uid', $uid];
+        }
+
+
+        $orderby = ['ct' => SORT_DESC];
+
+        $modelClass = $this->modelClass;
+
+        $query = $modelClass::find()->with('orderinfo');
+        if($condition){
+            foreach ($condition as $cond){
+                $query->andWhere($cond);
+
+            }
+        }
+
+        $query->orderby($orderby);
+
+        $ActiveDataProvider =  new HelpeDataProvider([
+            'query' => $query,
+            'cache_rule'=>Feedback::getCacheRule("list")
+        ]);
+
+        return $ActiveDataProvider;
+    }
 
 
     /**
@@ -184,7 +243,7 @@ class FeedbackController extends BaseActiveController
 
      * @return HelpeDataProvider|ActiveDataProvider
      */
-    public function actionMy() {
+    public function actionAboutme() {
 
         $condition = [];
 
@@ -244,7 +303,6 @@ class FeedbackController extends BaseActiveController
 
         }
 
-        //经纬度范围判断
         $minscore = \Yii::$app->request->get('minscore',0);
         $maxscore = \Yii::$app->request->get('maxscore',0);
 

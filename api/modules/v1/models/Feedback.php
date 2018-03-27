@@ -48,7 +48,7 @@ class Feedback extends CacheAR
     public function rules(){
         return [
             //[['username','password'],'required','message'=>'不能为空']
-            [['content','score','uid','owner','itemid','oid'],
+            [['content','score','uid','owner','itemid','orderid'],
                 'required','message' => '字段不能为空'],
             //['score', 'in', 'range' => array(0, 100)],
             ['score', 'compare', 'compareValue' => 0, 'operator' => '>='],

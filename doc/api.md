@@ -26,8 +26,11 @@
     * 删除收藏
     * 收藏列表
 8. 评价
-    * 评价动作
+    * 评价添加
+    * 评价修改
     * 评价列表
+    * 我的评价
+    * 关于我的评价
 9. 商品
     * 发布
     * 上架
@@ -974,6 +977,292 @@ POST 请求
 	"data" : [],
 }
 ```
+##8.评价模块##
+###8.1列表接口
+/v1/feeback[/index]
+
+根据请求条件返回评论列表结果
+
+### 请求参数 ###
+GET 请求
+
+- orderid 订单id 如果使用了orderid则忽略itemid
+- itemid 商品id 
+- minscore maxscore 最小评分 最大评分 成对否则忽略
+- page 指定页面
+- per-page 每页多少个 	
+
+### 返回结果 ###
+```
+{
+    "status": "0",
+    "err": "success",
+    "data": {
+        "data": [
+            {
+                "id": 23,
+                "content": "henhao",
+                "itemid": 5,
+                "flag": 0,
+                "score": 93,
+                "orderid": 80,
+                "uid": 2,
+                "owner": 1,
+                "ct": 1522143447,
+                "mt": 1522143447,
+                "orderinfo": {
+                    "id": 80,
+                    "no": 0,
+                    "uid": 1,
+                    "status": 10,
+                    "ordertp": 0,
+                    "cash": "1000.00",
+                    "ct": 1522077081,
+                    "pt": 1520696319,
+                    "mt": 1522143447,
+                    "itemid": 5,
+                    "num": 1,
+                    "type": 1,
+                    "owner": 2,
+                    "changeprice": "0.00",
+                    "remark": "dddddd",
+                    "paytp": 1,
+                    "fd": 1,
+                    "iteminfo": {
+                        "id": 5,
+                        "name": "name555",
+                        "appid": 2,
+                        "price": "1000.00",
+                        "img": "/img",
+                        "flag": 0,
+                        "ct": 1520696319,
+                        "mt": 1520696319,
+                        "uid": 2,
+                        "cid": 1,
+                        "tag": 0,
+                        "type": 1,
+                        "aid": 1,
+                        "aaid": 1,
+                        "lat": 1,
+                        "lng": 1,
+                        "pt": 1520696319,
+                        "paytp": 0,
+                        "contact": "contact",
+                        "salenum": 0,
+                        "deadline": "2018-05",
+                        "unit": "ci",
+                        "pet": 1520696319
+                    },
+                    "userinfo": {
+                        "id": 1,
+                        "type": 1,
+                        "email": "ft20082@qq.com",
+                        "username": null,
+                        "face": null,
+                        "gender": null,
+                        "birthday": null,
+                        "career": null,
+                        "city": null,
+                        "tel": null,
+                        "ip": "127.0.0.1",
+                        "info": null,
+                        "status": 1,
+                        "created_at": 1521041986,
+                        "updated_at": 1521213114
+                    }
+                }
+            }
+        ],
+        "_links": {
+            "self": {
+                "href": "http://devapi.helpe.online/v1/feedback/index?orderid=80&t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5&page=1"
+            }
+        },
+        "_meta": {
+            "totalCount": 1,
+            "pageCount": 1,
+            "currentPage": 1,
+            "perPage": 20
+        }
+    }
+}
+```
+
+###8.2我的评论接口
+/v1/feeback/my
+
+返回我发布的评论列表结果
+
+### 请求参数 ###
+GET 请求
+- page 指定页面
+- per-page 每页多少个 	
+
+### 返回结果 ###
+```
+{
+    "status": "0",
+    "err": "success",
+    "data": {
+        "data": [
+            {
+                "id": 23,
+                "content": "henhao",
+                "itemid": 5,
+                "flag": 0,
+                "score": 93,
+                "orderid": 80,
+                "uid": 2,
+                "owner": 1,
+                "ct": 1522143447,
+                "mt": 1522143447,
+                "orderinfo": {
+                    "id": 80,
+                    "no": 0,
+                    "uid": 1,
+                    "status": 10,
+                    "ordertp": 0,
+                    "cash": "1000.00",
+                    "ct": 1522077081,
+                    "pt": 1520696319,
+                    "mt": 1522143447,
+                    "itemid": 5,
+                    "num": 1,
+                    "type": 1,
+                    "owner": 2,
+                    "changeprice": "0.00",
+                    "remark": "dddddd",
+                    "paytp": 1,
+                    "fd": 1
+                }
+            }
+        ],
+        "_links": {
+            "self": {
+                "href": "http://devapi.helpe.online/v1/feedback/my?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5&page=1"
+            }
+        },
+        "_meta": {
+            "totalCount": 1,
+            "pageCount": 1,
+            "currentPage": 1,
+            "perPage": 20
+        }
+    }
+}
+```
+
+
+###8.3关于我的评论接口
+/v1/feeback/aboutme
+
+返回我发布的评论列表结果
+
+### 请求参数 ###
+GET 请求
+- page 指定页面
+- per-page 每页多少个 	
+
+### 返回结果 ###
+```
+{
+    "status": "0",
+    "err": "success",
+    "data": {
+        "data": [
+            {
+                "id": 23,
+                "content": "henhao",
+                "itemid": 5,
+                "flag": 0,
+                "score": 93,
+                "orderid": 80,
+                "uid": 2,
+                "owner": 1,
+                "ct": 1522143447,
+                "mt": 1522143447,
+                "orderinfo": {
+                    "id": 80,
+                    "no": 0,
+                    "uid": 1,
+                    "status": 10,
+                    "ordertp": 0,
+                    "cash": "1000.00",
+                    "ct": 1522077081,
+                    "pt": 1520696319,
+                    "mt": 1522143447,
+                    "itemid": 5,
+                    "num": 1,
+                    "type": 1,
+                    "owner": 2,
+                    "changeprice": "0.00",
+                    "remark": "dddddd",
+                    "paytp": 1,
+                    "fd": 1
+                }
+            }
+        ],
+        "_links": {
+            "self": {
+                "href": "http://devapi.helpe.online/v1/feedback/my?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5&page=1"
+            }
+        },
+        "_meta": {
+            "totalCount": 1,
+            "pageCount": 1,
+            "currentPage": 1,
+            "perPage": 20
+        }
+    }
+}
+```
+
+###8.4 添加接口###
+
+/v1/feedback/save
+
+添加评论接口
+
+### 请求参数 ###
+URL /v1/feedback/save?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
+
+POST 请求
+- orderid  订单id
+- content  内容
+- score    评分
+
+###返回结果###
+```
+{
+    "status": 0,
+    "data": [],
+    "err": ""
+}
+```
+
+###8.5 修改接口###
+
+/v1/feedback/update
+
+修改评论接口
+
+### 请求参数 ###
+URL /v1/feedback/update?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
+
+POST 请求
+- id      评论id
+- content  内容
+- score    评分
+
+###返回结果###
+```
+{
+    "status": 0,
+    "data": [],
+    "err": ""
+}
+```
+
 
 ##9.商品（服务，求助）模块##
 ###9.1列表接口
