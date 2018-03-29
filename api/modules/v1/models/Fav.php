@@ -38,25 +38,33 @@ class Fav extends CacheAR
              ];
     }
 
-    public function getItem(){
-        return $this->hasOne(Item::className(), ['itemid' => 'id']);
+    public function getIteminfo(){
+        return $this->hasOne(Item::className(), ['id' => 'itemid']);
     }
 
     public function rules(){
         return [
             //[['username','password'],'required','message'=>'不能为空']
-            [['uid','name','appid','type','cid','price','paytp','contact','img','flag','tag','aid','aaid','lat','lng',
-                'pt','pet'],
+            [['uid','itemid'],
                 'required','message' => '字段不能为空'],
-            ['cid', 'in', 'range' => array(0, 1)],
             ['uid', 'integer'],
+            ['itemid', 'integer'],
+
         ];
     }
 
     public function fields()
     {
+        $controller_id = Yii::$app->controller->id;
         $action_id = Yii::$app->controller->action->id;
         $fields = parent::fields();
+
+
+        if($controller_id=="fav" && $action_id=="index"){
+            $fields += ['iteminfo'];
+        }elseif($controller_id=="fav" && $action_id=="info"){
+            //$fields += ['itemdetail','itemimg','isfav','favnum','userInfo'];
+        }
 
         return $fields;
     }

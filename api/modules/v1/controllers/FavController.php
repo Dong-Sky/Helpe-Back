@@ -55,7 +55,7 @@ class FavController extends BaseActiveController
             $item = Item::find()->where("id=:id",[':id' => $id])->one();
 
             if (empty($item) || $item['uid'] == $this->userId){
-                throw new ApiException(30001);
+                throw new ApiException(20001);
             }
 
             $fav = Fav::find()->where("id=:id and uid=:uid",[':id' => $id,':uid' => $this->userId])->one();
@@ -65,7 +65,7 @@ class FavController extends BaseActiveController
             }
 
             $data = [
-                'fav' => [
+                'Fav' => [
                     'uid'=>$this->userId,
                     'itemid'=>$id,
                 ]
@@ -83,6 +83,13 @@ class FavController extends BaseActiveController
                     //var_dump($item->errors);
                     throw new ApiException(9998,$fav->errors);
                 }
+
+
+
+            }catch (ApiException $e) {
+                //var_dump($e->getMessage());exit;
+                //exit;
+                throw $e;
             } catch (\Exception $e) {
                 $insert_id = null;
                 //exit;
@@ -157,7 +164,7 @@ class FavController extends BaseActiveController
 
         $modelClass = $this->modelClass;
 
-        $query = $modelClass::find()->with('item');
+        $query = $modelClass::find()->with('iteminfo');
         if($condition){
             foreach ($condition as $cond){
                 $query->andWhere($cond);

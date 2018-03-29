@@ -977,6 +977,120 @@ POST 请求
 	"data" : [],
 }
 ```
+
+##7.收藏模块##
+###7.1列表接口
+/v1/fav[/index]
+
+根据请求条件返回评论列表结果
+
+### 请求参数 ###
+GET 请求
+
+- page 指定页面
+- per-page 每页多少个 	
+
+### 返回结果 ###
+```
+{
+    "status": "0",
+    "err": "success",
+    "data": {
+        "data": [
+            {
+                "id": 1,
+                "uid": 1,
+                "itemid": 1,
+                "ct": 11111,
+                "mt": 111111,
+                "iteminfo": {
+                    "id": 1,
+                    "name": "1",
+                    "appid": 1,
+                    "price": "1000.00",
+                    "img": "/img",
+                    "flag": 0,
+                    "ct": 1520696319,
+                    "mt": 1521261910,
+                    "uid": 1,
+                    "cid": 1,
+                    "tag": 0,
+                    "type": 1,
+                    "aid": 1,
+                    "aaid": 1,
+                    "lat": 1,
+                    "lng": 1,
+                    "pt": 1520696319,
+                    "paytp": 0,
+                    "contact": "contact",
+                    "salenum": 0,
+                    "deadline": "2018-05",
+                    "unit": "ci",
+                    "pet": 1520696319
+                }
+            },
+           ......
+                   ],
+        "_links": {
+            "self": {
+                "href": "http://devapi.helpe.online/v1/fav/index?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5&page=1"
+            }
+        },
+        "_meta": {
+            "totalCount": 2,
+            "pageCount": 1,
+            "currentPage": 1,
+            "perPage": 20
+        }
+    }
+}
+```
+
+###7.2 保存接口###
+
+/v1/fav/save
+
+保存收藏接口
+
+### 请求参数 ###
+URL /v1/fav/save?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
+
+POST 请求
+
+- id      itemid
+
+###返回结果###
+```
+{
+    "status": 0,
+    "data": [],
+    "err": ""
+}
+```
+
+###7.3 删除接口###
+
+/v1/fav/save
+
+删除收藏接口
+
+### 请求参数 ###
+URL /v1/fav/save?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
+
+POST 请求
+
+- id      favid
+
+###返回结果###
+```
+{
+    "status": 0,
+    "data": [],
+    "err": ""
+}
+```
+
+
 ##8.评价模块##
 ###8.1列表接口
 /v1/feeback[/index]
