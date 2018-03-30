@@ -27,9 +27,7 @@ class FeedbackController extends BaseActiveController
         return ArrayHelper::merge(parent::behaviors(), [
             'authenticator' => [
                 'optional' => [
-                    'check-email',
-                    'register',
-                    'login',
+                    'index'
                 ],
             ]
         ]);
