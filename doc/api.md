@@ -1604,7 +1604,28 @@ POST 请求
 ```
 {
     "status": 0,
-    "data": [],
+    "data": {
+        "uid": 1,
+        "aid": "22",
+        "appid": 0,
+        "name": "test22",
+        "type": "0",
+        "cid": 0,
+        "price": 0,
+        "paytp": 0,
+        "contact": "testtest11tesxt",
+        "flag": 1,
+        "tag": "133333",
+        "aaid": 0,
+        "lat": 1,
+        "lng": 1,
+        "pt": 1522495828,
+        "pet": 0,
+        "img": "",
+        "ct": 1522495828,
+        "mt": 1522495828,
+        "id": 351
+    },
     "err": ""
 }
 ```
@@ -1638,7 +1659,28 @@ POST 请求
 ```
 {
     "status": 0,
-    "data": [],
+    "data": {
+        "uid": 1,
+        "aid": "22",
+        "appid": 0,
+        "name": "test22",
+        "type": "0",
+        "cid": 0,
+        "price": 0,
+        "paytp": 0,
+        "contact": "testtest11tesxt",
+        "flag": 1,
+        "tag": "133333",
+        "aaid": 0,
+        "lat": 1,
+        "lng": 1,
+        "pt": 1522495828,
+        "pet": 0,
+        "img": "",
+        "ct": 1522495828,
+        "mt": 1522495828,
+        "id": 351
+    },
     "err": ""
 }
 ```
@@ -1733,7 +1775,28 @@ POST 请求
 ```
 {
     "status": 0,
-    "data": [],
+    "data": {
+        "uid": 1,
+        "aid": "22",
+        "appid": 0,
+        "name": "test22",
+        "type": "0",
+        "cid": 0,
+        "price": 0,
+        "paytp": 0,
+        "contact": "testtest11tesxt",
+        "flag": 1,
+        "tag": "133333",
+        "aaid": 0,
+        "lat": 1,
+        "lng": 1,
+        "pt": 1522495828,
+        "pet": 0,
+        "img": "",
+        "ct": 1522495828,
+        "mt": 1522495828,
+        "id": 351
+    },
     "err": ""
 }
 ```
@@ -1757,7 +1820,28 @@ POST 请求
 ```
 {
     "status": 0,
-    "data": [],
+    "data": {
+        "uid": 1,
+        "aid": "22",
+        "appid": 0,
+        "name": "test22",
+        "type": "0",
+        "cid": 0,
+        "price": 0,
+        "paytp": 0,
+        "contact": "testtest11tesxt",
+        "flag": 1,
+        "tag": "133333",
+        "aaid": 0,
+        "lat": 1,
+        "lng": 1,
+        "pt": 1522495828,
+        "pet": 0,
+        "img": "",
+        "ct": 1522495828,
+        "mt": 1522495828,
+        "id": 351
+    },
     "err": ""
 }
 ```
