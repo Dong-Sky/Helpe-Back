@@ -89,7 +89,7 @@ class ItemController extends BaseActiveController
                     'price' => $price,
                     'paytp' => $paytp,
                     'contact' => $conact,
-                    'img' =>"/sstetttt.jpg",
+                    //'img' =>"/sstetttt.jpg",
                     'flag' =>1,
                     'tag'=>"133333",
                     'aaid'=>1,
@@ -183,7 +183,7 @@ class ItemController extends BaseActiveController
             throw new ApiException(9997);
         }
 
-        return new ApiResponse(0, []);
+        return new ApiResponse(0, $item);
     }
 
 
@@ -209,6 +209,12 @@ class ItemController extends BaseActiveController
                 $item = Item::find()->where('id=:id and uid=:uid ', [':id' => $id,':uid' => $uid])->one();
 
                 $item->flag = 1;
+                if ($item['type']==0){
+                    $item['pet'] = time()+3*30*86400;
+                }else{
+                    $item['pet'] = time()+30*86400;
+                }
+
                 if($item->save()){
 
                     $saveSuccess = true;
@@ -230,7 +236,7 @@ class ItemController extends BaseActiveController
             throw new ApiException(9997);
         }
 
-        return new ApiResponse(0, []);
+        return new ApiResponse(0, $item);
     }
 
 
@@ -425,7 +431,7 @@ class ItemController extends BaseActiveController
             throw new ApiException(9997);
         }
 
-        return new ApiResponse(0, []);
+        return new ApiResponse(0, $item);
     }
 
 

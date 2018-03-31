@@ -98,11 +98,12 @@ class Item extends CacheAR
     public function rules(){
         return [
             //[['username','password'],'required','message'=>'不能为空']
-            [['uid','name','appid','type','cid','price','paytp','contact','img','flag','tag','aid','aaid','lat','lng',
+            [['uid','name','appid','type','cid','price','paytp','contact','flag','tag','aid','aaid','lat','lng',
                 'pt','pet'],
                 'required','message' => '字段不能为空'],
             ['type', 'in', 'range' => array(0, 1)],
             ['uid', 'integer'],
+            ['img', 'default', 'value' => ""],
         ];
     }
 
