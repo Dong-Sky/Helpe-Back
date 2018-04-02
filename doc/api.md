@@ -2045,6 +2045,56 @@ GET 请求
     "err": ""
 }
 ```
+##12.交易记录模块##
+###12.1列表接口
+/v1/mlog[/index]
+
+根据请求条件返回自己的列表
+
+### 请求参数 ###
+URL /v1/mlog?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
+GET 请求 
+
+- pid 父分类id
+- page 指定页面
+- per-page 每页多少个 	
+
+### 返回结果 ###
+```
+{
+    "status": "0",
+    "err": "success",
+    "data": {
+        "data": [
+            {
+                "id": 312,
+                "uid": 2,
+                "tpid": 1,
+                "data": "{\"username\":\"ft20082\",\"itemname\":\"name555\"}",
+                "ct": 1522660952
+            },
+           ......
+                   ],
+        "_links": {
+            "self": {
+                "href": "http://devapi.helpe.online/v1/mlog/index?t=anVQYwkJZrPvyJZStDSa6K9AAmkKcydCTHdreTU8&page=1"
+            },
+            "next": {
+                "href": "http://devapi.helpe.online/v1/mlog/index?t=anVQYwkJZrPvyJZStDSa6K9AAmkKcydCTHdreTU8&page=2"
+            },
+            "last": {
+                "href": "http://devapi.helpe.online/v1/mlog/index?t=anVQYwkJZrPvyJZStDSa6K9AAmkKcydCTHdreTU8&page=2"
+            }
+        },
+        "_meta": {
+            "totalCount": 33,
+            "pageCount": 2,
+            "currentPage": 1,
+            "perPage": 20
+        }
+    }
+}
+```
 
 
 

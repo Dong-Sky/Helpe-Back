@@ -77,7 +77,7 @@ class MlogController extends BaseActiveController
 
         $ActiveDataProvider =  new HelpeDataProvider([
             'query' => $query,
-            'cache_rule'=>Address::getCacheRule("list")
+            'cache_rule'=>Mlog::getCacheRule("list")
         ]);
 
         return $ActiveDataProvider;
