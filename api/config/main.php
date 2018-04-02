@@ -82,6 +82,18 @@ return [
             ]
         ],
 
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    //'basePath' => '@app/messages',
+                    //'sourceLanguage' => 'en-US',
+                    'fileMap' => [
+                        'notifiction' => 'notification.php',
+                    ],
+                ],
+            ],
+        ],
 
         'response' => [
 

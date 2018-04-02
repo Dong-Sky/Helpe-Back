@@ -15,4 +15,6 @@ return [
     'aliyunOssAppSecret' => 'yk6M46oV70Byle0bY8i0snaZC37Gqt',
     'aliyunOssEndpoint' => 'oss-cn-beijing.aliyuncs.com',
     'avatarImageBaseUrl' => 'http://ossimg.myteek.com/',
+    'umengAppKey' => '5a51fe23f29d985618000283',
+    'umengAppMasterSecret' => '5yl30cofiqy2au2f3lferw0im0qww64y',
 ];

@@ -170,8 +170,13 @@ class OrderController extends BaseActiveController {
                 throw new ApiException(9996,$e->getMessage());
             }
 
-            $this->updateCache($insert_id);
+            Orderinfo::updateCache('ow',$orderinfo->id);
+            Orderaddr::updateCache('ow',$orderaddr->id);
 
+            //如果下单成功就不管消息是否发送成功
+            $this->addMlog($item['uid'],1,array("username"=>$this->user["username"],"itemname"=>$item["name"]));
+
+            return new ApiResponse(0, []);
         }else{
             //echo 2222;
             throw new ApiException(9997);

@@ -8,7 +8,7 @@ use api\modules\v1\models\CacheAR;
 use yii\caching\TagDependency;
 use yii\log\Logger;
 
-class Address extends CacheAR
+class Mlog extends CacheAR
 {
     public function behaviors()
     {
@@ -16,8 +16,7 @@ class Address extends CacheAR
             'timestamp'=>[
                 'class'=>TimestampBehavior::className(),
                 'attributes'=>[
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['ct', 'mt'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['mt']
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['ct'],
                 ]
             ]
         ];
@@ -25,7 +24,7 @@ class Address extends CacheAR
 
     public static function tableName()
     {
-        return '{{%address}}';
+        return '{{%market_log}}';
     }
 
 
@@ -43,10 +42,9 @@ class Address extends CacheAR
     public function rules(){
         return [
             //[['username','password'],'required','message'=>'不能为空']
-            [['uid','name','appid','type','cid','price','paytp','contact','img','flag','tag','aid','aaid','lat','lng',
-                'pt','pet'],
+            [['uid','tpid','data'],
                 'required','message' => '字段不能为空'],
-            ['cid', 'in', 'range' => array(0, 1)],
+            ['tpid', 'integer'],
             ['uid', 'integer'],
         ];
     }
@@ -55,9 +53,6 @@ class Address extends CacheAR
     {
         $action_id = Yii::$app->controller->action->id;
         $fields = parent::fields();
-        if($action_id=="index"||$action_id=="info"){
-            $fields += ['itemdetail','itemimg'];
-        }
 
         // 删除一些包含敏感信息的字段
         //unset($fields['auth_key'], $fields['password_hash'], $fields['password_reset_token']);

@@ -511,6 +511,8 @@ class ItemController extends BaseActiveController
         //Yii::$app->request->setQueryParams(array_merge(Yii::$app->request->getQueryParams(),
         //    ['expand' => 'itemdetail,itemimg']));
 
+        $orderby =['ct' => SORT_DESC];
+
         $modelClass = $this->modelClass;
 
         $query = $modelClass::find()->with('itemdetail')->with('itemimg');;
@@ -521,6 +523,7 @@ class ItemController extends BaseActiveController
             }
         }
 
+        $query->orderby($orderby);
         $ActiveDataProvider =  new HelpeDataProvider([
             'query' => $query,
             'cache_rule'=>Item::getCacheRule("list")
