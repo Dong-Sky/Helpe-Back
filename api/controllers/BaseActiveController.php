@@ -14,6 +14,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\Response;
 use yii\rest\Controller;
 use api\helpers\UmengNotification;
+use yii\log\Logger;
 
 class BaseActiveController extends Controller {
 
@@ -114,9 +115,17 @@ class BaseActiveController extends Controller {
 
         $userinfo = $this->user;
 
+        try{
+            $umeng = new UmengNotification(Yii::$app->params['umengAppKey'], Yii::$app->params['umengAppMasterSecret']);
+            $umeng->sendIosNotification($uid,$tp,$data);
+        }catch (\Exception $e) {
+            $insert_id = null;
+            //exit;
+            //throw new ApiException(20002,$e->getMessage());
+            Yii::getLogger()->log("sendIOSCustomizedcast Sent fail ".$e->getMessage(), Logger::LEVEL_INFO);
+//            print("Sent SUCCESS\r\n");
+        }
 
-        $umeng = new UmengNotification(Yii::$app->params['umengAppKey'], Yii::$app->params['umengAppMasterSecret']);
-        $umeng->sendIosNotification($uid,$tp,$data);
 
         return $saved;
 

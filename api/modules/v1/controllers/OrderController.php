@@ -114,12 +114,8 @@ class OrderController extends BaseActiveController {
             if ($data['Orderinfo']['type']==0){
                 $data['Orderinfo']['aid'] = $aid;
 
-
-                //model\Log::instance()->addLog($item['uid'],1,array("username"=>$my['name'],"itemname"=>$item["name"]));
             }else{
                 $data['Orderinfo']['aid'] = $item['aid'];
-                //model\Log::instance()->addLog($item['uid'],2,array("username"=>$my['name'],"itemname"=>$item["name"]));
-
             }
 
             // 开始事务查询
@@ -174,7 +170,13 @@ class OrderController extends BaseActiveController {
             Orderaddr::updateCache('ow',$orderaddr->id);
 
             //如果下单成功就不管消息是否发送成功
-            $this->addMlog($item['uid'],1,array("username"=>$this->user["username"],"itemname"=>$item["name"]));
+            //item类型 0 服务 1 求助
+            if ($data['Orderinfo']['type']==0){
+                $this->addMlog($item['uid'],1,array("username"=>$this->user["username"],"itemname"=>$item["name"]));
+
+            }else{
+                $this->addMlog($item['uid'],1,array("username"=>$this->user["username"],"itemname"=>$item["name"]));
+            }
 
             return new ApiResponse(0, []);
         }else{
