@@ -127,7 +127,6 @@ class Item extends CacheAR
         if(\Yii::$app->request->get("searchtp",0)===0||Yii::$app->request->get("distance")){
             $fields[] = 'distance';
         }
-        $fields[] = 'distance';
 
         // 删除一些包含敏感信息的字段
         //unset($fields['auth_key'], $fields['password_hash'], $fields['password_reset_token']);
