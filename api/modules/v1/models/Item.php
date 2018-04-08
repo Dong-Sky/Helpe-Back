@@ -27,6 +27,7 @@ class Item extends CacheAR
     }
 
 
+    public $distance;
     private $_favnum;
 
     public function setFavnum($count)
@@ -113,10 +114,20 @@ class Item extends CacheAR
         $action_id = Yii::$app->controller->action->id;
         $fields = parent::fields();
         if($controller_id=="item" && $action_id=="index"){
-            $fields += ['itemdetail','itemimg'];
+            $fields[] = 'itemdetail';
+            $fields[] = 'itemimg';
         }elseif($controller_id=="item" && $action_id=="info"){
-            $fields += ['itemdetail','itemimg','isfav','favnum','userInfo'];
+            $fields[] = 'itemdetail';
+            $fields[] = 'itemimg';
+            $fields[] = 'isfav';
+            $fields[] = 'favnum';
+            $fields[] = 'userInfo';
         }
+
+        if(\Yii::$app->request->get("searchtp",0)===0||Yii::$app->request->get("distance")){
+            $fields[] = 'distance';
+        }
+        $fields[] = 'distance';
 
         // 删除一些包含敏感信息的字段
         //unset($fields['auth_key'], $fields['password_hash'], $fields['password_reset_token']);

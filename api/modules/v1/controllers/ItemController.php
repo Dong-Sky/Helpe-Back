@@ -561,7 +561,12 @@ class ItemController extends BaseActiveController
 
         */
 
+        $has_dis = false;
+
         $condition = [];
+
+        $lat = \Yii::$app->request->get("lat");
+        $lng = \Yii::$app->request->get("lng");
 
         //起始时间
         $et = \Yii::$app->request->get("et");
@@ -577,7 +582,6 @@ class ItemController extends BaseActiveController
         $maxlat = \Yii::$app->request->get('maxlat',0);
         $minlng = \Yii::$app->request->get('minlng',0);
         $maxlng = \Yii::$app->request->get('maxlng',0);
-        $fileds = "*,0 as juli";
 
         if ($minlat!=0 && $maxlat!=0){
             $condition[] = ['>=', 'lat', $minlat];
@@ -588,6 +592,7 @@ class ItemController extends BaseActiveController
             $condition[] = ['>=', 'lng', $minlng];
             $condition[] = ['<=', 'lng', $maxlng];
         }
+
 
 
         //类型判断
@@ -614,6 +619,14 @@ class ItemController extends BaseActiveController
             $condition[] = ['like', 'name', $name];
         }
 
+        //(st_distance (point (lng, lat),point(113.858202,22.583819) ) / 0.0111) AS distance
+        $distance = Yii::$app->request->get("distance");
+        if($distance){
+            $has_dis = true;
+            //$condition[] = ['>=', 'distance', $distance];
+            //->andHaving(['>=', 'distance', $distance]);
+        }
+
         //只显示发布
         $condition[] = ['=', 'flag', 1];
 
@@ -622,7 +635,8 @@ class ItemController extends BaseActiveController
         $searchtp = \Yii::$app->request->get("searchtp",0);
         switch($searchtp){
             case 0:
-                $orderby =['ct' => SORT_DESC];
+                $has_dis = true;
+                $orderby =['distance' => SORT_DESC];
                 break;
             case 1:
                 $orderby =['ct' => SORT_DESC];
@@ -641,7 +655,16 @@ class ItemController extends BaseActiveController
 
         $modelClass = $this->modelClass;
 
-        $query = $modelClass::find()->with('itemdetail')->with('itemimg');
+        $query = $modelClass::find();
+        if($has_dis){
+            $query->select([
+                '*', // select all columns
+                "(st_distance (point ([[lng]], [[lat]]),point($lng,$lat) ) / 0.0111) AS distance", // 计算距离
+            ]);
+            $query ->andHaving(['<=', 'distance', $distance]);
+        }
+
+        $query->with('itemdetail')->with('itemimg');
         if($condition){
             foreach ($condition as $cond){
                 $query->andWhere($cond);
@@ -651,6 +674,7 @@ class ItemController extends BaseActiveController
 
         $query->orderby($orderby);
 
+        //var_dump(ArrayHelper::toArray($query->all()));exit;
         $ActiveDataProvider =  new HelpeDataProvider([
             'query' => $query,
             'cache_rule'=>Item::getCacheRule("list")
