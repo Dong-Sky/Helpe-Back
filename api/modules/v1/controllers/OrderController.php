@@ -394,6 +394,16 @@ class OrderController extends BaseActiveController {
 
             $this->updateOrderStatus($id,$change_status,$prev_status);
 
+            //如果下单成功就不管消息是否发送成功
+            //item类型 0 服务 1 求助
+            if ($order['type']==0){
+                $this->addMlog($order['uid'],3,array("username"=>$this->user["username"],"itemname"=>$order['iteminfo']["name"]));
+
+            }else{
+                $this->addMlog($order['uid'],4,array("username"=>$this->user["username"],"itemname"=>$order['iteminfo']["name"]));
+            }
+
+
         }else{
             //echo 2222;
             throw new ApiException(9997);
@@ -428,6 +438,21 @@ class OrderController extends BaseActiveController {
             }
 
             $this->updateOrderStatus($id,$change_status,$prev_status);
+
+
+            //如果下单成功就不管消息是否发送成功
+            //item类型 0 服务 1 求助
+            if ($order['type']==0){
+                $this->addMlog($order['owner'],11,array("username"=>$order['ownerinfo']['username'],"itemname"=>$order['iteminfo']["name"]));
+                $this->addMlog($order['uid'],12,array("username"=>$this->user["username"],"itemname"=>$order['iteminfo']["name"]));
+
+
+            }else{
+                $this->addMlog($order['owner'],13,array("username"=>$order['ownerinfo']['username'],"itemname"=>$order['iteminfo']["name"]));
+                $this->addMlog($order['uid'],14,array("username"=>$this->user["username"],"itemname"=>$order['iteminfo']["name"]));
+
+            }
+
 
         }else{
             //echo 2222;
@@ -470,6 +495,20 @@ class OrderController extends BaseActiveController {
             }
 
             $this->updateOrderStatus($id,$change_status,$prev_status);
+
+
+            //如果下单成功就不管消息是否发送成功
+            //item类型 0 服务 1 求助
+            if ($order['type']==0){
+                $this->addMlog($order['owner'],5,array("username"=>$order['ownerinfo']['username'],"itemname"=>$order['iteminfo']["name"]));
+                $this->addMlog($order['uid'],7,array("username"=>$this->user["username"],"itemname"=>$order['iteminfo']["name"]));
+
+
+            }else{
+                $this->addMlog($order['owner'],6,array("username"=>$order['ownerinfo']['username'],"itemname"=>$order['iteminfo']["name"]));
+                $this->addMlog($order['uid'],8,array("username"=>$this->user["username"],"itemname"=>$order['iteminfo']["name"]));
+
+            }
 
         }else{
             //echo 2222;
@@ -592,6 +631,21 @@ class OrderController extends BaseActiveController {
 
             $this->updateOrderStatus($id,$change_status,$prev_status);
 
+
+
+            //如果下单成功就不管消息是否发送成功
+            //item类型 0 服务 1 求助
+            if ($order['type']==0){
+                $this->addMlog($order['owner'],15,array("username"=>$order['ownerinfo']['username'],"itemname"=>$order['iteminfo']["name"]));
+                $this->addMlog($order['uid'],16,array("username"=>$this->user["username"],"itemname"=>$order['iteminfo']["name"]));
+
+
+            }else{
+                $this->addMlog($order['owner'],17,array("username"=>$order['ownerinfo']['username'],"itemname"=>$order['iteminfo']["name"]));
+                $this->addMlog($order['uid'],18,array("username"=>$this->user["username"],"itemname"=>$order['iteminfo']["name"]));
+
+            }
+
         }else{
             //echo 2222;
             throw new ApiException(9997);
@@ -633,6 +687,20 @@ class OrderController extends BaseActiveController {
 
             $this->updateOrderStatus($id,$change_status,$prev_status);
 
+
+            //如果下单成功就不管消息是否发送成功
+            //item类型 0 服务 1 求助
+            if ($order['type']==0){
+                $this->addMlog($order['owner'],5,array("username"=>$order['ownerinfo']['username'],"itemname"=>$order['iteminfo']["name"]));
+                $this->addMlog($order['uid'],7,array("username"=>$this->user["username"],"itemname"=>$order['iteminfo']["name"]));
+
+
+            }else{
+                $this->addMlog($order['owner'],7,array("username"=>$order['ownerinfo']['username'],"itemname"=>$order['iteminfo']["name"]));
+                $this->addMlog($order['uid'],8,array("username"=>$this->user["username"],"itemname"=>$order['iteminfo']["name"]));
+
+            }
+
         }else{
             //echo 2222;
             throw new ApiException(9997);
@@ -659,12 +727,6 @@ class OrderController extends BaseActiveController {
 
             if ($result) {
                 $saveSuccess = true;
-                //记录订单状态
-//            if ($order['tp']==0){
-//                model\Log::instance()->addLog($order['uid'],3,array("username"=>$my['name'],"itemname"=>$item["name"]));
-//            }else{
-//                model\Log::instance()->addLog($order['uid'],4,array("username"=>$my['name'],"itemname"=>$item["name"]));
-//            }
             } else {
                 //var_dump($item->errors);
                 throw new ApiException(9998);

@@ -131,8 +131,10 @@ class FeedbackController extends BaseActiveController
                 throw new ApiException(20002,$e->getMessage());
             }
 
-            Orderinfo::updateCache('ow',$id);
+            Orderinfo::updateCache('ow',$orderid);
             Feedback::updateCache('ow',$insert_id);
+
+            $this->addMlog($order["uid"],10,array("username"=>$this->user["username"],"itemname"=>$order['iteminfo']["name"],"score"=>$data['score']));
 
         }else{
             //echo 2222;

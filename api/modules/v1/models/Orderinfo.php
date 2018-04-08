@@ -83,6 +83,8 @@ class Orderinfo extends CacheAR
             $fields += ['iteminfo','userinfo'];
         }elseif($action_id=="info"){
             $fields += ['iteminfo','userinfo','orderaddr','ownerinfo'];
+        }else{
+            $fields += ['iteminfo','userinfo','orderaddr','ownerinfo'];
         }
 
 
