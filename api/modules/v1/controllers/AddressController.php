@@ -156,16 +156,13 @@ class AddressController extends BaseActiveController
     public function actionDel(){
 
         if (Yii::$app->request->isPost) {
-            //todo 文件处理
 
-            $uid = 1;
             $id = \Yii::$app->request->post("id",0);
-
 
             $delSuccess = false;
             try{
 
-                $addr = Address::find()->where('id=:id and uid=:uid ', [':id' => $id,':uid' => $uid])->one();
+                $addr = Address::find()->where('id=:id and uid=:uid ', [':id' => $id,':uid' => $this->userId])->one();
                 if($addr && $addr->delete()){
 
                     $delSuccess = true;

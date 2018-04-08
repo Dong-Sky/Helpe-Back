@@ -50,6 +50,12 @@
     * 聊天im认证接口
 12. 交易记录
     * 交易记录列表
+13. 关注
+    * 我的关注列表
+    * 关注我的列表
+    * 添加关注
+    * 删除关注
+    
 
 ##环境域名##
 1. 开发环境
@@ -2095,6 +2101,203 @@ GET 请求
     }
 }
 ```
+
+##13.关注模块##
+###13.1我的关注列表
+/v1/follow[/index]
+
+返回当前用户添加的关注列表
+
+### 请求参数 ###
+GET 请求
+
+- page 指定页面
+- per-page 每页多少个 	
+
+### 返回结果 ###
+```
+{
+    "status": "0",
+    "err": "success",
+    "data": {
+        "data": [
+            {
+                "id": 1,
+                "uuid": 2,
+                "uid": 1,
+                "ct": 1523174583,
+                "mt": 1523174583,
+                "userinfo": {
+                    "id": 1,
+                    "type": 1,
+                    "email": "ft20082@qq.com",
+                    "username": null,
+                    "face": null,
+                    "gender": null,
+                    "birthday": null,
+                    "career": null,
+                    "city": null,
+                    "tel": null,
+                    "ip": "127.0.0.1",
+                    "info": null,
+                    "status": 1,
+                    "created_at": 1521041986,
+                    "updated_at": 1521213114
+                },
+                "fuserinfo": {
+                    "id": 2,
+                    "type": 1,
+                    "email": "824322790@qq.com",
+                    "username": null,
+                    "face": null,
+                    "gender": null,
+                    "birthday": null,
+                    "career": null,
+                    "city": null,
+                    "tel": null,
+                    "ip": null,
+                    "info": null,
+                    "status": 1,
+                    "created_at": 1521041986,
+                    "updated_at": 1521041986
+                }
+            }
+        ],
+        "_links": {
+            "self": {
+                "href": "http://devapi.helpe.online/v1/follow/index?id=1&t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5&page=1"
+            }
+        },
+        "_meta": {
+            "totalCount": 1,
+            "pageCount": 1,
+            "currentPage": 1,
+            "perPage": 20
+        }
+    }
+}
+```
+
+###13.2关注我的列表
+/v1/follow[/index]
+
+返回当前用户添加的关注列表
+
+### 请求参数 ###
+GET 请求
+
+- page 指定页面
+- per-page 每页多少个 	
+
+### 返回结果 ###
+```
+{
+    "status": "0",
+    "err": "success",
+    "data": {
+        "data": [
+            {
+                "id": 1,
+                "uuid": 2,
+                "uid": 1,
+                "ct": 1523174583,
+                "mt": 1523174583,
+                "userinfo": {
+                    "id": 1,
+                    "type": 1,
+                    "email": "ft20082@qq.com",
+                    "username": null,
+                    "face": null,
+                    "gender": null,
+                    "birthday": null,
+                    "career": null,
+                    "city": null,
+                    "tel": null,
+                    "ip": "127.0.0.1",
+                    "info": null,
+                    "status": 1,
+                    "created_at": 1521041986,
+                    "updated_at": 1521213114
+                },
+                "fuserinfo": {
+                    "id": 2,
+                    "type": 1,
+                    "email": "824322790@qq.com",
+                    "username": null,
+                    "face": null,
+                    "gender": null,
+                    "birthday": null,
+                    "career": null,
+                    "city": null,
+                    "tel": null,
+                    "ip": null,
+                    "info": null,
+                    "status": 1,
+                    "created_at": 1521041986,
+                    "updated_at": 1521041986
+                }
+            }
+        ],
+        "_links": {
+            "self": {
+                "href": "http://devapi.helpe.online/v1/follow/index?id=1&t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5&page=1"
+            }
+        },
+        "_meta": {
+            "totalCount": 1,
+            "pageCount": 1,
+            "currentPage": 1,
+            "perPage": 20
+        }
+    }
+}
+```
+
+###10.3 添加关注接口###
+
+/v1/follow/save
+
+添加收藏
+
+### 请求参数 ###
+URL /v1/follow/save?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
+
+POST 请求
+
+- uid  用户id
+
+###返回结果###
+```
+{
+    "status": 0,
+    "data": [],
+    "err": ""
+}
+```
+
+###13.4 删除关注接口###
+
+/v1/follow/del
+
+删除用户地址
+
+### 请求参数 ###
+URL /v1/follow/del?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
+
+POST 请求
+
+- id   地址id
+
+###返回结果###
+```
+{
+    "status": 0,
+    "data": [],
+    "err": ""
+}
+```
+
+
 
 
 

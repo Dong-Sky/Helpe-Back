@@ -79,7 +79,10 @@ class ResponseStatus {
         60002 => 'FEEDBACK_NOT_BUYER_OR_HELPER',          //评论必须是购买者或者求助者
         60003 => 'FEEDBACK_NO_EXIST',                       //评论不存在
 
-        70001 => 'ADDRESS_NO_EXIST',               // 订单地址不存在
+        70001 => 'ADDRESS_NO_EXIST',                      // 订单地址不存在
+
+        80001 => 'FOLLOW_USER_FOLLOWED',                    // 用户已经关注
+
 
     ];
 
