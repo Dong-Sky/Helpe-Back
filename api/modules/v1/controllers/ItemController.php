@@ -223,22 +223,27 @@ class ItemController extends BaseActiveController
 
                 $item = Item::find()->where('id=:id and uid=:uid ', [':id' => $id,':uid' => $uid])->one();
 
-                $item->flag = 1;
-                if ($item['type']==0){
-                    $item['pet'] = time()+3*30*86400;
+                if($item){
+                    $item->flag = 1;
+                    if ($item['type']==0){
+                        $item['pet'] = time()+3*30*86400;
+                    }else{
+                        $item['pet'] = time()+30*86400;
+                    }
+
+                    if($item->save()){
+
+                        $saveSuccess = true;
+
+
+                    }else{
+                        //var_dump($item->errors);
+                        throw new ApiException(9998,$item->errors);
+                    }
                 }else{
-                    $item['pet'] = time()+30*86400;
+                    throw new ApiException(20001);
                 }
 
-                if($item->save()){
-
-                    $saveSuccess = true;
-
-
-                }else{
-                    //var_dump($item->errors);
-                    throw new ApiException(9998,$item->errors);
-                }
             } catch (\Exception $e) {
                 //var_dump($e->getMessage());
                 throw new ApiException(20002,$e->getMessage());
@@ -274,7 +279,7 @@ class ItemController extends BaseActiveController
             }
             $img = ItemImg::find()->where('id=:id', [':id' => $pid])->one();
             if (empty($img) || $img['uid'] !=$this->userId){
-                throw new \Exception(20003);
+                throw new ApiException(20003);
             }
 
             $item->img = $img['url'];

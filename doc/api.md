@@ -1398,9 +1398,10 @@ POST 请求
 
 ### 请求参数 ###
 GET 请求
+
 - lat 当前纬度
 - lng 当前经度
-- distance 距离，必须有当前经纬度
+- distance 距离，公里数，必须有当前经纬度
 - et st  开始创建时间 结束创建时间 成对否则忽略
 - minlat maxlat 最小纬度 最大纬度 成对否则忽略
 - minlng maxlng 最小经度 最大经度 成对否则忽略
