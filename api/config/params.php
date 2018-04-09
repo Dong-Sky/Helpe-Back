@@ -4,7 +4,7 @@ return [
     'passportSendMailMinTime' => 120,
     'cacheTimeout' => 300,//秒
     'f&qUrl'=>"faq/index.html",
-    'staticUrl'=>"https://testimg.heple.online",
+    'staticUrl'=>"http://ossimg.myteek.com",
     'version'=>"1.0.0",//最新版本
 
 ];
