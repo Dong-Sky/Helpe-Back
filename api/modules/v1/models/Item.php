@@ -6,6 +6,7 @@ use yii\db\ActiveRecord;
 use api\modules\v1\models\Itemdetail;
 use api\modules\v1\models\Itemimg;
 use api\modules\v1\models\Fav;
+use api\modules\v1\models\Category;
 use api\modules\v1\models\CacheAR;
 use yii\behaviors\TimestampBehavior;
 use yii\caching\TagDependency;
@@ -54,6 +55,13 @@ class Item extends CacheAR
 
     public function getFav(){
         return $this->hasMany(Fav::className(), ['itemid' => 'id']);
+    }
+    public function getCategory(){
+        return $this->hasOne(Category::className(), ['id' => 'cid']);
+    }
+
+    public function getAddr(){
+        return $this->hasOne(Address::className(), ['id' => 'aid']);
     }
 
     public function getIsfav(){
@@ -122,9 +130,12 @@ class Item extends CacheAR
             $fields[] = 'isfav';
             $fields[] = 'favnum';
             $fields[] = 'userInfo';
+            $fields[] = 'category';
+            $fields[] = 'addr';
         }
 
-        if(\Yii::$app->request->get("searchtp",0)===0||Yii::$app->request->get("distance")){
+        if(\Yii::$app->request->get("searchtp",-1)===0||
+            (!empty(\Yii::$app->request->get("distance")))){
             $fields[] = 'distance';
         }
 

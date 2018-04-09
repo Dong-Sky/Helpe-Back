@@ -1717,51 +1717,83 @@ GET 请求
     "status": "0",
     "err": "success",
     "data": {
-        "id": 1,
-        "name": "1",
-        "appid": 1,
-        "price": "1000.00",
-        "img": "/img",
-        "flag": 0,
-        "ct": 1520696319,
-        "mt": 1521261910,
+        "id": 351,
+        "name": "test22",
+        "appid": 0,
+        "price": "0.00",
+        "img": "",
+        "flag": 1,
+        "ct": 1522495828,
+        "mt": 1522495828,
         "uid": 1,
         "cid": 1,
-        "tag": 0,
-        "type": 1,
+        "tag": 133333,
+        "type": 0,
         "aid": 1,
-        "aaid": 1,
+        "aaid": 0,
         "lat": 1,
         "lng": 1,
-        "pt": 1520696319,
+        "pt": 1522495828,
         "paytp": 0,
-        "contact": "contact",
+        "contact": "testtest11tesxt",
         "salenum": 0,
-        "deadline": "2018-05",
-        "unit": "ci",
-        "pet": 1520696319,
+        "deadline": null,
+        "unit": "\"\"",
+        "pet": 0,
         "itemdetail": {
-            "itemid": 1,
-            "mark": "得到的，个，个，个，个，",
-            "ct": 1520696319,
-            "mt": 0
+            "itemid": 351,
+            "mark": "333333",
+            "ct": 1522495828,
+            "mt": 1522495828
         },
         "itemimg": [
             {
-                "id": 1,
-                "itemid": 1,
-                "url": "/itemimg1",
+                "id": 186,
+                "itemid": 351,
+                "url": "/images/itemfiles/fR5wei8KvpbEHhM_1522495828.jpg",
                 "uid": 1,
-                "ct": 1520696319
-            },
-            {
-                "id": 2,
-                "itemid": 1,
-                "url": "/itemimg2",
-                "uid": 1,
-                "ct": 1520696319
+                "ct": 1522495828
             }
-        ]
+        ],
+        "isfav": 1,
+        "favnum": 0,
+        "userInfo": {
+            "id": 1,
+            "type": 1,
+            "email": "ft20082@qq.com",
+            "username": null,
+            "face": null,
+            "gender": null,
+            "birthday": null,
+            "career": null,
+            "city": null,
+            "tel": null,
+            "ip": "127.0.0.1",
+            "info": null,
+            "status": 1,
+            "created_at": 1521041986,
+            "updated_at": 1521213114
+        },
+        "category": {
+            "id": 1,
+            "jp_name": "古本",
+            "cn_name": "",
+            "pid": 0,
+            "sort": 1,
+            "flag": 1,
+            "ct": 0,
+            "mt": null
+        },
+        "addr": {
+            "id": 1,
+            "uid": 1,
+            "aid": 1,
+            "info": "测试地址",
+            "lat": 1,
+            "lng": 1,
+            "ct": 1111,
+            "mt": 0
+        }
     }
 }
 ```

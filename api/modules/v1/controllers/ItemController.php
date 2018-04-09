@@ -108,9 +108,8 @@ class ItemController extends BaseActiveController
                     'flag' =>0,
                     'tag'=>"133333",
                     'aaid'=>1,
-                    //todo 获取地理位置
-                    'lat'=>1,
-                    'lng'=>1,
+                    'lat'=>floatval($addr['lat']),
+                    'lng'=>floatval($addr['lng']),
                     'aaid'=>0,
                     'paytp'=>$paytp,
                     'salenum'=>0,
