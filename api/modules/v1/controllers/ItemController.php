@@ -11,6 +11,7 @@ use api\rests\HelpeDataProvider;
 use yii\caching\TagDependency;
 use api\modules\v1\models\Item;
 use api\modules\v1\models\Itemdetail;
+use api\modules\v1\models\Address;
 use yii\helpers\ArrayHelper;
 use api\controllers\BaseActiveController;
 use api\controllers\ApiException;
@@ -78,6 +79,20 @@ class ItemController extends BaseActiveController
             $deadline =  \Yii::$app->request->post("deadline","");
             $pet =  \Yii::$app->request->post("pet",0);
 
+            $addr = null;
+            if($aid>0){
+                $addr = Address::findOne($aid);
+                if (empty($addr)){
+                    throw new ApiException(40001);
+                }
+            }else{
+                throw new ApiException(40001);
+            }
+
+
+            $data['lat'] = floatval($addr['lat']);
+            $data['lng'] = floatval($addr['lng']);
+
             $data = [
                 'Item' => [
                     'uid' => $uid,
@@ -90,14 +105,14 @@ class ItemController extends BaseActiveController
                     'paytp' => $paytp,
                     'contact' => $conact,
                     //'img' =>"/sstetttt.jpg",
-                    'flag' =>1,
+                    'flag' =>0,
                     'tag'=>"133333",
                     'aaid'=>1,
                     //todo 获取地理位置
                     'lat'=>1,
                     'lng'=>1,
                     'aaid'=>0,
-                    'paytp'=>0,
+                    'paytp'=>$paytp,
                     'salenum'=>0,
                     'unit'=>$unit,
                     'deadline'=>$deadline,
