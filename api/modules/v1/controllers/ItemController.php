@@ -130,7 +130,6 @@ class ItemController extends BaseActiveController
                 if ($data && $item->validate()) {
                     $saved = $item->save();
 
-
                     if($saved){
                         //更新商品详情
                         $itmedetail = new Itemdetail();
@@ -144,6 +143,8 @@ class ItemController extends BaseActiveController
                             //var_dump($itmedetail->errors);exit;
                             throw new ApiException(9998,$itmedetail->errors);
                         }
+
+                        $coverImg = null;
 
                         $imgModel = new Itemimg();
                         $aliyunOss = new AliyunOss();
@@ -160,6 +161,9 @@ class ItemController extends BaseActiveController
                                 if($_imgModel->save()){
                                     $ossFile = trim($imageUrl, '/');
                                     $aliyunOss->uploadFile("helpe-avatar", $ossFile, $imagePath);
+                                    if(empty($coverImg)){
+                                        $coverImg = $_imgModel->url;
+                                    }
                                 }else{
                                     //var_dump($itmedetail->errors);exit;
                                     throw new ApiException(9998,$imgModel->errors);
@@ -167,6 +171,8 @@ class ItemController extends BaseActiveController
                             }
 
                         }
+                        $item->img = $coverImg;
+                        $item->save();
                     }
                     $transaction->commit();
                     $saveSuccess = true;
