@@ -75,7 +75,7 @@ class ItemController extends BaseActiveController
             $mark= \Yii::$app->request->post("mark",0);
             $paytp = \Yii::$app->request->post("paytp",0);
             $conact =  \Yii::$app->request->post("contact");
-            $unit =  \Yii::$app->request->post("unit","");
+            $unit =  \Yii::$app->request->post("unit");
             $deadline =  \Yii::$app->request->post("deadline","");
             $pet =  \Yii::$app->request->post("pet",0);
 
@@ -661,7 +661,7 @@ class ItemController extends BaseActiveController
         switch($searchtp){
             case 0:
                 $has_dis = true;
-                $orderby =['distance' => SORT_DESC];
+                $orderby =['distance' => SORT_ASC];
                 break;
             case 1:
                 $orderby =['ct' => SORT_DESC];
@@ -686,7 +686,10 @@ class ItemController extends BaseActiveController
                 '*', // select all columns
                 "(st_distance (point ([[lng]], [[lat]]),point($lng,$lat) ) / 0.0111) AS distance", // 计算距离
             ]);
-            $query ->andHaving(['<=', 'distance', $distance]);
+            if($distance){
+                $query ->andHaving(['<=', 'distance', $distance]);
+            }
+
         }
 
         $query->with('itemdetail')->with('itemimg');

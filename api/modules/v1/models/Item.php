@@ -113,6 +113,7 @@ class Item extends CacheAR
             ['type', 'in', 'range' => array(0, 1)],
             ['uid', 'integer'],
             ['img', 'default', 'value' => ""],
+            ['unit', 'default', 'value' => ""]
         ];
     }
 
