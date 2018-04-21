@@ -55,18 +55,6 @@ $this->title = 'Yii2 Admin 登录信息';
                 </div>
             </div>
         </div>
-        <div class="hr hr-8 dotted"></div>
-        <div class="profile-user-info">
-            <div class="profile-info-row">
-                <div class="profile-info-name">
-                    <i class="fa fa-github-square" aria-hidden="true"></i>
-                    GitHub
-                </div>
-                <div class="profile-info-value">
-                    <a href="https://github.com/myloveGy" target="_blank">https://github.com/myloveGy</a>
-                </div>
-            </div>
-        </div>
         <div class="hr hr16 dotted"></div>
     </div>
 </div>
