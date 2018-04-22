@@ -314,7 +314,6 @@ class OrderController extends BaseActiveController {
             $condition[] = ['=', 'type', $type];
         }
 
-        $condition = [];
         $et = \Yii::$app->request->get("et");
         $st = \Yii::$app->request->get("st");
 
