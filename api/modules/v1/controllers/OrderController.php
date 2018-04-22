@@ -301,6 +301,7 @@ class OrderController extends BaseActiveController {
     public function actionSale() {
         $fileds = "o.id AS oid,o.paytp as opayty,o.remark AS oremark,o.*,u.*,i.* ";
 
+        $condition = [];
 
         $uid = $this->userId;
 
@@ -313,7 +314,6 @@ class OrderController extends BaseActiveController {
             $condition[] = ['=', 'type', $type];
         }
 
-        $condition = [];
         $et = \Yii::$app->request->get("et");
         $st = \Yii::$app->request->get("st");
 
