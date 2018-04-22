@@ -12,7 +12,7 @@ namespace backend\models;
 use common\models\AdminModel;
 use common\behaviors\TimestampMtBehavior;
 
-class Fav extends AdminModel {
+class Item extends AdminModel {
 
     /**
      * @return array
@@ -29,7 +29,7 @@ class Fav extends AdminModel {
      */
     public static function tableName()
     {
-        return '{{%fav}}';
+        return '{{%item}}';
     }
 
     /**
@@ -39,8 +39,8 @@ class Fav extends AdminModel {
     public function scenarios()
     {
         return [
-            'default' => ['uid', 'itemid', 'ct', 'ut'],
-            'update' => ['uid', 'itemid', 'ct', 'ut']
+            'default' => ['jp_name', 'cn_name', 'pid', 'sort', 'flag'],
+            'update' => ['jp_name', 'cn_name', 'pid', 'sort', 'flag']
         ];
     }
 
@@ -50,13 +50,21 @@ class Fav extends AdminModel {
     public function attributeLabels()
     {
         return [
-            'id' => '编号',
-            'uid' => '用户编号',
-            'itemid' => '商品编号',
+            'id' => 'ID',
+            'name' => '名称',
+            'appid' => '编号',
+            'price' => '价格',
+            'img' => '图像',
+            'flag' => '状态',
+            'uid' => '用户ID',
+            'cid' => '创建ID',
+            'tag' => '标签',
+            'type' => '类型',
+            'aid' => 'aid',
+            'aaid' => 'aaid',
             'ct' => '创建时间',
             'ut' => '修改时间',
         ];
     }
-
 
 }

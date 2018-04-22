@@ -16,13 +16,6 @@ use yii\behaviors\TimestampBehavior;
 
 class UserInfo extends ActiveRecord {
 
-    public $username;
-    public $gender;
-    public $birthday;
-    public $city;
-    public $tel;
-    public $info;
-    public $career;
 
     public static function tableName() {
         return '{{%user}}';
@@ -44,6 +37,15 @@ class UserInfo extends ActiveRecord {
             ['tel', 'string'],
             ['info', 'string'],
             ['career', 'string'],
+        ];
+    }
+
+    public function scenarios()
+    {
+        $default_scenarios = parent::scenarios();
+        return [
+            'default'=>$default_scenarios["default"],
+            //'update'=>['username', 'gender', 'birthday', 'city', 'tel', 'info', 'career']
         ];
     }
 

@@ -112,6 +112,7 @@
             // 判断添加数据(操作选项)
             if (this.options.operations.isOpen) {
                 for (var s in this.options.operations.buttons) {
+
                     if (this.options.operations.buttons[s]["bShow"] === false) {
                         delete this.options.operations.buttons[s];
                     } else {

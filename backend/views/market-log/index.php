@@ -1,21 +1,19 @@
 <?php
 // 定义标题和面包屑信息
-$this->title = '用户收藏管理';
+$this->title = '推送信息查看';
 ?>
 <?=\backend\widgets\MeTable::widget()?>
 <?php $this->beginBlock('javascript') ?>
 <script type="text/javascript">
     var m = meTables({
-        title: "用户收藏管理",
+        title: "推送信息查看",
         table: {
             "aoColumns": [
-                {"title": "id", "data": "id", "sName": "id", "edit": {"type": "text", "required": true,"number": true}, "bSortable": false},
-			    {"title": "用户编号", "data": "uid", "sName": "fav.uid", "edit": {"type": "text", "required": true,"number": true}, "search": {"type": "text"}, "bSortable": false},
-                {"title": "用户名称", "data": "username", "sName": "username", "edit": {"type": "text", "required": true}, "bSortable": false},
-			    {"title": "商品编号", "data": "itemid", "sName": "itemid", "edit": {"type": "text", "required": true,"number": true}, "bSortable": false},
-                {"title": "商品名称", "data": "itemname", "sName": "itemname", "edit": {"type": "text", "required": true}, "bSortable": false},
-			    {"title": "创建时间", "data": "ct", "sName": "ct", "edit": {"type": "text", "required": true,"number": true}, "bSortable": false, "createdCell" : meTables.dateTimeString},
-			    {"title": "最后修改时间", "data": "mt", "sName": "mt", "edit": {"type": "text", "required": true,"number": true}, "bSortable": false, "createdCell" : meTables.dateTimeString}
+                {"title": "编号", "data": "id", "sName": "id", "bSortable": false},
+			{"title": "用户ID", "data": "uid", "sName": "uid", "search": {"type": "text"}, "bSortable": false}, 
+			{"title": "交易信息类型id", "data": "tpid", "sName": "tpid", "search": {"type": "text"}, "bSortable": false}, 
+			{"title": "内容", "data": "data", "sName": "data", "bSortable": false}, 
+			{"title": "创建时间", "data": "ct", "sName": "ct", "bSortable": false}, 
 
             ]       
         },

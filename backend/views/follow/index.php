@@ -1,21 +1,21 @@
 <?php
 // 定义标题和面包屑信息
-$this->title = '用户收藏管理';
+$this->title = '用户关注管理';
 ?>
 <?=\backend\widgets\MeTable::widget()?>
 <?php $this->beginBlock('javascript') ?>
 <script type="text/javascript">
     var m = meTables({
-        title: "用户收藏管理",
+        title: "用户关注管理",
         table: {
             "aoColumns": [
                 {"title": "id", "data": "id", "sName": "id", "edit": {"type": "text", "required": true,"number": true}, "bSortable": false},
-			    {"title": "用户编号", "data": "uid", "sName": "fav.uid", "edit": {"type": "text", "required": true,"number": true}, "search": {"type": "text"}, "bSortable": false},
-                {"title": "用户名称", "data": "username", "sName": "username", "edit": {"type": "text", "required": true}, "bSortable": false},
-			    {"title": "商品编号", "data": "itemid", "sName": "itemid", "edit": {"type": "text", "required": true,"number": true}, "bSortable": false},
-                {"title": "商品名称", "data": "itemname", "sName": "itemname", "edit": {"type": "text", "required": true}, "bSortable": false},
-			    {"title": "创建时间", "data": "ct", "sName": "ct", "edit": {"type": "text", "required": true,"number": true}, "bSortable": false, "createdCell" : meTables.dateTimeString},
-			    {"title": "最后修改时间", "data": "mt", "sName": "mt", "edit": {"type": "text", "required": true,"number": true}, "bSortable": false, "createdCell" : meTables.dateTimeString}
+			{"title": "被关注用户编号", "data": "uuid", "sName": "fo.uuid", "search": {"type": "text"}, "bSortable": false},
+                {"title": "被关注用户名称", "data": "uuusername", "sName": "uuusername", "bSortable": false},
+			{"title": "用户编号", "data": "uid", "sName": "uid", "edit": {"type": "text", "required": true,"number": true}},
+                {"title": "用户名称", "data": "uusername", "sName": "uusername", "edit": {"type": "text", "required": true,"number": true}},
+                {"title": "创建时间", "data": "ct", "sName": "ct", "edit": {"type": "text", "required": true,"number": true}, "bSortable": false},
+			{"title": "修改时间", "data": "mt", "sName": "mt", "edit": {"type": "text", "required": true,"number": true}, "bSortable": false}, 
 
             ]       
         },

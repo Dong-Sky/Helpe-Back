@@ -58,7 +58,7 @@ class UserController extends BaseActiveController {
      */
     public function actionUpdate() {
 
-        $userInfo = UserInfo::findOne(['access_token' => $this->user->access_token]);
+        $userInfo = UserInfo::findOne(['access_token' => $this->user->access_token]); //var_dump($userInfo);
         $userInfo->load($this->post, '');
         if($userInfo->validate()) {
             if($userInfo->save()) {
