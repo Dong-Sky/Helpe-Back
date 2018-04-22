@@ -978,7 +978,7 @@ POST 请求
 结束订单
 
 ### 请求参数 ###
-URL /v1/order/finish?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
+URL /v1/order/cancel?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
 
 POST 请求
 
