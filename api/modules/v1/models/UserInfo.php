@@ -12,9 +12,10 @@ namespace api\modules\v1\models;
 use api\helpers\ResponseStatus;
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
+use api\modules\v1\models\CacheAR;
 
 
-class UserInfo extends ActiveRecord {
+class UserInfo extends CacheAR {
 
 
     public static function tableName() {

@@ -3,14 +3,15 @@ namespace api\modules\v1\models;
 
 use Yii;
 use yii\db\ActiveRecord;
-use api\modules\v1\models\Itemdetail;
-use api\modules\v1\models\Itemimg;
 use yii\behaviors\TimestampBehavior;
 use yii\caching\TagDependency;
 use yii\log\Logger;
+use api\models\CachedActiveRecord;
 
 class CacheAR extends ActiveRecord
 {
+    use CachedActiveRecord;
+
     public function behaviors()
     {
         return [
@@ -25,83 +26,57 @@ class CacheAR extends ActiveRecord
     }
 
 
-    /*
-     *
-     */
-    public static function getCacheConfig($element_id=null){
-        //有限个
-        if($element_id){
-            $key = self::className()."_info_".$element_id;
-        }else{
-         //list
-            $qs = \Yii::$app->request->queryParams;
-            sort($qs);
-            $condition = implode(",",array_values($qs));
-            $key = self::className()."_list_".$condition;
-        }
-        $cache_tag = self::className()."_list";
-
-        return ["key"=>$key,"cache_tag"=>$cache_tag];
-    }
-
     /**
-     * @param $type one_read one_write list
-     * @param null $item_id
-     * @return array
+     * 如果修改了某条数据，更新list的依赖，并删除对应的key
+     * @param bool $runValidation
+     * @param null $attributeNames
+     * @return bool
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
-    public static function getCacheRule($type,$element_id=null){
-        //$vaid_query_key = ["expand",""]
-        $config = self::getCacheConfig($element_id);
-        //todo
-        $key = $modify_tag = $cache_depend = null;
+    public function save($runValidation = true, $attributeNames = null)
+    {
+        $saved = parent::save($runValidation, $attributeNames);
 
-
-        $modify_key = false;//是否
-
-        //在这里写cache_rule
-        //$modify_tag为是否需要设置失效的缓存依赖,相关依赖的缓存都会更新
-        //$key 写入key
-        //$cache_depend 需要检查的依赖
-        if($type=="or"){ //单个get
-            //只要更新key
-            $key = $config["key"];
-        }elseif($type=="list"){//多个list
-            //有依赖，有读写key
-            $key = $config["key"];
-            $cache_depend = $config["cache_tag"];
-        }elseif($type=="ow") { //单个修改
-            //有读写可以，有要设置失效的缓存依赖
-            $key = $config["key"];
-            $modify_tag = $config["cache_tag"];
+        if($saved){
+            $pk = $this->getPrimaryKey();
+            //单个id
+            $key = self::className()."_info_".$pk;
+            $modify_tag = self::className()."_list";
             $modify_key = true;
+
+            $modify_tag_dep = new TagDependency(['tags' => $modify_tag]);
+
+            TagDependency::invalidate(Yii::$app->cache, $modify_tag_dep);
+            Yii::getLogger()->log("cache TagDependency invalidate ".$modify_tag_dep->tags, Logger::LEVEL_INFO);
+
+            Yii::$app->cache->delete($key);
+            Yii::getLogger()->log("cache key delete  ".$key, Logger::LEVEL_INFO);
         }
 
-        $rule = [];
-        $rule["key"] = $key;
-        if($modify_tag){
-            $rule["modify_tag"] = new TagDependency(['tags' => $modify_tag]);
-        }else{
-            $rule["modify_tag"] = $modify_tag;
-        }
-        if($cache_depend){
-            $rule["cache_depend"] =  new TagDependency(['tags' => $cache_depend]);
-        }else{
-            $rule["cache_depend"] = $cache_depend;
-        }
-
-        if($modify_key){
-            $rule["modify_key"] =  true;
-        }
-
-        return $rule;
+        return $saved;
     }
 
-    public static function getOne($element_id){
-        //var_dump($cache_key);
-        $cache_config = self::getCacheConfig($element_id);
-        $cache = \Yii::$app->cache;
 
-        $data = $cache->get($cache_config['key']);
+    public function delete()
+    {
+        $deleted = parent::delete();
+        if($deleted){
+            $pk = $this->getPrimaryKey();
+            //单个id
+            $key = self::className()."_info_".$pk;
+            $modify_tag = self::className()."_list";
+            $modify_key = true;
+
+            $modify_tag_dep = new TagDependency(['tags' => $modify_tag]);
+
+            TagDependency::invalidate(Yii::$app->cache, $modify_tag_dep);
+            Yii::getLogger()->log("cache TagDependency invalidate ".$modify_tag_dep->tags, Logger::LEVEL_INFO);
+
+            Yii::$app->cache->delete($key);
+            Yii::getLogger()->log("cache key delete  ".$key, Logger::LEVEL_INFO);
+        }
+        return $deleted;
     }
 
 
@@ -110,8 +85,8 @@ class CacheAR extends ActiveRecord
      * @param null $item_id
      * @return array
      */
-    public static function updateCache($type,$element_id=null){
-        $rule = self::getCacheRule($type,$element_id);
+    public static function updateCache($query){
+        $rule = self::getCacheRule($query);
 
         if($rule){
             if(isset($rule["modify_tag"])){

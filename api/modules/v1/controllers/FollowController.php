@@ -87,8 +87,6 @@ class FollowController extends BaseActiveController
                 throw new ApiException(20002,$e->getMessage());
             }
 
-            Follow::updateCache('ow',$insert_id);
-
             $this->addMlog($userid,9,array("username"=>$userinfo['username']));
 
         }else{
@@ -133,8 +131,6 @@ class FollowController extends BaseActiveController
                 throw new ApiException(20002,$e->getMessage());
             }
 
-            Follow::updateCache("ow",$id);
-
         }else{
             //echo 2222;
             throw new ApiException(9997);
@@ -165,7 +161,6 @@ class FollowController extends BaseActiveController
 
         $ActiveDataProvider =  new HelpeDataProvider([
             'query' => $query,
-            'cache_rule'=>Follow::getCacheRule("list")
         ]);
 
         return $ActiveDataProvider;
@@ -192,7 +187,6 @@ class FollowController extends BaseActiveController
 
         $ActiveDataProvider =  new HelpeDataProvider([
             'query' => $query,
-            'cache_rule'=>Follow::getCacheRule("list")
         ]);
 
         return $ActiveDataProvider;

@@ -85,7 +85,7 @@ class AddressController extends BaseActiveController
                 throw new ApiException(20002,$e->getMessage());
             }
 
-            Address::updateCache('ow',$insert_id);
+            //Address::updateCache('ow',$insert_id);
 
         }else{
             //echo 2222;
@@ -137,7 +137,7 @@ class AddressController extends BaseActiveController
                 throw new ApiException(20002,$e->getMessage());
             }
 
-            Address::updateCache('ow',$id);
+            //Address::updateCache('ow',$id);
 
         }else{
             //echo 2222;
@@ -177,7 +177,7 @@ class AddressController extends BaseActiveController
                 throw new ApiException(20002,$e->getMessage());
             }
 
-            Address::updateCache("ow",$id);
+            //Address::updateCache("ow",$id);
 
         }else{
             //echo 2222;
@@ -209,7 +209,7 @@ class AddressController extends BaseActiveController
 
         $ActiveDataProvider =  new HelpeDataProvider([
             'query' => $query,
-            'cache_rule'=>Address::getCacheRule("list")
+            //'cache_rule'=>Address::getCacheRule("list")
         ]);
 
         return $ActiveDataProvider;

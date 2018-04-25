@@ -78,7 +78,7 @@ class OrderController extends BaseActiveController {
              */
             //$cache_config = Item::getCacheConfig($id);
             //var_dump($cache_config);exit;
-
+            //var_dump($id);exit;
             $item = Item::find()->where("id=:id",[':id' => $id])->one();
 
             if (empty($item) || $item['uid'] == $uid){
@@ -166,8 +166,8 @@ class OrderController extends BaseActiveController {
                 throw new ApiException(9996,$e->getMessage());
             }
 
-            Orderinfo::updateCache('ow',$orderinfo->id);
-            Orderaddr::updateCache('ow',$orderaddr->id);
+            //Orderinfo::updateCache('ow',$orderinfo->id);
+            //Orderaddr::updateCache('ow',$orderaddr->id);
 
             //如果下单成功就不管消息是否发送成功
             //item类型 0 服务 1 求助
@@ -207,9 +207,8 @@ class OrderController extends BaseActiveController {
         $condition[] = ['=', 'uid', $uid];
 
         //订单的商品类型 服务还是求助
-        $type = Yii::$app->request->get('type');
-
-        if ($type>-1){
+        $type = \Yii::$app->request->get("type");
+        if($type!==NULL && in_array($type,[0,1])){
             $condition[] = ['=', 'type', $type];
         }
 
@@ -248,7 +247,7 @@ class OrderController extends BaseActiveController {
 
         $ActiveDataProvider =  new HelpeDataProvider([
             'query' => $query,
-            'cache_rule'=>Orderinfo::getCacheRule("list")
+            //'cache_rule'=>Orderinfo::getCacheRule("list")
         ]);
 
         return $ActiveDataProvider;
@@ -282,7 +281,7 @@ class OrderController extends BaseActiveController {
 
         $ActiveDataProvider =  new HelpeDataProvider([
             'query' => $query,
-            'cache_rule'=>Item::getCacheRule("or",$id)
+            //'cache_rule'=>Item::getCacheRule("or",$id)
         ]);
 
         $this->serializer['collectionEnvelope'] = null;
@@ -307,13 +306,6 @@ class OrderController extends BaseActiveController {
 
         $condition[] = ['=', 'owner', $uid];
 
-        //订单的商品类型 服务还是求助
-        $type = Yii::$app->request->get('type');
-
-        if ($type>-1||$type===null){
-            $condition[] = ['=', 'type', $type];
-        }
-
         $et = \Yii::$app->request->get("et");
         $st = \Yii::$app->request->get("st");
 
@@ -333,6 +325,7 @@ class OrderController extends BaseActiveController {
             }
         }
 
+        //订单的商品类型 服务还是求助
         $type = \Yii::$app->request->get("type");
         if($type!==NULL && in_array($type,[0,1])){
             $condition[] = ['=', 'type', $type];
@@ -349,9 +342,12 @@ class OrderController extends BaseActiveController {
         $orderby =["ct"=>SORT_DESC];
         $query->orderby($orderby);
 
+
+
         $modelClass = $this->modelClass;
 
         $query = $modelClass::find()->with('iteminfo')->with('userinfo');
+
         if($condition){
             foreach ($condition as $cond){
                 $query->andWhere($cond);
@@ -361,7 +357,7 @@ class OrderController extends BaseActiveController {
 
         $ActiveDataProvider =  new HelpeDataProvider([
             'query' => $query,
-            'cache_rule'=>Orderinfo::getCacheRule("list")
+            //'cache_rule'=>Orderinfo::getCacheRule("list",$query)
         ]);
 
         return $ActiveDataProvider;
@@ -740,7 +736,7 @@ class OrderController extends BaseActiveController {
 
 
         //更新item表订单计数
-        Orderinfo::updateCache("ow", $id);
+       // Orderinfo::updateCache("ow", $id);
 
         return $saveSuccess;
     }

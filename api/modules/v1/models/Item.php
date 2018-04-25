@@ -70,7 +70,7 @@ class Item extends CacheAR
         }
         $isfav = 0;
         if(Yii::$app->controller->userId > 0){
-            $fav = Fav::find(['uid=:uid and itemid=:itemid',[":uid"=>Yii::$app->controller->userId,":item"=>$this->id]]);
+            $fav = Fav::find()->where('uid=:uid and itemid=:itemid',[":uid"=>Yii::$app->controller->userId,":itemid"=>$this->id]);
             if($fav->count()){
                 $isfav = 1;
             }

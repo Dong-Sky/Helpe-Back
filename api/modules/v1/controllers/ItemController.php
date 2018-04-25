@@ -196,8 +196,6 @@ class ItemController extends BaseActiveController
                 throw new ApiException(20002,$e->getMessage());
             }
 
-            Item::updateCache('ow',$insert_id);
-
         }else{
             //echo 2222;
             throw new ApiException(9997);
@@ -254,8 +252,6 @@ class ItemController extends BaseActiveController
                 throw new ApiException(20002,$e->getMessage());
             }
 
-            Item::updateCache('ow',$id);
-
         }else{
             //echo 2222;
             throw new ApiException(9997);
@@ -301,8 +297,6 @@ class ItemController extends BaseActiveController
                 //var_dump($e->getMessage());
                 throw new ApiException(20002,$e->getMessage());
             }
-
-            Item::updateCache('ow',$id);
 
         }else{
             //echo 2222;
@@ -403,8 +397,6 @@ class ItemController extends BaseActiveController
                 throw new ApiException(20002,$e->getMessage());
             }
 
-            Item::updateCache('ow',$id);
-
         }else{
             //echo 2222;
             throw new ApiException(9997);
@@ -449,8 +441,6 @@ class ItemController extends BaseActiveController
                 throw new ApiException(20002,$e->getMessage());
             }
 
-            Item::updateCache("ow",$id);
-
         }else{
             //echo 2222;
             throw new ApiException(9997);
@@ -489,7 +479,6 @@ class ItemController extends BaseActiveController
         //var_dump($modelClass::getCacheRule("or",$id));exit;
         $ActiveDataProvider =  new HelpeDataProvider([
             'query' => $query,
-            'cache_rule'=>Item::getCacheRule("or",$id)
         ]);
 
         $this->serializer['collectionEnvelope'] = null;
@@ -551,7 +540,6 @@ class ItemController extends BaseActiveController
         $query->orderby($orderby);
         $ActiveDataProvider =  new HelpeDataProvider([
             'query' => $query,
-            'cache_rule'=>Item::getCacheRule("list")
         ]);
 
         return $ActiveDataProvider;
@@ -705,7 +693,6 @@ class ItemController extends BaseActiveController
         //var_dump(ArrayHelper::toArray($query->all()));exit;
         $ActiveDataProvider =  new HelpeDataProvider([
             'query' => $query,
-            'cache_rule'=>Item::getCacheRule("list")
         ]);
 
         return $ActiveDataProvider;

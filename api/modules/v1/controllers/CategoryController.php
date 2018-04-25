@@ -77,7 +77,7 @@ class CategoryController extends BaseActiveController
 
         $ActiveDataProvider =  new HelpeDataProvider([
             'query' => $query,
-            'cache_rule'=>Category::getCacheRule("list")
+            //'cache_rule'=>Category::getCacheRule("list")
         ]);
 
         return $ActiveDataProvider;

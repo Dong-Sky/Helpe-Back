@@ -96,8 +96,6 @@ class FavController extends BaseActiveController
                 throw new ApiException(9996,$e->getMessage());
             }
 
-            Fav::updateCache('ow',$insert_id);
-            Item::updateCache('ow',$id);//刷新item缓存
         }else{
             //echo 2222;
             throw new ApiException(9997);
@@ -140,9 +138,6 @@ class FavController extends BaseActiveController
                 throw new ApiException(9996,$e->getMessage());
             }
 
-            Fav::updateCache("ow",$id);
-            Item::updateCache('ow',$itemid);//刷新item缓存
-
         }else{
             //echo 2222;
             throw new ApiException(9997);
@@ -174,7 +169,6 @@ class FavController extends BaseActiveController
 
         $ActiveDataProvider =  new HelpeDataProvider([
             'query' => $query,
-            'cache_rule'=>Fav::getCacheRule("list")
         ]);
 
         return $ActiveDataProvider;

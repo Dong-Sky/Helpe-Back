@@ -131,9 +131,6 @@ class FeedbackController extends BaseActiveController
                 throw new ApiException(20002,$e->getMessage());
             }
 
-            Orderinfo::updateCache('ow',$orderid);
-            Feedback::updateCache('ow',$insert_id);
-
             $this->addMlog($order["uid"],10,array("username"=>$this->user["username"],"itemname"=>$order['iteminfo']["name"],"score"=>$data['score']));
 
         }else{
@@ -189,8 +186,6 @@ class FeedbackController extends BaseActiveController
                 throw new ApiException(20002,$e->getMessage());
             }
 
-            Feedback::updateCache('ow',$id);
-
         }else{
             //echo 2222;
             throw new ApiException(9997);
@@ -231,7 +226,6 @@ class FeedbackController extends BaseActiveController
 
         $ActiveDataProvider =  new HelpeDataProvider([
             'query' => $query,
-            'cache_rule'=>Feedback::getCacheRule("list")
         ]);
 
         return $ActiveDataProvider;
@@ -269,7 +263,6 @@ class FeedbackController extends BaseActiveController
 
         $ActiveDataProvider =  new HelpeDataProvider([
             'query' => $query,
-            'cache_rule'=>Feedback::getCacheRule("list")
         ]);
 
         return $ActiveDataProvider;
@@ -329,7 +322,6 @@ class FeedbackController extends BaseActiveController
 
         $ActiveDataProvider =  new HelpeDataProvider([
             'query' => $query,
-            'cache_rule'=>Feedback::getCacheRule("list")
         ]);
 
         return $ActiveDataProvider;

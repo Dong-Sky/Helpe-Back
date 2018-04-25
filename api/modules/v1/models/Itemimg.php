@@ -8,7 +8,7 @@ use yii\web\UploadedFile;
 use yii\helpers\ArrayHelper;
 use yii\behaviors\TimestampBehavior;
 
-class Itemimg extends ActiveRecord
+class Itemimg extends CacheAR
 {
     private  $filePath = '@webroot/images/itemfiles/[[random_string]].[[extension]]';
     private  $webroot = '@webroot';

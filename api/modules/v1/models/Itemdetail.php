@@ -4,7 +4,7 @@ namespace api\modules\v1\models;
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 
-class Itemdetail extends ActiveRecord
+class Itemdetail extends CacheAR
 {
     public static function tableName()
     {

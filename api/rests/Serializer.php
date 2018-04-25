@@ -79,22 +79,26 @@ class Serializer extends \yii\rest\Serializer
     protected function serializeDataProvider($dataProvider)
     {
 
-        $data = null;
-        if($dataProvider->getCacheRule()){
-            $cache_key = $dataProvider->getCacheKey();
-            //var_dump($cache_key);
-            $cache = \Yii::$app->cache;
+//        $data = null;
+//
+//        if($dataProvider->getCacheRule()){
+//            $cache_key = $dataProvider->getCacheKey();
+//            $cache = \Yii::$app->cache;
+//
+//            $data = $cache->getOrSet($cache_key, function () use($dataProvider) {
+//                //echo "no cache";
+//                return ['output'=>$this->__serializeDataProvider($dataProvider),'data'=>$dataProvider->getModels()];
+//                //return $this->__serializeDataProvider($dataProvider);
+//            },$dataProvider->getCacheTimeout(),$dataProvider->getCacheDepend());
+//        }else{
+//            //$data =  $this->__serializeDataProvider($dataProvider);
+//        }
+//
+//        //var_dump($data);
+//
+//        return $data['output'];
 
-            $data = $cache->getOrSet($cache_key, function () use($dataProvider) {
-                //echo "no cache";
-                return $this->__serializeDataProvider($dataProvider);
-            },$dataProvider->getCacheTimeout(),$dataProvider->getCacheDepend());
-        }else{
-            $data =  $this->__serializeDataProvider($dataProvider);
-        }
-
-        //var_dump($data);
-        return $data;
+        return $this->__serializeDataProvider($dataProvider);
 
 
     }
