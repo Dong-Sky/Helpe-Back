@@ -25,6 +25,7 @@ class CachedActiveQuery extends ActiveQuery
 
     public $dependency=null;
 
+
     /**
      * init
      */
@@ -66,7 +67,7 @@ class CachedActiveQuery extends ActiveQuery
      */
     public function all($db = null)
     {
-        $this->dependency =  new TagDependency(['tags' => self::className()."_list"]);
+        $this->dependency =  new TagDependency(['tags' => $this->modelClass."_list"]);
 
         return \Yii::$app->cache->getOrSet(serialize($this),function () use($db) {
             Yii::getLogger()->log("no use cache function all", Logger::LEVEL_INFO);
@@ -105,7 +106,7 @@ class CachedActiveQuery extends ActiveQuery
      */
     public function count($q = '*', $db = null)
     {
-        $this->dependency =  new TagDependency(['tags' => self::className()."_list"]);
+        $this->dependency =  new TagDependency(['tags' => $this->modelClass."_list"]);
 
         return \Yii::$app->cache->getOrSet(serialize($this),function () use ($q,$db) {
             Yii::getLogger()->log("no use cache function all", Logger::LEVEL_INFO);
