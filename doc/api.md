@@ -1113,12 +1113,12 @@ POST 请求
 
 ###7.3 删除接口###
 
-/v1/fav/save
+/v1/fav/del
 
 删除收藏接口
 
 ### 请求参数 ###
-URL /v1/fav/save?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
+URL /v1/fav/del?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
 
 POST 请求
 

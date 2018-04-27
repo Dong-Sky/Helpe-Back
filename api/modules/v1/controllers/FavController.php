@@ -60,7 +60,7 @@ class FavController extends BaseActiveController
 
             $fav = Fav::find()->where("id=:id and uid=:uid",[':id' => $id,':uid' => $this->userId])->one();
 
-            if (empty($item) || $item['uid'] == $this->userId){
+            if (empty($fav) || $fav['uid'] == $this->userId){
                 throw new ApiException(50001);
             }
 
@@ -96,6 +96,8 @@ class FavController extends BaseActiveController
                 throw new ApiException(9996,$e->getMessage());
             }
 
+            Item::updateCache(false,$id);//刷新item缓存
+
         }else{
             //echo 2222;
             throw new ApiException(9997);
@@ -105,7 +107,7 @@ class FavController extends BaseActiveController
     }
 
     /**
-     * 删除address
+     * 删除fav
      * @return ApiResponse
      * @throws ApiException
      * @throws \Exception
@@ -123,7 +125,7 @@ class FavController extends BaseActiveController
             try{
 
                 $fav = Fav::find()->where('id=:id and uid=:uid ', [':id' => $id,':uid' => $uid])->one();
-                $itemid = $fav->itemid;
+                //$itemid = $fav->itemid;
                 if($fav && $fav->delete()){
 
                     $delSuccess = true;
@@ -137,6 +139,8 @@ class FavController extends BaseActiveController
                 //var_dump($e->getMessage());
                 throw new ApiException(9996,$e->getMessage());
             }
+
+            Item::updateCache(false,$id);//刷新item缓存
 
         }else{
             //echo 2222;

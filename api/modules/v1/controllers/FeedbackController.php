@@ -138,6 +138,8 @@ class FeedbackController extends BaseActiveController
             throw new ApiException(9997);
         }
 
+        Orderinfo::updateCache(false,$orderid);
+
         return new ApiResponse(0, []);
     }
 
@@ -190,6 +192,8 @@ class FeedbackController extends BaseActiveController
             //echo 2222;
             throw new ApiException(9997);
         }
+
+        //Orderinfo::updateCache(false,$orderid);
 
         return new ApiResponse(0, []);
     }
