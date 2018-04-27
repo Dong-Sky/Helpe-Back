@@ -556,6 +556,36 @@ POST 请求
 }
 ```
 
+###4.4 匿名获取用户信息, 可能有被扫库的风险
+POST 请求
+/v1/user/get-info-by-id
+### 请求参数 ###
+- id 							// 用户的ID编号
+
+### 返回状态 ###
+- 0												  // 成功
+- 10011 => 'USER_INFO_GET_ERROR',                 // 获取用户信息错误
+
+### 返回结果 ###
+```
+{
+    "status": 0,
+    "err": null,
+    "data": {
+        "type": 1,
+        "username": "jake",
+        "face": null,
+        "gender": 1,
+        "birthday": "2018-01-11",
+        "city": 0,
+        "tel": "13700000000",
+        "info": 0
+    }
+}
+```
+
+
+
 ##5.订单模块##
 订单状态
 
