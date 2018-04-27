@@ -33,6 +33,7 @@ class UserController extends BaseActiveController {
                 'optional' => [
                     'forget-password',
                     'forget-password-reset',
+                    'get-info-by-id',           // 可能会引起风险, 但是需求需要
                 ],
             ]
         ]);
@@ -46,6 +47,27 @@ class UserController extends BaseActiveController {
         $ret = $this->user->attributes;
         unset($ret['access_token']);
         unset($ret['password_reset_token']);
+        return new ApiResponse(0, $ret);
+    }
+
+    /**
+     * 可以在登录和非登录状态可以获取到用会信息, 可能会引起数据丢失
+     * @return ApiResponse
+     * @throws ApiException
+     */
+    public function actionGetInfoById() {
+        $id = intval($this->get["id"]);
+        $ret = User::findIdentity($id)->attributes;
+        if(!$ret) {
+            throw new ApiException(10011);
+        }
+        // 只传给客户端必要数据
+        $filter = ['type', 'username', 'face', 'gender', 'birthday', 'city', 'tel', 'info'];
+        foreach(array_keys($ret) as $item) {
+            if(!in_array($item, $filter, true)) {
+                unset($ret[$item]);
+            }
+        }
         return new ApiResponse(0, $ret);
     }
 
