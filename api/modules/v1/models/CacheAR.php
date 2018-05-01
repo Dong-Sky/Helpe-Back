@@ -90,7 +90,7 @@ class CacheAR extends ActiveRecord
         if($modify_tag){
             $modify_tag = self::className()."_list";
             $modify_tag_dep = new TagDependency(['tags' => $modify_tag]);
-            TagDependency::invalidate(Yii::$app->cache, self::class);
+            TagDependency::invalidate(Yii::$app->cache,self::className()."_list");
             Yii::getLogger()->log("cache TagDependency invalidate ".$modify_tag_dep->tags, Logger::LEVEL_INFO);
         }
         if($modify_key){
