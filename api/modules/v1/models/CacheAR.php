@@ -102,5 +102,14 @@ class CacheAR extends ActiveRecord
 
     }
 
+    public static function getOne($pk)
+    {
+        $key = $key = self::className()."_info_".$pk;
+        return \Yii::$app->cache->getOrSet($key,function () use ($pk)  {
+            Yii::getLogger()->log("no use cache function one", Logger::LEVEL_INFO);
+            return parent::findOne($pk);
+        },300, null);
+    }
+
 
 }
