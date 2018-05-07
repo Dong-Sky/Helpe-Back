@@ -85,19 +85,31 @@ class CacheAR extends ActiveRecord
      * @param null $item_id
      * @return array
      */
-    public static function updateCache($query){
-        $rule = self::getCacheRule($query);
+    public static function updateCache($modify_tag,$modify_key){
 
-        if($rule){
-            if(isset($rule["modify_tag"])){
-                TagDependency::invalidate(Yii::$app->cache, $rule["modify_tag"]);
-                Yii::getLogger()->log("cache TagDependency invalidate ".$rule["modify_tag"]->tags, Logger::LEVEL_INFO);
-            }
-            if(isset($rule["modify_key"]) && $rule["modify_key"] == true){
-                Yii::$app->cache->delete($rule["key"]);
-                Yii::getLogger()->log("cache key delete  ".$rule["key"], Logger::LEVEL_INFO);
-            }
-
+        if($modify_tag){
+            $modify_tag = self::className()."_list";
+            $modify_tag_dep = new TagDependency(['tags' => $modify_tag]);
+            TagDependency::invalidate(Yii::$app->cache,self::className()."_list");
+            Yii::getLogger()->log("cache TagDependency invalidate ".$modify_tag_dep->tags, Logger::LEVEL_INFO);
         }
+        if($modify_key){
+            $key = self::className()."_info_".$modify_key;
+            Yii::$app->cache->delete($key);
+            Yii::getLogger()->log("cache key delete  ".$key, Logger::LEVEL_INFO);
+        }
+
+
     }
+
+    public static function getOne($pk)
+    {
+        $key = $key = self::className()."_info_".$pk;
+        return \Yii::$app->cache->getOrSet($key,function () use ($pk)  {
+            Yii::getLogger()->log("no use cache function one", Logger::LEVEL_INFO);
+            return parent::findOne($pk);
+        },300, null);
+    }
+
+
 }

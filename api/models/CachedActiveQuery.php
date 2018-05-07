@@ -50,6 +50,7 @@ class CachedActiveQuery extends ActiveQuery
      */
     public function one($db = null)
     {
+        $this->dependency =  new TagDependency(['tags' => $this->modelClass."_list"]);
         return \Yii::$app->cache->getOrSet(serialize($this),function () use($db) {
             Yii::getLogger()->log("no use cache function one", Logger::LEVEL_INFO);
             return parent::one($db);

@@ -50,12 +50,17 @@ class FollowController extends BaseActiveController
 
         if (Yii::$app->request->isPost) {
             $userid = \Yii::$app->request->post("uid");
+
+            $userinfo = UserInfo::getOne($userid);
+
             $userinfo = UserInfo::find()->where("id=:id",[':id' => $userid])->one();
+
             if(empty($userinfo) || $userinfo['id']==$this->userId){
                 throw new ApiException(10009);
             }
 
-            $follow = Follow::find()->where("uuid=:uuid",[':uuid' => $userid])->one();
+            $follow = Follow::find(false)->where("uuid=:uuid",[':uuid' => $userid])->one();
+
             if (!empty($follow)){
                 throw new ApiException(80001);
             }
@@ -111,7 +116,7 @@ class FollowController extends BaseActiveController
             $delSuccess = false;
             try{
 
-                $follow = Follow::find()->where('id=:id and uid=:uid ', [':id' => $id,':uid' => $this->userId])->one();
+                $follow = Follow::find(false)->where('id=:id and uid=:uid ', [':id' => $id,':uid' => $this->userId])->one();
                 if($follow && $follow->delete()){
 
                     $delSuccess = true;

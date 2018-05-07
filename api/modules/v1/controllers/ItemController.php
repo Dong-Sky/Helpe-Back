@@ -424,6 +424,10 @@ class ItemController extends BaseActiveController
             $saveSuccess = false;
             try{
 
+//                $item = Item::getOne($id);
+//                if($item->uid!=$this->userId){
+//                    throw new ApiException(9997);
+//                }
                 $item = Item::find()->where('id=:id and uid=:uid ', [':id' => $id,':uid' => $uid])->one();
 
                 $item->flag = 0;

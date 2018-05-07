@@ -736,7 +736,7 @@ class OrderController extends BaseActiveController {
 
 
         //更新item表订单计数
-       // Orderinfo::updateCache("ow", $id);
+        Orderinfo::updateCache(true, $id);
 
         return $saveSuccess;
     }

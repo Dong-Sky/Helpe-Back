@@ -82,6 +82,7 @@ class ResponseStatus {
         70001 => 'ADDRESS_NO_EXIST',                      // 订单地址不存在
 
         80001 => 'FOLLOW_USER_FOLLOWED',                    // 用户已经关注
+        80002 => 'FOLLOW_SELF_FOLLOWED',                    // 用户已经关注
 
 
     ];
