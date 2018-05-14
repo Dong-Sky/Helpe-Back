@@ -1,8 +1,10 @@
 <?php
 namespace api\rests;
 
+use Yii;
 use yii\db\QueryInterface;
 use yii\base\InvalidConfigException;
+use yii\data\Pagination;
 
 class HelpeDataProvider extends \yii\data\ActiveDataProvider
 {
@@ -74,5 +76,29 @@ class HelpeDataProvider extends \yii\data\ActiveDataProvider
 //            return (int) $query->limit(-1)->offset(-1)->orderBy([])->count('*', $db);
 //        },$this->getCacheTimeout(),$this->getCacheDepend());
 //    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function prepareModels()
+    {
+        if (!$this->query instanceof QueryInterface) {
+            throw new InvalidConfigException('The "query" property must be an instance of a class that implements the QueryInterface e.g. yii\db\Query or its subclasses.');
+        }
+        $query = clone $this->query;
+        if (($pagination = $this->getPagination()) !== false) {
+            $pagination->validatePage = false;
+            $pagination->totalCount = $this->getTotalCount();
+            if ($pagination->totalCount === 0) {
+                return [];
+            }
+            $query->limit($pagination->getLimit())->offset($pagination->getOffset());
+        }
+        if (($sort = $this->getSort()) !== false) {
+            $query->addOrderBy($sort->getOrders());
+        }
+
+        return $query->all($this->db);
+    }
 }
 ?>
