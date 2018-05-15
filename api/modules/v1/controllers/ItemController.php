@@ -684,7 +684,7 @@ class ItemController extends BaseActiveController
 
         }
 
-        $query->with('itemdetail')->with('itemimg');
+        $query->with('itemdetail')->with('itemimg')->with('userInfo');
         if($condition){
             foreach ($condition as $cond){
                 $query->andWhere($cond);
