@@ -111,7 +111,7 @@ class BaseActiveController extends Controller {
             throw new ApiException(20002,$e->getMessage());
         }
 
-        Mlog::updateCache('ow',$insert_id);
+        //Mlog::updateCache('ow',$insert_id);
 
         $userinfo = $this->user;
 
