@@ -23,7 +23,7 @@ class ReportController extends BaseActiveController {
      */
     public function actionAdd() {
         $report = new Report();
-        if($report->load($this->get, '') && $report->validate()) {
+        if($report->load($this->post, '') && $report->validate()) {
             $report->user_id = $this->userId;
             $report->save();
         } else {
