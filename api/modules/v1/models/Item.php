@@ -125,6 +125,7 @@ class Item extends CacheAR
         if($controller_id=="item" && $action_id=="index"){
             $fields[] = 'itemdetail';
             $fields[] = 'itemimg';
+            $fields[] = 'userInfo';
         }elseif($controller_id=="item" && $action_id=="info"){
             $fields[] = 'itemdetail';
             $fields[] = 'itemimg';
