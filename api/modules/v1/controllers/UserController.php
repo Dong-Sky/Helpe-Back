@@ -81,7 +81,21 @@ class UserController extends BaseActiveController {
     public function actionUpdate() {
 
         $userInfo = UserInfo::findOne(['access_token' => $this->user->access_token]); //var_dump($userInfo);
+
+        if (isset($this->post['birthday'])) {
+            if (!preg_match("/^\\d{4}-\\d{2}-\\d{2}$/", $this->post['birthday'])) {
+                throw new ApiException(9998);
+            }
+        }
+        if (isset($this->post['gender'])) {
+            if (!in_array($this->post['gender'], array("1", "2", "3"))) {
+                throw new ApiException(9998);
+            }
+        }
+
         $userInfo->load($this->post, '');
+        //var_dump($this->post); //exit;
+        //var_dump($userInfo);
         if($userInfo->validate()) {
             if($userInfo->save()) {
                 Yii::$app->cache->delete(GlobalPre::CACHE_PRE_ACCESS_TOKEN . $this->user->access_token);
