@@ -244,7 +244,8 @@ class UserController extends BaseActiveController {
         $user = User::findIdentity($this->userId);
         $user->face = $imageUrl;
         $user->save();
-
+        // 更新用户新的缓存
+        Yii::$app->cache->delete(GlobalPre::CACHE_PRE_ACCESS_TOKEN . $this->user->access_token);
         return new ApiResponse(0, []);
     }
 
