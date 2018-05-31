@@ -35,6 +35,7 @@ class UserInfo extends CacheAR {
             ['gender', 'default', 'value' => null],
             ['birthday', 'default', 'value' => null],
             ['city', 'default', 'value' => null],
+            ['cityinfo', 'default', 'value' => null],
             ['tel', 'default', 'value' => null],
             ['info', 'default', 'value' => null],
             ['career', 'default', 'value' => null],
@@ -46,7 +47,7 @@ class UserInfo extends CacheAR {
         $default_scenarios = parent::scenarios();
         return [
             'default'=>$default_scenarios["default"],
-            'update'=>['username', 'gender', 'birthday', 'city', 'tel', 'info', 'career']
+            'update'=>['username', 'gender', 'birthday', 'city', 'cityinfo', 'tel', 'info', 'career']
         ];
     }
 

@@ -73,10 +73,12 @@ class UserController extends BaseActiveController {
 
 
     /**
-     * 更新用户信息字段, username, gender, career, birthday, city, tel, info
+     * 更新用户信息字段, username, gender, career, birthday, city, cityinfo, tel, info
      * 更新完成之后, 删除缓存的key
      * @return ApiResponse
      * @throws ApiException
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionUpdate() {
 
