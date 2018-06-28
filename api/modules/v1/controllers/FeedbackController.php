@@ -295,7 +295,7 @@ class FeedbackController extends BaseActiveController
         }else{
             $itemid = \Yii::$app->request->get("itemid",0);
             if($itemid>0){
-                $condition[] = ['=', 'itemid', $orderid];
+                $condition[] = ['=', 'itemid', $itemid];
             }
 
         }
@@ -323,6 +323,7 @@ class FeedbackController extends BaseActiveController
         }
 
         $query->orderby($orderby);
+
 
         $ActiveDataProvider =  new HelpeDataProvider([
             'query' => $query,
