@@ -347,11 +347,11 @@ class UmengNotification
 
         if(mb_strpos($msg,'{{username}}')!==false && isset($data['username'])){
             //find {{username}}
-            str_replace('{{username}}', $data['username'], $msg);
+            $msg = str_replace('{{username}}', $data['username'], $msg);
         }
         if(mb_strpos($msg,'{{itemname}}')!==false && isset($data['itemname'])){
             //find {{username}}
-            str_replace('{{itemname}}', $data['itemname'], $msg);
+            $msg = str_replace('{{itemname}}', $data['itemname'], $msg);
         }
 
         Yii::getLogger()->log("sendIosNotification $uid,$msg", Logger::LEVEL_INFO);

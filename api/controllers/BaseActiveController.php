@@ -87,7 +87,7 @@ class BaseActiveController extends Controller {
      * @return mixed
      */
     public function addMlog($uid,$tp=1,$data=array()){
-        $data = [ 'Mlog'=>[
+        $db_data = [ 'Mlog'=>[
             'uid'=>$uid,
             'tpid'=>$tp,
             'data'=>json_encode($data),
@@ -96,8 +96,8 @@ class BaseActiveController extends Controller {
 
         try {
             $log = new Mlog();
-            $log->load($data);
-            if ($data && $log->validate()) {
+            $log->load($db_data);
+            if ($db_data && $log->validate()) {
                 $saved = $log->save();
                 $saveSuccess = true;
                 $insert_id = $log->id;

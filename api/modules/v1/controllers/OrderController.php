@@ -627,8 +627,6 @@ class OrderController extends BaseActiveController {
 
             $this->updateOrderStatus($id,$change_status,$prev_status);
 
-
-
             //如果下单成功就不管消息是否发送成功
             //item类型 0 服务 1 求助
             if ($order['type']==0){
@@ -637,6 +635,7 @@ class OrderController extends BaseActiveController {
 
 
             }else{
+
                 $this->addMlog($order['owner'],17,array("username"=>$order['ownerinfo']['username'],"itemname"=>$order['iteminfo']["name"]));
                 $this->addMlog($order['uid'],18,array("username"=>$this->user["username"],"itemname"=>$order['iteminfo']["name"]));
 
