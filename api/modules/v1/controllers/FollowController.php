@@ -51,8 +51,6 @@ class FollowController extends BaseActiveController
         if (Yii::$app->request->isPost) {
             $userid = \Yii::$app->request->post("uid");
 
-            $userinfo = UserInfo::getOne($userid);
-
             $userinfo = UserInfo::find()->where("id=:id",[':id' => $userid])->one();
 
             if(empty($userinfo) || $userinfo['id']==$this->userId){
