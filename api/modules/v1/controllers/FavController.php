@@ -96,7 +96,7 @@ class FavController extends BaseActiveController
                 throw new ApiException(9996,$e->getMessage());
             }
 
-            Item::updateCache(false,$id);//刷新item缓存
+            //Item::updateCache(false,$id);//刷新item缓存
 
         }else{
             //echo 2222;
@@ -140,7 +140,7 @@ class FavController extends BaseActiveController
                 throw new ApiException(9996,$e->getMessage());
             }
 
-            Item::updateCache(false,$id);//刷新item缓存
+            //Item::updateCache(false,$id);//刷新item缓存
 
         }else{
             //echo 2222;

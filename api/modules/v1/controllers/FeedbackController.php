@@ -138,7 +138,7 @@ class FeedbackController extends BaseActiveController
             throw new ApiException(9997);
         }
 
-        Orderinfo::updateCache(false,$orderid);
+        //Orderinfo::updateCache(false,$orderid);
 
         return new ApiResponse(0, []);
     }
