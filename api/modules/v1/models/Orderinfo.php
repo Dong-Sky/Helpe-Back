@@ -80,7 +80,7 @@ class Orderinfo extends CacheAR
         $action_id = Yii::$app->controller->action->id;
         $fields = parent::fields();
         if($action_id=="index"||$action_id=="sale"){
-            $fields += ['iteminfo','userinfo'];
+            $fields += ['iteminfo','userinfo','ownerinfo'];
         }elseif($action_id=="info"){
             $fields += ['iteminfo','userinfo','orderaddr','ownerinfo'];
         }else{

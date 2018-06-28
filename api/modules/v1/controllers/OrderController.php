@@ -234,7 +234,7 @@ class OrderController extends BaseActiveController {
 
         $modelClass = $this->modelClass;
 
-        $query = $modelClass::find()->with('iteminfo')->with('userinfo');
+        $query = $modelClass::find()->with('iteminfo')->with('userinfo')->with('ownerinfo');
         if($condition){
             foreach ($condition as $cond){
                 $query->andWhere($cond);
@@ -346,7 +346,7 @@ class OrderController extends BaseActiveController {
 
         $modelClass = $this->modelClass;
 
-        $query = $modelClass::find()->with('iteminfo')->with('userinfo');
+        $query = $modelClass::find()->with('iteminfo')->with('userinfo')->with('ownerinfo');;
 
         if($condition){
             foreach ($condition as $cond){
