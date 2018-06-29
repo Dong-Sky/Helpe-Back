@@ -6,6 +6,7 @@ use yii\db\ActiveRecord;
 use api\modules\v1\models\Itemdetail;
 use api\modules\v1\models\Itemimg;
 use api\modules\v1\models\Fav;
+use api\modules\v1\models\Orderinfo;
 use api\modules\v1\models\Category;
 use api\modules\v1\models\CacheAR;
 use yii\behaviors\TimestampBehavior;
@@ -92,6 +93,20 @@ class Item extends CacheAR
         return $this->_favnum;
     }
 
+    public function getSalenum()
+    {
+        if ($this->isNewRecord) {
+            return 0; // 这样可以避免调用空主键进行查询
+        }
+        $isfav = 0;
+
+        $order = Orderinfo::find()->where('itemid=:itemid and status=40',[":itemid"=>$this->id]);
+        return $order->count();
+
+
+    }
+
+
 
     public function scenarios()
     {
@@ -134,6 +149,8 @@ class Item extends CacheAR
             $fields[] = 'userInfo';
             $fields[] = 'category';
             $fields[] = 'addr';
+            $fields[] = 'salenum';
+
         }
 
         if(\Yii::$app->request->get("searchtp",-1)===0||
