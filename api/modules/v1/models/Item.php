@@ -101,7 +101,7 @@ class Item extends CacheAR
         $isfav = 0;
 
         $order = Orderinfo::find()->where('itemid=:itemid and status=40',[":itemid"=>$this->id]);
-        return $order->count();
+        return intval($order->count());
 
 
     }
