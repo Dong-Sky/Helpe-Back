@@ -58,9 +58,9 @@ class FavController extends BaseActiveController
                 throw new ApiException(20001);
             }
 
-            $fav = Fav::find()->where("id=:id and uid=:uid",[':id' => $id,':uid' => $this->userId])->one();
+            $fav = Fav::find()->where("itemid=:id and uid=:uid",[':id' => $id,':uid' => $this->userId])->one();
 
-            if (empty($fav) || $fav['uid'] == $this->userId){
+            if (!empty($fav) || $fav['uid'] == $this->userId){
                 throw new ApiException(50001);
             }
 
