@@ -255,7 +255,8 @@ class FeedbackController extends BaseActiveController
 
         $modelClass = $this->modelClass;
 
-        $query = $modelClass::find()->with('orderinfo');
+        $query = $modelClass::find()->joinWith("itemtype")->joinWith("userinfo");
+        $query->select("helpe_feedback.*, helpe_item.type as itemtype, helpe_user.face as face, helpe_user.username as username");
         if($condition){
             foreach ($condition as $cond){
                 $query->andWhere($cond);

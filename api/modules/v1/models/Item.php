@@ -154,7 +154,7 @@ class Item extends CacheAR
         }
 
         if(\Yii::$app->request->get("searchtp",-1)===0||
-            (!empty(\Yii::$app->request->get("distance")))){
+            (!empty( \Yii::$app->request->get("distance")))){
             $fields[] = 'distance';
         }
 

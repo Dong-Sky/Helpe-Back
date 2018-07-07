@@ -495,6 +495,7 @@ GET 请求
         "birthday": null,														// 生日 (yyyy-mm-dd)
         "career": null,															// 职业
         "city": null,															// 城市
+        "cityinfo": null,														// 城市详情
         "tel": null,															// 电话
         "ip": null,																// 最后登录IP
         "info": null,															// 说明
@@ -515,6 +516,7 @@ POST 请求
 - birthday				// 生日 (yyyy-mm-dd)
 - career				// 职业
 - city					// 城市
+- cityinfo				// 城市详情
 - tel 					// 电话
 - info 					// 个人简介
 

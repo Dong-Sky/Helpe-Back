@@ -1,6 +1,7 @@
 <?php
 namespace api\modules\v1\models;
 
+use common\models\User;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
@@ -24,6 +25,11 @@ class Feedback extends CacheAR
         ];
     }
 
+    public $itemtype;
+    public $face;
+    public $username;
+
+
     public static function tableName()
     {
         return '{{%feedback}}';
@@ -32,6 +38,16 @@ class Feedback extends CacheAR
     public function getOrderinfo(){
         return $this->hasOne(Orderinfo::className(), ['id' => 'orderid']);
     }
+
+    public function getItemtype() {
+        return $this->hasOne(Item::className(), ['id' => 'itemid']);
+    }
+
+    public function getUserinfo() {
+        return $this->hasOne(UserInfo::className(), ['id' => 'uid']);
+    }
+
+
 
 
     public function scenarios()
@@ -45,7 +61,7 @@ class Feedback extends CacheAR
     }
 
 
-    public function rules(){
+    public function rules() {
         return [
             //[['username','password'],'required','message'=>'不能为空']
             [['content','score','uid','owner','itemid','orderid'],
@@ -65,7 +81,9 @@ class Feedback extends CacheAR
         if($action_id=="index"||$action_id=="my"||$action_id=="info"){
             $fields += ['orderinfo'];
         }
-
+        if ($action_id == "aboutme") {
+            $fields += ["itemtype", "face", "username"];
+        }
         // 删除一些包含敏感信息的字段
         //unset($fields['auth_key'], $fields['password_hash'], $fields['password_reset_token']);
         //$fields += ['itemdetail','itemimg'];
