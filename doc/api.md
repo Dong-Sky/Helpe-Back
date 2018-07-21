@@ -1372,25 +1372,9 @@ GET 请求
                 "owner": 1,
                 "ct": 1522143447,
                 "mt": 1522143447,
-                "orderinfo": {
-                    "id": 80,
-                    "no": 0,
-                    "uid": 1,
-                    "status": 10,
-                    "ordertp": 0,
-                    "cash": "1000.00",
-                    "ct": 1522077081,
-                    "pt": 1520696319,
-                    "mt": 1522143447,
-                    "itemid": 5,
-                    "num": 1,
-                    "type": 1,
-                    "owner": 2,
-                    "changeprice": "0.00",
-                    "remark": "dddddd",
-                    "paytp": 1,
-                    "fd": 1
-                }
+                "itemtype": "1",
+                "face": "yyyy",
+                "username": "f1111"
             }
         ],
         "_links": {
