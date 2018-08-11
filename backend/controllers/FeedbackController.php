@@ -55,7 +55,7 @@ class FeedbackController extends Controller
 
 
         // 对model对象各个字段进行赋值
-        if (!$model->load(['flag' => 1, 'id' => $data["id"]], '')) {
+        if (!$model->load(['flag' => 0, 'id' => $data["id"]], '')) {
             return $this->error(205);
         }
         //var_dump('<pre>', $data);
