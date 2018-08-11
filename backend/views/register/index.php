@@ -5,6 +5,7 @@ $this->title = '注册信息表';
 <?=\backend\widgets\MeTable::widget()?>
 <?php $this->beginBlock('javascript') ?>
 <script type="text/javascript">
+
     var m = meTables({
         title: "注册信息表",
         table: {
@@ -12,8 +13,8 @@ $this->title = '注册信息表';
                 {"title": "编号", "data": "id", "sName": "id", "edit": {"type": "text", "required": true,"number": true}},
 			    {"title": "电子邮件", "data": "email", "sName": "email", "edit": {"type": "text", "required": true,"rangelength": "[2, 64]"}, "search": {"type": "text"}, "bSortable": false},
 			    {"title": "邮件校验key", "data": "auth_token", "sName": "auth_token", "edit": {"type": "text", "required": true,"rangelength": "[2, 12]"}, "bSortable": false},
-			    {"title": "创建时间", "data": "created_at", "sName": "created_at", "edit": {"type": "text", "required": true,"number": true}, "bSortable": false, "createdCell" : meTables.dateTimeString},
-			    {"title": "最后更新时间", "data": "updated_at", "sName": "updated_at", "edit": {"type": "text", "required": true,"number": true}, "bSortable": false, "createdCell" : meTables.dateTimeString}
+			    {"title": "创建时间", "data": "created_at", "sName": "created_at", "bSortable": false, "createdCell" : meTables.dateTimeString},
+			    {"title": "最后更新时间", "data": "updated_at", "sName": "updated_at", "bSortable": false, "createdCell" : meTables.dateTimeString}
             ]       
         },
         buttons:{

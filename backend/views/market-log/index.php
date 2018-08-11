@@ -13,7 +13,7 @@ $this->title = '推送信息查看';
 			{"title": "用户ID", "data": "uid", "sName": "uid", "search": {"type": "text"}, "bSortable": false}, 
 			{"title": "交易信息类型id", "data": "tpid", "sName": "tpid", "search": {"type": "text"}, "bSortable": false}, 
 			{"title": "内容", "data": "data", "sName": "data", "bSortable": false}, 
-			{"title": "创建时间", "data": "ct", "sName": "ct", "bSortable": false}, 
+			{"title": "创建时间", "data": "ct", "sName": "ct", "bSortable": false, "createdCell" : meTables.dateTimeString},
 
             ]       
         },

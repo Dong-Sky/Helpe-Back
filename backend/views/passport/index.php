@@ -12,17 +12,21 @@ $this->title = '登录信息表';
     }
 </script>
 <script type="text/javascript">
+    var aStatus = {"1":"系统","2":"facebook"},
+        aStatusColor = {"1":"label-success","2":"label-warning"};
     var m = meTables({
         title: "登录信息表",
         table: {
             "aoColumns": [
-                {"title": "编号", "data": "id", "sName": "id", "bSortable": true, "edit": {"type": "text", "required": true,"number": true}},
-			    {"title": "用户类型", "data": "type", "sName": "type", "search": {"type": "text"}, "bSortable": false},
-			    {"title": "邮箱", "data": "email", "sName": "email", "search": {"type": "text"}, "bSortable": false},
+                {"title": "编号", "data": "id", "sName": "id", "bSortable": true},
+			    {"title": "用户类型", "data": "type", "sName": "type", "value": aStatus, "search": {"type": "text"}, "bSortable": false,      "createdCell":function(td, data) {
+                        $(td).html(mt.valuesString(aStatus, aStatusColor, data));
+                    }},
+			    {"title": "邮箱", "data": "email", "sName": "email", "search": {"type": "text"}, "edit": {"type": "text"}, "bSortable": false},
 			    {"title": "密码", "data": "password", "sName": "password", "bSortable": false, "edit": {"type": "text", "rangelength": "[0, 64]"}},
 			    {"title": "第三方token", "data": "token", "sName": "token", "bSortable": false, "edit": {"type": "text", "rangelength": "[0, 512]"}},
-			    {"title": "创建时间", "data": "created_at", "sName": "created_at", "edit": {"type": "text", "required": true,"number": true}, "bSortable": false, "createdCell" : meTables.dateTimeString},
-			    {"title": "更新时间", "data": "updated_at", "sName": "updated_at", "edit": {"type": "text", "required": true,"number": true}, "bSortable": false, "createdCell" : meTables.dateTimeString}
+			    {"title": "创建时间", "data": "created_at", "sName": "created_at", "bSortable": false, "createdCell" : meTables.dateTimeString},
+			    {"title": "更新时间", "data": "updated_at", "sName": "updated_at", "bSortable": false, "createdCell" : meTables.dateTimeString}
 
             ]       
         },

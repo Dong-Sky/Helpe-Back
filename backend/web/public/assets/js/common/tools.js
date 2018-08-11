@@ -6,6 +6,8 @@ function empty(value) {
     return value === undefined || value === null || value === "";
 }
 
+
+
 function validateFile(info) {
     var error = [];
     if (info && typeof info == "object") {

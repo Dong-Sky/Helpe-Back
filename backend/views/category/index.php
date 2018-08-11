@@ -5,6 +5,8 @@ $this->title = '分类管理';
 <?=\backend\widgets\MeTable::widget()?>
 <?php $this->beginBlock('javascript') ?>
 <script type="text/javascript">
+    var aStatus = {"1":"启用","0":"禁用"},
+        aStatusColor = {"1":"label-success","0":"label-danger"};
     var m = meTables({
         title: "分类管理",
         table: {
@@ -14,9 +16,16 @@ $this->title = '分类管理';
 			    {"title": "中文名称", "data": "cn_name", "sName": "cn_name", "edit": {"type": "text", "rangelength": "[2, 50]"}, "bSortable": false},
 			    {"title": "父类ID", "data": "pid", "sName": "pid", "edit": {"type": "text", "required": true,"number": true}, "bSortable": false},
 			    {"title": "排序", "data": "sort", "sName": "sort", "edit": {"type": "text", "required": true,"number": true}, "bSortable": false},
-			    {"title": "状态", "data": "flag", "sName": "flag", "edit": {"type": "text", "required": true,"number": true}, "search": {"type": "text"}, "bSortable": false},
-			    {"title": "创建时间", "data": "ct", "sName": "ct", "edit": {"type": "text", "required": true,"number": true}, "search": {"type": "text"}, "bSortable": false},
-			    {"title": "修改时间", "data": "mt", "sName": "mt", "edit": {"type": "text", "number": true}, "bSortable": false}
+                {"title": "状态", "data": "flag", "sName": "flag", "value": aStatus,
+                    "edit": {"type": "radio", "default": 10, "required":true,"number":true},
+                    "bSortable": false,
+                    "search": {"type": "select"},
+                    "createdCell":function(td, data) {
+                        $(td).html(mt.valuesString(aStatus, aStatusColor, data));
+                    }
+                },
+			    {"title": "创建时间", "data": "ct", "sName": "ct", "bSortable": false, "createdCell" : meTables.dateTimeString},
+			    {"title": "修改时间", "data": "mt", "sName": "mt", "bSortable": false, "createdCell" : meTables.dateTimeString}
 
             ]       
         }

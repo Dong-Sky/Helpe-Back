@@ -1,5 +1,5 @@
 <?php
-$this->title = 'Yii2 Admin 登录信息';
+$this->title = 'Helpe 登录信息';
 ?>
 <div class="row">
     <div class="col-xs-12 col-sm-12">

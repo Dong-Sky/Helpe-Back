@@ -24,6 +24,8 @@ class ReportController extends BaseActiveController {
     public function actionAdd() {
         $report = new Report();
         if($report->load($this->post, '') && $report->validate()) {
+            // 系统提交状态是1, 2是人工处理, 0是默认删除状态
+            $report->status = 1;
             $report->user_id = $this->userId;
             $report->save();
         } else {

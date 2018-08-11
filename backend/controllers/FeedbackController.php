@@ -3,21 +3,21 @@
 namespace backend\controllers;
 
 
+
 use Yii;
 use common\helpers\Helper;
 use backend\models\AdminLog;
 
-
 /**
- * Class CategoryController 分类管理 执行操作控制器
+ * Class FeedbackController 评论后台管理 执行操作控制器
  * @package backend\controllers
  */
-class CategoryController extends Controller
+class FeedbackController extends Controller
 {
     /**
      * @var string 定义使用的model
      */
-    public $modelClass = 'backend\models\Category';
+    public $modelClass = 'backend\models\Feedback';
      
     /**
      * 查询处理
@@ -27,9 +27,15 @@ class CategoryController extends Controller
     public function where($params)
     {
         return [
-            'flag' => '='
+			'content' => 'like',
+			'itemid' => '=', 
+			'flag' => '=', 
+			'orderid' => '=', 
+			'uid' => '=',
         ];
     }
+
+
 
     public function actionDelete()
     {
@@ -49,7 +55,7 @@ class CategoryController extends Controller
 
 
         // 对model对象各个字段进行赋值
-        if (!$model->load(['flag' => 0, 'id' => $data["id"]], '')) {
+        if (!$model->load(['flag' => 1, 'id' => $data["id"]], '')) {
             return $this->error(205);
         }
         //var_dump('<pre>', $data);
@@ -61,6 +67,5 @@ class CategoryController extends Controller
             return $this->error(1004, Helper::arrayToString($model->getErrors()));
         }
     }
-
 
 }

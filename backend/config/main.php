@@ -6,7 +6,7 @@ $params = array_merge(
 
 return [
     'id'         => 'app-backend',
-    'name'       => 'Yii2 Admin',
+    'name'       => 'Helpe Admin',
     'basePath'   => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap'  => ['log'],

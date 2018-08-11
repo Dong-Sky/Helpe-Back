@@ -180,13 +180,13 @@
                         this.options.buttons[i].text = this.getLanguage(i);
                     }
 
-                    this.options.buttonHtml += '<button class="' + this.options.buttons[i]["className"] + '" id="' + this.options.sTable.replace("#", "") + "-" + i + '">\
+                    this.options.buttonHtml += '<button class="' + this.options.buttons[i]["className"] + '"  id="' + this.options.sTable.replace("#", "") + "-" + i + '">\
                                 <i class="' + this.options.buttons[i]["icon"] + '"></i>\
                             ' + this.options.buttons[i]["text"] + '\
                             </button> ';
                 }
             }
-
+            console.log("buttonHtml : " + this.options.buttonHtml)
             return this;
         },
 
@@ -260,7 +260,29 @@
             $(document).on('click', self.options.sTable + '-save', function(evt){evt.preventDefault();self.save();});
             $(document).on('click', '.me-table-update', function(evt){evt.preventDefault();self.update($(this).attr('table-data'))});
             $(document).on('click', '.me-table-delete', function(evt){evt.preventDefault();self.delete($(this).attr('table-data'))});
-            $(document).on('click', '.me-table-detail', function(evt){evt.preventDefault();self.detail($(this).attr('table-data'))});
+            $(document).on('click', '.me-table-detail', function(evt){
+                evt.preventDefault();
+                if ($(this).attr("click-param-url") != "undefined") {
+                    console.log("click-param-url: " + $(this).attr("click-param-url"));
+                    console.log("click-param-barid: " + $(this).attr("click-param-barid"));
+                    console.log("click-param-barname: " + $(this).attr("click-param-barname"));
+                    console.log("click-param-index:" + $(this).attr("click-param-index"));
+                    console.log("click-param-index-value:" + $(this).parent().parent().parent().children("td").eq($(this).attr("click-param-index")).html());
+
+                    var tempUrl = $(this).attr("click-param-url");
+                    var tempParam = $(this).parent().parent().parent().children("td").eq($(this).attr("click-param-index")).html();
+                    var tempBarid = $(this).attr("click-param-barid");
+                    var tempBarName = $(this).attr("click-param-barname");
+
+                    var tempClickIid = tempBarid + tempParam;
+                    var tempClickHref = tempUrl + tempParam;
+                    var tempClickText = tempBarName + tempParam;
+
+                    addIframeItem(tempClickIid, tempClickHref, tempClickText);
+                } else {
+                    self.detail($(this).attr('table-data'))
+                }
+            });
 
             // 行选择
             $(document).on('click', this.options.sTable + ' th input:checkbox' , function(){
@@ -459,7 +481,8 @@
         },
 
         // 查看详情
-        detail: function(row, child){
+    detail: function(row, child){
+            console.log("detail: " + row);
             if (this.options.oLoading) return false;
             var self = this,
                 data = this.table.data()[row],
@@ -474,7 +497,7 @@
                 c += 'child-';
                 i += "-child";
             }
-
+            console.log("detail data: " + i + ", obj: " + this.table.data().buttonHtml)
             // 处理的数据
             if (data !== undefined) {
                 meTables.detailTable(obj, data, c, row);
@@ -741,6 +764,7 @@
 
             // 向页面添加HTML
             $("body").append(this.data.sUpdateModel);
+            console.log("init render insert html: " + this.data.sUpdateModel)
         },
 
         // 初始化表单信息
@@ -1022,7 +1046,7 @@
             // 添加按钮信息
             if(data !== undefined && typeof data === "object") {
                 for(var i in data) {
-                    div1 += ' <button class="btn ' + data[i]['className'] + ' '+  data[i]['cClass'] + ' btn-xs" table-data="' + index + '"><i class="ace-icon fa ' + data[i]["icon"] + ' bigger-120"></i> ' + (data[i]["button-title"] ? data[i]["button-title"] : '') + '</button> ';
+                    div1 += ' <button class="btn ' + data[i]['className'] + ' '+  data[i]['cClass'] + ' btn-xs" click-param-url="' + data[i]["click-param-url"] + '"  click-param-index="' + data[i]["click-param-index"] + '" click-param-barid="' + data[i]["click-param-barid"] + '"  click-param-barname="' + data[i]["click-param-barname"] + '"  table-data="' + index + '"><i class="ace-icon fa ' + data[i]["icon"] + ' bigger-120"></i> ' + (data[i]["button-title"] ? data[i]["button-title"] : '') + '</button> ';
                     div2 += '<li><a title="' + data[i]['title'] + '" data-rel="tooltip" class="tooltip-info ' + data[i]['cClass'] + '" href="javascript:;" data-original-title="' + data[i]['title'] + '" table-data="' + index + '"><span class="' + data[i]['sClass'] + '"><i class="ace-icon fa ' + data[i]['icon'] + ' bigger-120"></i></span></a></li>';
                 }
             }

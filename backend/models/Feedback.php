@@ -12,7 +12,7 @@ namespace backend\models;
 use common\models\AdminModel;
 use common\behaviors\TimestampMtBehavior;
 
-class Category extends AdminModel {
+class Feedback extends AdminModel {
 
     /**
      * @return array
@@ -29,7 +29,7 @@ class Category extends AdminModel {
      */
     public static function tableName()
     {
-        return '{{%category}}';
+        return '{{%feedback}}';
     }
 
     /**
@@ -39,8 +39,8 @@ class Category extends AdminModel {
     public function scenarios()
     {
         return [
-            'default' => ['jp_name', 'cn_name', 'pid', 'sort', 'flag'],
-            'update' => ['jp_name', 'cn_name', 'pid', 'sort', 'flag'],
+            'default' => ['content', 'itemid', 'flag', 'score', 'orderid', 'uid', 'owner'],
+            'update' => ['content', 'itemid', 'flag', 'score', 'orderid', 'uid', 'owner'],
             'delete' => ['flag']
         ];
     }
@@ -52,11 +52,13 @@ class Category extends AdminModel {
     {
         return [
             'id' => 'ID',
-            'jp_name' => '日本名称',
-            'cn_name' => '中文名称',
-            'pid' => '父类编号',
-            'sort' => '排序',
+            'content' => '内容',
+            'itemid' => '商品编号',
             'flag' => '状态',
+            'score' => '得分',
+            'orderid' => '订单编号',
+            'uid' => '评论用户',
+            'owner' => '所有者',
             'ct' => '创建时间',
             'ut' => '修改时间',
         ];

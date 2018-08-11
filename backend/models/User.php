@@ -42,7 +42,7 @@ class User extends \common\models\User
     {
         $array = [
             self::STATUS_ACTIVE => Yii::t('app', 'STATUS_ACTIVE'),
-            self::STATUS_DELETED => Yii::t('app', 'STATUS_DELETED'),
+            self::STATUS_DELETED => "禁用",
         ];
 
         if ($intStatus !== null && isset($array[$intStatus])) {
@@ -78,18 +78,18 @@ class User extends \common\models\User
     public function rules()
     {
         return [
-            [['username', 'email', 'status'], 'required'],
+            //[['username', 'email', 'status'], 'required'],
             [['password', 'repassword'], 'required', 'on' => ['user-create']],
             [['username', 'email', 'password', 'repassword'], 'trim'],
             [['password', 'repassword'], 'string', 'min' => 6, 'max' => 30],
             // Unique
             [['email', 'username'], 'unique'],
             // Username
-            ['username', 'match', 'pattern' => '/^[a-zA-Z0-9_-]+$/'],
+            //['username', 'match', 'pattern' => '/^[a-zA-Z0-9_-]+$/'],
             ['username', 'string', 'min' => 3, 'max' => 30],
             // E-mail
             [['email'], 'string', 'max' => 100],
-            ['email', 'email'],
+            ['email', 'email'] ,
             // Repassword
             ['repassword', 'compare', 'compareAttribute' => 'password'],
             //['status', 'default', 'value' => self::STATUS_ACTIVE],
@@ -106,7 +106,8 @@ class User extends \common\models\User
         return [
             'default' => ['username', 'email', 'password', 'repassword', 'status'],
             'create' => ['username', 'email', 'password', 'repassword', 'status'],
-            'update' => ['username', 'email', 'password', 'repassword', 'status']
+            'update' => ['username', 'password', 'repassword', 'status'],
+            'delete' => ['status']
         ];
     }
 

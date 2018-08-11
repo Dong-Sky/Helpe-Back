@@ -14,8 +14,8 @@ $this->title = '用户关注管理';
                 {"title": "被关注用户名称", "data": "uuusername", "sName": "uuusername", "bSortable": false},
 			{"title": "用户编号", "data": "uid", "sName": "uid", "edit": {"type": "text", "required": true,"number": true}},
                 {"title": "用户名称", "data": "uusername", "sName": "uusername", "edit": {"type": "text", "required": true,"number": true}},
-                {"title": "创建时间", "data": "ct", "sName": "ct", "edit": {"type": "text", "required": true,"number": true}, "bSortable": false},
-			{"title": "修改时间", "data": "mt", "sName": "mt", "edit": {"type": "text", "required": true,"number": true}, "bSortable": false}, 
+                {"title": "创建时间", "data": "ct", "sName": "ct", "edit": {"type": "text", "required": true,"number": true}, "bSortable": false, "createdCell" : meTables.dateTimeString},
+			{"title": "修改时间", "data": "mt", "sName": "mt", "edit": {"type": "text", "required": true,"number": true}, "bSortable": false, "createdCell" : meTables.dateTimeString},
 
             ]       
         },

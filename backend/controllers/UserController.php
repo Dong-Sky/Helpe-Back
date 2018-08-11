@@ -3,6 +3,9 @@
 namespace backend\controllers;
 
 use backend\models\User;
+use Yii;
+use common\helpers\Helper;
+use backend\models\AdminLog;
 
 /**
  * Class UserController 用户信息
@@ -25,6 +28,8 @@ class UserController extends Controller
         return [
             'username' => 'like',
             'email' => 'like',
+            'status' => '=',
+            'id' => '=',
         ];
     }
 
@@ -51,5 +56,54 @@ class UserController extends Controller
         };
 
         return $array;
+    }
+
+    public function actionDelete()
+    {
+        // 接收参数判断
+        $data = Yii::$app->request->post();
+        $model = $this->findOne();
+        if (!$model) {
+            return $this->returnJson();
+        }
+
+
+        // 判断是否存在指定的验证场景，有则使用，没有默认
+        $arrScenarios = $model->scenarios();
+        if (isset($arrScenarios['delete'])) {
+            $model->scenario = 'delete';
+        }
+
+
+        // 对model对象各个字段进行赋值
+        if (!$model->load(['status' => 0, 'id' => $data["id"]], '')) {
+            return $this->error(205);
+        }
+        //var_dump('<pre>', $data);
+        // 修改数据成功
+        if ($model->save()) {
+            AdminLog::create(AdminLog::TYPE_UPDATE, $data, $this->pk . '=' . $data[$this->pk]);
+            return $this->success($model);
+        } else {
+            return $this->error(1004, Helper::arrayToString($model->getErrors()));
+        }
+    }
+
+    public function actionUserinfo() {
+        $request = Yii::$app->request;
+        $uid = $request->get('uid');
+
+        if (empty($uid)) {
+            return $this->error(201);
+        }
+
+        $model = $this->modelClass;
+        $model = $model::findOne($uid);
+        //var_dump($model);
+        if (!$model) {
+            return $this->error(220, "用户没找到");
+        }
+
+        return $this->render('userinfo', ['user' => $model->attributes]);
     }
 }
