@@ -58,6 +58,11 @@
     * 关注我的列表
     * 添加关注
     * 删除关注
+14. 发现
+    * 发现列表
+	* 发现详情
+    * 发现类型
+
     
 
 ##环境域名##
@@ -2382,6 +2387,198 @@ POST 请求
 }
 ```
 
+
+##14.发现(推荐)模块##
+###14.1列表接口
+/v1/recommend[/list]
+
+根据请求条件返回已经推荐的商品列表结果
+
+### 请求参数 ###
+GET 请求
+
+- lat 当前纬度
+- lng 当前经度
+- distance 距离，公里数，必须有当前经纬度
+- rcid 类型如果不传或者小于0则忽略
+- searchtp 排序类型 0 距离  1时间  默认为1
+- page 指定页面
+- per-page 每页多少个 	
+
+### 返回结果 ###
+```
+{
+  "status": "0",
+  "err": "success",
+  "data": {
+    "data": [
+      {
+        "id": 2,
+        "title": "好东西",
+        "img": "/images/itemfiles/4B8svn6WI9Aj4Sp_1531580700.jpg",
+        "rcid": 1,
+        "mark": "jjsj",
+        "url": "/images/itemfiles/GemcFCjYxsAXcMs_1531580829.jpg",
+        "itemid": 2,
+        "pub_username": "test11",
+        "ct": 1531580700,
+        "mt": 1531580864,
+        "iteminfo": {
+          "id": 2,
+          "name": "阿森纳球衣",
+          "appid": 0,
+          "price": "5000.00",
+          "img": "/images/itemfiles/4B8svn6WI9Aj4Sp_1531580700.jpg",
+          "flag": 1,
+          "ct": 1531580700,
+          "mt": 1531580864,
+          "uid": 8,
+          "cid": 2,
+          "tag": 133333,
+          "type": 0,
+          "aid": 91,
+          "aaid": 0,
+          "lat": 35.705,
+          "lng": 139.767,
+          "pt": 1531580700,
+          "paytp": 0,
+          "contact": "null",
+          "deadline": null,
+          "unit": "件",
+          "pet": 1539356864,
+          "distance": null
+        },
+        "distance": "12886.57320256469"
+      }
+    ],
+    "_links": {
+      "self": {
+        "href": "http://dev-api.helpe.online/v1/recommend/index?t=da8FeIsgvxgRxPPUyappYaiCWcj9p8442mNIkMie&page=1&per-page=1&searchtp=0&lng=1&lat=1"
+      }
+    },
+    "_meta": {
+      "totalCount": 1,
+      "pageCount": 1,
+      "currentPage": 1,
+      "perPage": 1
+    }
+  }
+}
+```
+
+###14.2 详情接口###
+
+/v1/recommend/info
+
+根据请求条件返回发现中推荐商品信息
+
+### 请求参数 ###
+URL /v1/recommend/info?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
+
+GET 请求
+
+- token  登陆后服务器给的token
+- id 发现推荐id
+
+###返回结果###
+```
+{
+  "status": "0",
+  "err": "success",
+  "data": {
+    "id": 1,
+    "title": "好东西",
+    "img": "/",
+    "rcid": 1,
+    "mark": "jjsj",
+    "url": "/images/itemfiles/GemcFCjYxsAXcMs_1531580829.jpg",
+    "itemid": 2,
+    "pub_username": "test11",
+    "ct": 1,
+    "mt": 1,
+    "iteminfo": {
+      "id": 2,
+      "name": "阿森纳球衣",
+      "appid": 0,
+      "price": "5000.00",
+      "img": "/images/itemfiles/4B8svn6WI9Aj4Sp_1531580700.jpg",
+      "flag": 1,
+      "ct": 1531580700,
+      "mt": 1531580864,
+      "uid": 8,
+      "cid": 2,
+      "tag": 133333,
+      "type": 0,
+      "aid": 91,
+      "aaid": 0,
+      "lat": 35.705,
+      "lng": 139.767,
+      "pt": 1531580700,
+      "paytp": 0,
+      "contact": "null",
+      "deadline": null,
+      "unit": "件",
+      "pet": 1539356864
+    },
+    "rcategory": {
+      "id": 1,
+      "jp_name": "jp name",
+      "cn_name": "cn name",
+      "pid": 0,
+      "sort": 1,
+      "flag": 1,
+      "ct": 0,
+      "mt": 0
+    }
+  }
+}
+```
+
+###14.3发现类型列表接口
+/v1/rcategory[/index]
+
+根据请求条件返回已经发布的发现分类列表
+
+### 请求参数 ###
+URL /v1/rcategory?t=EsKudjqJMjph43zhtM5FYARG47QSmDUP5tIRsHC5
+GET 请求 
+
+- pid 父分类id
+- page 指定页面
+- per-page 每页多少个 	
+
+### 返回结果 ###
+```
+{
+  "status": "0",
+  "err": "success",
+  "data": {
+    "data": [
+      {
+        "id": 1,
+        "jp_name": "jp name",
+        "cn_name": "cn name",
+        "pid": 0,
+        "sort": 1,
+        "flag": 1,
+        "ct": 0,
+        "mt": 0
+      }
+    ],
+    "_links": {
+      "self": {
+        "href": "http://dev-api.helpe.online/v1/rcategory/index?t=da8FeIsgvxgRxPPUyappYaiCWcj9p8442mNIkMie&page=1"
+      }
+    },
+    "_meta": {
+      "totalCount": 1,
+      "pageCount": 1,
+      "currentPage": 1,
+      "perPage": 20
+    }
+  }
+}
+```
 
 
 
