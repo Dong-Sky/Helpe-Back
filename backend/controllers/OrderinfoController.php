@@ -27,6 +27,12 @@ class OrderinfoController extends Controller
     public function where($params)
     {
         return [
+            'ct_start' => function($value) {
+                return ['>=', 'fo.ct', strtotime($value)];
+            },
+            'ct_end' => function($value) {
+                return ['<=', 'fo.ct', strtotime($value)];
+            },
             'no' => '=',
             'uid' => '=',
             'status' => '=',

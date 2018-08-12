@@ -15,12 +15,14 @@ AdminAsset::register($this);
     <title><?=Yii::$app->name.Html::encode($this->title) ?></title>
     <meta name="description" content="3 styles with inline editable feature" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <link href="/public/assets/css/jquery.datetimepicker.css" rel="stylesheet">
     <?= Html::csrfMetaTags() ?>
     <?php $this->head(); ?>
     <!-- ace styles -->
     <link rel="stylesheet" href="/public/assets/css/ace.min.css" id="main-ace-style" />
     <!--[if lte IE 9]>
     <link rel="stylesheet" href="/public/assets/css/ace-part2.min.css" />
+
     <![endif]-->
     <!--[if lte IE 9]>
     <link rel="stylesheet" href="/public/assets/css/ace-ie.min.css" />

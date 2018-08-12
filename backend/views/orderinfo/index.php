@@ -4,6 +4,10 @@ $this->title = '订单详情管理';
 ?>
 <?=\backend\widgets\MeTable::widget()?>
 <?php $this->beginBlock('javascript') ?>
+
+
+
+<script src="/public/assets/js/jquery.datetimepicker.full.min.js"></script>
 <script type="text/javascript">
     var aStatus = {"0":"初始状态","10":"订单接受", "20":"订单到达", "30":"订单付款", "40":"订单结束", "50":"订单拒绝", "60":"订单取消"},
         aStatusColor = {"0":"label-success","10":"label-success","20":"label-success","30":"label-success","40":"label-success","50":"label-warning","60":"label-warning"};
@@ -34,6 +38,7 @@ $this->title = '订单详情管理';
 
             ]       
         },
+        searchHtml: "<label>开始日期: <input type='text' name='ct_start' title='订单创建开始时间' id='search-ct_start' /></label><label>结束日期: <input type='text' name='ct_end' title='订单创建结束时间' id='search-ct_end' /></label>",
         buttons:{
             create: {
                 bShow: false
@@ -67,5 +72,30 @@ $this->title = '订单详情管理';
      $(function(){
          m.init();
      });
+
+    $(document).ready(function() {
+        jQuery("#search-ct_start").datetimepicker({
+            timepicker:false,
+            format:'Y-m-d',
+            formatDate:'Y-m-d',
+            onShow: function (ct) {
+                this.setOptions({
+                    maxDate:jQuery("#search-ct_end").val() ? jQuery("#search-ct_end").val() : false
+                })
+            }
+        });
+        jQuery("#search-ct_end").datetimepicker({
+            timepicker:false,
+            format:'Y-m-d',
+            formatDate:'Y-m-d',
+            onShow: function (ct) {
+                this.setOptions({
+                    minDate:jQuery("#search-ct_start").val() ? jQuery("#search-ct_start").val() : false
+                })
+            }
+        });
+    });
+
+
 </script>
 <?php $this->endBlock(); ?>

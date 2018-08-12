@@ -29,11 +29,11 @@ $this->title = '服务求助管理';
                     $(td).html(mt.valuesString(aItemType, aItemTypeColor, data));
                 }},
 			{"title": "地址编号", "data": "aid", "sName": "aid", "bSortable": false},
-			{"title": "日本地址编号", "data": "aaid", "sName": "aaid", "bSortable": false},
+			// {"title": "日本地址编号", "data": "aaid", "sName": "aaid", "bSortable": false},
 			{"title": "经度", "data": "lat", "sName": "lat", "bSortable": false},
 			{"title": "纬度", "data": "lng", "sName": "lng",  "bSortable": false},
 			{"title": "发布时间", "data": "pt", "sName": "pt", "createdCell" : mt.dateTimeString},
-			{"title": "支付方式", "data": "paytp", "sName": "paytp", "bSortable": false},
+			// {"title": "支付方式", "data": "paytp", "sName": "paytp", "bSortable": false},
 			{"title": "联系方式", "data": "contact", "sName": "contact", "bSortable": false},
 			{"title": "过期时间描述", "data": "deadline", "sName": "deadline",  "bSortable": false},
 			{"title": "单位", "data": "unit", "sName": "unit", "bSortable": false},
