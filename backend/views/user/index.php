@@ -47,7 +47,16 @@ $this->title = '用户信息';
                     "update": {"className": "btn-info", "cClass":"me-table-update", "icon":"fa-pencil-square-o",  "sClass":"green"},
                     "delete": {"className": "btn-danger", "cClass":"me-table-delete", "icon":"fa-trash-o",  "sClass":"red"}
                 }
-            }
+            },
+
+            buttons:{
+                create: {
+                    bShow: false
+                },
+                updateAll: {
+                    bShow: false
+                }
+            },
         });
 
     $(function(){

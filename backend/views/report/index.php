@@ -25,7 +25,16 @@ $this->title = '举报信息管理';
 			{"title": "最后更新时间", "data": "updated_at", "sName": "updated_at", "bSortable": false, "createdCell" : meTables.dateTimeString}, 
 
             ]       
-        }
+        },
+
+        buttons:{
+            create: {
+                bShow: false
+            },
+            updateAll: {
+                bShow: false
+            }
+        },
     });
     
     /**

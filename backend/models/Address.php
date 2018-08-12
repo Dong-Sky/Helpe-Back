@@ -12,7 +12,7 @@ namespace backend\models;
 use common\models\AdminModel;
 use common\behaviors\TimestampMtBehavior;
 
-class Item extends AdminModel {
+class Address extends AdminModel {
 
     /**
      * @return array
@@ -29,7 +29,7 @@ class Item extends AdminModel {
      */
     public static function tableName()
     {
-        return '{{%item}}';
+        return '{{%address}}';
     }
 
     /**
@@ -39,8 +39,8 @@ class Item extends AdminModel {
     public function scenarios()
     {
         return [
-            'default' => ['flag'],
-            'update' => ['flag']
+            'default' => ['uid', 'aid', 'info', 'lat', 'lng'],
+            'update' => ['uid', 'aid', 'info', 'lat', 'lng'],
         ];
     }
 
@@ -51,27 +51,13 @@ class Item extends AdminModel {
     {
         return [
             'id' => 'ID',
-            'name' => '名称',
-            'appid' => 'APP',
-            'price' => '价格',
-            'img' => '总览图',
-            'flag' => '状态',
-            'uid' => '用户ID',
-            'cid' => '商品类型ID',
-            'tag' => '标签',
-            'type' => '类型',
-            'aid' => '我的地址ID',
-            'aaid' => '日本地区ID',
+            'uid' => '用户编号',
+            'aid' => '订单编号',
+            'info' => '详情',
             'lat' => '经度',
             'lng' => '纬度',
-            'pt' => '发布时间',
-            'payty' => '支付类型',
-            'contact' => '联系方式',
-            'deadline' => '最后期限',
-            'unit' => '单位',
-            'pet' => '发布过期时间',
             'ct' => '创建时间',
-            'ut' => '修改时间',
+            'mt' => '修改时间',
         ];
     }
 

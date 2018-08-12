@@ -25,7 +25,16 @@ $this->title = '评论后台管理';
 			{"title": "修改时间", "data": "mt", "sName": "mt", "bSortable": false, "createdCell" : meTables.dateTimeString}, 
 
             ]       
-        }
+        },
+
+        buttons:{
+            create: {
+                bShow: false
+            },
+            updateAll: {
+                bShow: false
+            }
+        },
     });
     
     /**
