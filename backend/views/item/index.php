@@ -7,7 +7,7 @@ $this->title = '服务求助管理';
 <script type="text/javascript">
     var aStatus = {"0":"上架","1":"下架"},
         aStatusColor = {"0":"label-success","1":"label-danger"};
-    var aItemType = {"0":"商品","1":"求助"},
+    var aItemType = {"0":"服务","1":"求助"},
         aItemTypeColor = {"0":"label-success","1":"label-warning"};
     var m = meTables({
         title: "服务求助管理",
