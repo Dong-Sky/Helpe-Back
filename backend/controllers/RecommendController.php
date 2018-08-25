@@ -28,7 +28,12 @@ class RecommendController extends Controller
     public function where($params)
     {
         return [
-            
+            'ct_start' => function($value) {
+                return ['>=', 'ct', strtotime($value)];
+            },
+            'ct_end' => function($value) {
+                return ['<=', 'ct', strtotime($value)];
+            },
         ];
     }
 
