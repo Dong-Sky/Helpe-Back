@@ -57,18 +57,26 @@ class UserController extends BaseActiveController {
      */
     public function actionGetInfoById() {
         $id = intval($this->get["id"]);
-        $ret = User::findIdentity($id)->attributes;
-        if(!$ret) {
-            throw new ApiException(10011);
-        }
-        // 只传给客户端必要数据
-        $filter = ['type', 'username', 'face', 'gender', 'birthday', 'city', 'tel', 'info'];
-        foreach(array_keys($ret) as $item) {
-            if(!in_array($item, $filter, true)) {
-                unset($ret[$item]);
+        try {
+            $ret = User::findIdentity($id)->attributes;
+
+            if ($ret) {
+                // 只传给客户端必要数据
+                $filter = ['type', 'username', 'face', 'gender', 'birthday', 'city', 'tel', 'info'];
+                foreach(array_keys($ret) as $item) {
+                    if(!in_array($item, $filter, true)) {
+                        unset($ret[$item]);
+                    }
+                }
+                return new ApiResponse(0, $ret);
             }
+
+            return new ApiResponse(10011, []);
+
+        } catch (\Exception $e) {
+
         }
-        return new ApiResponse(0, $ret);
+        throw new ApiException(10011);
     }
 
 
