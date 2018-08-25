@@ -76,7 +76,6 @@ AppAsset::register($this);
                 <!-- 用户信息显示 -->
                 <li class="light-blue">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                        <img class="nav-user-photo" src="<?=$this->params['user']->face ? $this->params['user']->face : '/public/assets/avatars/avatar.jpg'?>" alt="Jason's Photo" />
                         <span class="user-info">
                                 <small>欢迎登录</small><?=$this->params['user']->username?>
                             </span>
