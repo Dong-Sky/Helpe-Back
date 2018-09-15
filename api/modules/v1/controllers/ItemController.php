@@ -106,7 +106,7 @@ class ItemController extends BaseActiveController
                     'contact' => $conact,
                     //'img' =>"/sstetttt.jpg",
                     'flag' =>0,
-                    'tag'=>"133333",
+                    'tag'=>"",
                     'aaid'=>1,
                     'lat'=>floatval($addr['lat']),
                     'lng'=>floatval($addr['lng']),
